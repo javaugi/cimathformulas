@@ -162,6 +162,19 @@ public class AssortedMethods {
         }
     }
 
+    public static long[][] genRandomMatrix(int n) { 		
+		long [][]A=new long[n][n]; 	
+		Random R=new Random(); 			
+		
+		int i,j; 	
+		for( i=0; i < n ; i++ ) {
+			for( j=0; j < n ; j++ ) {
+				A[i][j]=R.nextInt(256); 	
+			}	
+		}	
+		return A; 			
+    }
+    
     public static void printIntArray(int[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + " ");
