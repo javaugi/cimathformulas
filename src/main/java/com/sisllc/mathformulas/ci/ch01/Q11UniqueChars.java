@@ -1,10 +1,3 @@
-/*
- * Copyright (C) 2018 Center for Information Management, Inc.
- *
- * This program is proprietary.
- * Redistribution without permission is strictly prohibited.
- * For more information, contact <http://www.ciminc.com>
- */
 package com.sisllc.mathformulas.ci.ch01;
 
 import org.slf4j.Logger;
@@ -57,17 +50,19 @@ public class Q11UniqueChars {
             System.out.println(word + ": " + isUniqueChars(word) + " " + isUniqueChars2(word));
         }
     }
-    
-    boolean uniqueCharacters(String str) 
-    { 
-        // If at any time we encounter 2 same characters, return false 
-        for (int i = 0; i < str.length(); i++) 
-            for (int j = i + 1; j < str.length(); j++) 
-                if (str.charAt(i) == str.charAt(j)) 
-                    return false; 
-  
-        // If no duplicate characters encountered, 
-        // return true 
-        return true; 
-    } 
+
+    boolean uniqueCharacters(String str) {
+        // If at any time we encounter 2 same characters, return false
+        for (int i = 0; i < str.length(); i++) {
+            for (int j = i + 1; j < str.length(); j++) {
+                if (str.charAt(i) == str.charAt(j)) {
+                    return false;
+                }
+            }
+        }
+
+        // If no duplicate characters encountered,
+        // return true
+        return true;
+    }
 }

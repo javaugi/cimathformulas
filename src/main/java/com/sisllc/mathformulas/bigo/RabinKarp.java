@@ -1,10 +1,3 @@
-/*
- * Copyright (C) 2018 Center for Information Management, Inc.
- *
- * This program is proprietary.
- * Redistribution without permission is strictly prohibited.
- * For more information, contact <http://www.ciminc.com>
- */
 package com.sisllc.mathformulas.bigo;
 
 import java.math.BigInteger;

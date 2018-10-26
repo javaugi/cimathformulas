@@ -1,15 +1,11 @@
 /*
- * Copyright (C) 2018 Center for Information Management, Inc.
+ * Copyright (C) 2018 Strategic Information Systems, LLC.
  *
- * This program is proprietary.
- * Redistribution without permission is strictly prohibited.
- * For more information, contact <http://www.ciminc.com>
  */
 package com.sisllc.mathformulas.stringmanipulation;
 
+import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -20,10 +16,8 @@ import org.slf4j.LoggerFactory;
  */
 public class ExampleTest {
 
-    private static final Logger log = LoggerFactory.getLogger(ExampleTest.class);
-
     @Test
-    public void testLog4j() {
-        log.error("This is log4j test");
+    public void whenThen() {
+        Assert.assertTrue(true);
     }
 }

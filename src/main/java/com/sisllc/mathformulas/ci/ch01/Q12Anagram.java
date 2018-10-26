@@ -1,12 +1,6 @@
-/*
- * Copyright (C) 2018 Center for Information Management, Inc.
- *
- * This program is proprietary.
- * Redistribution without permission is strictly prohibited.
- * For more information, contact <http://www.ciminc.com>
- */
 package com.sisllc.mathformulas.ci.ch01;
 
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,28 +67,28 @@ public class Q12Anagram {
             System.out.println(anagram(word1, word2));
         }
     }
-    
-    public static boolean isAnagram(String input1, String input2){
+
+    public static boolean isAnagram(String input1, String input2) {
         //Remove all whitespace first
-        String  s1= input1.replaceAll("\\s", "");
+        String s1 = input1.replaceAll("\\s", "");
         String s2 = input2.replaceAll("\\s", "");
-        
+
         boolean status = true;
-        if(s1.length() != s2.length()){
+        if (s1.length() != s2.length()) {
             status = false;
         } else {
             //Convert into character array
             char[] s1Array = s1.toLowerCase().toCharArray();
             char[] s2Array = s2.toLowerCase().toCharArray();
- 
+
             //Sorting both character array
             Arrays.sort(s1Array);
             Arrays.sort(s2Array);
- 
+
             //Check if both arrays are equal
             status = Arrays.equals(s1Array, s2Array);
         }
         System.out.println(s1 + " and " + s2 + " are anagrams ? " + status);
         return status;
-    }	
+    }
 }

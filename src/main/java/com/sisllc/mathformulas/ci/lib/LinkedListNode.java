@@ -1,14 +1,6 @@
-/*
- * Copyright (C) 2018 Center for Information Management, Inc.
- *
- * This program is proprietary.
- * Redistribution without permission is strictly prohibited.
- * For more information, contact <http://www.ciminc.com>
- */
 package com.sisllc.mathformulas.ci.lib;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.HashSet;
 
 /**
  *
@@ -66,8 +58,7 @@ public class LinkedListNode {
         LinkedListNode head2 = new LinkedListNode(data, next2, null);
         return head2;
     }
-    
-    
+
     public static void main(String[] args) {
         LinkedListNode node = new LinkedListNode();
         LinkedListNode listNode = node.createPrintForward();
@@ -75,7 +66,7 @@ public class LinkedListNode {
         System.out.println(listNode.printForward());
         //node.createPrintBackward();
     }
-    
+
     public String printbackward() {
         if (prev != null) {
             return data + "->" + prev.printbackward();
@@ -83,8 +74,8 @@ public class LinkedListNode {
             return ((Integer) data).toString();
         }
     }
-    
-public LinkedListNode deleteDups(LinkedListNode node) {
+
+    public LinkedListNode deleteDups(LinkedListNode node) {
         LinkedListNode orig = node;
         HashSet<Integer> set = new HashSet();
         if (node != null && node.next != null) {
@@ -137,6 +128,6 @@ public LinkedListNode deleteDups(LinkedListNode node) {
         System.out.println(end.printbackward());
 
         return end;
-    }    
-    
+    }
+
 }
