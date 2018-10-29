@@ -7,16 +7,19 @@ import org.slf4j.LoggerFactory;
 Big-O:
 
     Describes how the algorithm scales and performs, in terms of either the execution time required or the space used.
-    Is relative representation of complexity. This allows you to reduce an algorithm to a variable which in turn allows you to easily compare it to another.
+    Is relative representation of complexity. This allows you to reduce an algorithm to a variable which in turn allows 
+    you to easily compare it to another.
     Describes an upper limit on the growth of a function, in the other words the “worst case scenario”.
 
-There is also Big-Omega notation which looks at the lower bound / “best case scenario” stating that the algorithm will take at least X amount of time and Big-Theta which is tight bound to both lower and upper / “average”.
+    There is also Big-Omega notation which looks at the lower bound / “best case scenario” stating that the algorithm will 
+    take at least X amount of time and Big-Theta which is tight bound to both lower and upper / “average”.
 
 Some quick observations in determining Big-O:
 
     A Sequence of statements, or things like conditional checks are constant: O(1)
     A loop of statements result in : O(n) n being the number of loop executions.
-    Nested loops are multiplied together: O(n2) where n is the times the outer loop executes and m is the times the inner loop executes.
+    Nested loops are multiplied together: O(n2) where n is the times the outer loop executes and m is the times the inner 
+    loop executes.
 
 Comparing the common notation examples:
 
@@ -32,11 +35,11 @@ n	Constant O(1)	Logarithmic O(log n) Linear O(n)	Linear Logarithmic O(n log n)	Q
 
 Common Data Structures and Relative functions: Lists and Sets:
 
-Structure	get         add         remove      contains
-ArrayList	O(1)        O(1)*	O(n)        O(n)
-LinkedList	O(n)        O(1)	O(1)        O(n)
+Structure	    get         add         remove      contains
+ArrayList	    O(1)        O(1)*	    O(n)        O(n)
+LinkedList	    O(n)        O(1)	    O(1)        O(n)
 HashSet         O(1)        O(1)        O(1)        O(1)
-LinkedHashSet	O(1)        O(1)	O(1)        O(1)
+LinkedHashSet	O(1)        O(1)	    O(1)        O(1)
 TreeSet         O(log n)    O(log n)	O(log n)    O(log n)
 
  */
