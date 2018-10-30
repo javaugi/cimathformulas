@@ -74,12 +74,14 @@ public class Q11UniqueChars {
         return str.length() == uniqueSet.size();
     }
     
-    public static boolean containsUniqueWords(String sentence) {
-        sentence = sentence.replaceAll("[^a-zA-Z]", " ");
+    public static boolean containsUniqueWords(String sentence) {        sentence = sentence.replaceAll("[^a-zA-Z]", " ").toLowerCase();
         String[] words = sentence.split("\\s+");
         Set wordSet = new HashSet(Arrays.asList(words));
+
+        //TreeSet and sort are not needed and they are here to sort for display and compare purpose
+        wordSet = new TreeSet(Arrays.asList(words));
         Arrays.sort(words);
-        System.out.println("words=\n " + Arrays.toString(words) + "\n wordSet= \n" + wordSet);
+        System.out.println("sorted words=\n " + Arrays.toString(words) + "\n wordSet= \n" + wordSet);
         System.out.println("words length=" + words.length + "-set size=" + wordSet.size());
 
         return words.length == wordSet.size();
