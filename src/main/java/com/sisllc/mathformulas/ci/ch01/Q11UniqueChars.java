@@ -43,7 +43,48 @@ public class Q11UniqueChars {
         }
         return true;
     }
+    
+    public static boolean isUniqueChars4(String str) {
+        if (str.length() > 128) {
+            return false;
+        }
 
+        char[] chars = str.toCharArray();
+        Arrays.sort(chars);
+        for (int i = 0; i < chars.length - 1; i++) {
+            if (chars[i] == chars[i + 1]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public static boolean isUniqueChars3(String str) {
+        if (str.length() > 128) {
+            return false;
+        }
+
+        Set<Character> uniqueSet = new HashSet();
+        for (char c : str.toCharArray()) {
+            uniqueSet.add(c);
+        }
+
+        return str.length() == uniqueSet.size();
+    }
+    
+    public static boolean containsUniqueWords(String sentence) {
+        sentence = sentence.replaceAll("[^a-zA-Z]", " ");
+        String[] words = sentence.split("\\s+");
+        Set wordSet = new HashSet(Arrays.asList(words));
+        Arrays.sort(words);
+        System.out.println("words=\n " + Arrays.toString(words) + "\n wordSet= \n" + wordSet);
+        System.out.println("words length=" + words.length + "-set size=" + wordSet.size());
+
+        return words.length == wordSet.size();
+    }
+    
     public static void main(String[] args) {
         String[] words = {"abcde", "hello", "apple", "kite", "padle"};
         for (String word : words) {
