@@ -4,8 +4,41 @@ public class Q27PalindromeC {
         String[] words = {"Anna", "Madam", "Are we not drawn onward to new era",
             "A man, a plan, a cat, a ham, a yak, a yam, a hat, a canal-Panama!"};
         for (String word : words) {
+            //word = word.replaceAll("[^a-zA-Z]", "").toLowerCase().replaceAll(" ", "");
+            word = word.replaceAll("\\W", "").toLowerCase();
             System.out.println(word + ": " + isPalindrome2(word));
+            System.out.println(word + ": " + isPalindrome(word.toCharArray()));
+            System.out.println(word + ": " + isPalindrome(word.toCharArray(), 0, word.length() - 1));
+
         }
+    }
+    
+    
+    public static boolean isPalindrome(char[] chars) {
+        int i = 0;
+        int j = chars.length - 1;
+        while (i < j) {
+            if (chars[i] != chars[j]) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+
+    public static boolean isPalindrome(char[] chars, int i, int j) {
+        if (i >= j) {
+            return true;
+        }
+        if (chars[i] != chars[j]) {
+            return false;
+        }
+        i++;
+        j--;
+
+        return isPalindrome(chars, i, j);
     }
 
 
