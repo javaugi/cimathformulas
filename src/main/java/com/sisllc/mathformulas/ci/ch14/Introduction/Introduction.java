@@ -1,5 +1,4 @@
-package Introduction;
-
+package com.sisllc.mathformulas.ci.ch14.Introduction;
 public class Introduction {
 	public static String lem() {
 		System.out.println("lem");

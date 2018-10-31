@@ -1,7 +1,4 @@
-package Question18_10;
-
-import java.awt.List;
-import java.util.ArrayList;
+package com.sisllc.mathformulas.ci.ch18.Question18_10;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
