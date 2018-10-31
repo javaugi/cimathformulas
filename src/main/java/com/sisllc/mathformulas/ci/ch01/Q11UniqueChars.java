@@ -1,5 +1,9 @@
 package com.sisllc.mathformulas.ci.ch01;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +47,7 @@ public class Q11UniqueChars {
         }
         return true;
     }
-    
+
     public static boolean isUniqueChars4(String str) {
         if (str.length() > 128) {
             return false;
@@ -60,7 +64,6 @@ public class Q11UniqueChars {
         return true;
     }
 
-
     public static boolean isUniqueChars3(String str) {
         if (str.length() > 128) {
             return false;
@@ -73,8 +76,9 @@ public class Q11UniqueChars {
 
         return str.length() == uniqueSet.size();
     }
-    
-    public static boolean containsUniqueWords(String sentence) {        sentence = sentence.replaceAll("[^a-zA-Z]", " ").toLowerCase();
+
+    public static boolean containsUniqueWords(String sentence) {
+        sentence = sentence.replaceAll("[^a-zA-Z]", " ").toLowerCase();
         String[] words = sentence.split("\\s+");
         Set wordSet = new HashSet(Arrays.asList(words));
 
@@ -86,7 +90,7 @@ public class Q11UniqueChars {
 
         return words.length == wordSet.size();
     }
-    
+
     public static void main(String[] args) {
         String[] words = {"abcde", "hello", "apple", "kite", "padle"};
         for (String word : words) {

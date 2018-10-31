@@ -17,12 +17,12 @@ public class CapitalizeFirstLetter {
 
     private static final Logger log = LoggerFactory.getLogger(CapitalizeFirstLetter.class);
 
-    static String sentence = "If performance matters, and you have many words that need to be changed, \n"
-            + " you might wanna implement another solution operating directly on a char \n "
-            + " array that does not generate many new string objects and will perform better \n"
-            + " I'm thinking something like the following: there are two method, one to \n "
-            + " camelize a word, and the other to split sentence into words, then lopp through \n"
-            + " and camelize the whole sentence. ";
+    public static String sentence = "If performance matters, and you have many words that need to be changed, \n"
+            + "you might wanna implement another solution operating directly on a char \n "
+            + "array that does not generate many new string objects and will perform better \n"
+            + "I'm thinking something like the following: there are two method, one to \n "
+            + "camelize a word, and the other to split sentence into words, then loop through \n"
+            + "and camelize the whole sentence.";
 
     public static String[] wordsToExcluded = {"a", "the", "to", "at", "in", "with", "and", "but", "or"};
     public static List<String> excludedWords = new ArrayList(Arrays.asList(wordsToExcluded));

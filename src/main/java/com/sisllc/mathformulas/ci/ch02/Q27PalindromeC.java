@@ -1,3 +1,7 @@
+package com.sisllc.mathformulas.ci.ch02;
+
+import java.util.Objects;
+
 public class Q27PalindromeC {
 
     public static void main(String[] args) {
@@ -12,8 +16,7 @@ public class Q27PalindromeC {
 
         }
     }
-    
-    
+
     public static boolean isPalindrome(char[] chars) {
         int i = 0;
         int j = chars.length - 1;
@@ -41,8 +44,7 @@ public class Q27PalindromeC {
         return isPalindrome(chars, i, j);
     }
 
-
-  public static boolean isPalindrome(String word) {
+    public static boolean isPalindrome(String word) {
         word = word.replaceAll("[^a-zA-Z]", "").toLowerCase().replaceAll(" ", "");
         StringBuilder sb = new StringBuilder();
         for (int i = word.length() - 1; i >= 0; i--) {
