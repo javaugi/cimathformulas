@@ -32,9 +32,10 @@ public class CapitalizeFirstLetter {
      */
     public static void main(String[] args) {
         CapitalizeFirstLetter cap = new CapitalizeFirstLetter();
+        log.debug("\n {}", sentence);
         String capped = cap.camelizeSentence(sentence);
-        log.debug("log4j {}", capped);
-        System.out.println("" + capped);
+        log.debug("\n {}", capped);
+        //System.out.println("" + capped);
     }
 
     public String camelizeWord(String word) {
@@ -46,13 +47,13 @@ public class CapitalizeFirstLetter {
     }
 
     public String camelizeSentence(String sentence) {
-        String[] words = sentence.split(" ");
+        String[] words = sentence.split("\\s+");
         StringBuilder sb = new StringBuilder();
         for (String word : words) {
             //System.out.println("word=" + word + "-");
-            if (word == null || word.isEmpty() || word.trim().isEmpty()) {
-                continue;
-            }
+            //if (word == null || word.isEmpty() || word.trim().isEmpty()) {
+            //    continue;
+            //}
             if (excludedWords.contains(word)) {
                 sb.append(" ").append(word);
                 continue;
