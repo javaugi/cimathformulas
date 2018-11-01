@@ -39,7 +39,7 @@ public class CapitalizeFirstLetter {
     }
 
     public String camelizeWord(String word) {
-        char[] chars = word.toLowerCase().toCharArray();
+        char[] chars = word.toCharArray();
         char c = chars[0];
         chars[0] = Character.toUpperCase(c);
 
