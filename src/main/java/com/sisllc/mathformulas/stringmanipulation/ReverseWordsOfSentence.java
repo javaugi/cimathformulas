@@ -21,18 +21,25 @@ public class ReverseWordsOfSentence {
     private static final Logger log = LoggerFactory.getLogger(ReverseWordsOfSentence.class);
 
     public static void main(String[] args) {
-        String[] words = sentence.split(" ");
-        System.out.println(reverseWords(words));
-        //reverse(words);
+        String[] words = null;
+        sentence = sentence.replaceAll("\\W", " ");
 
-        words = sentence.split(" ");
+        words = sentence.split("\\s+");
+        System.out.println(reverseWords(words));
+
+        words = sentence.split("\\s+");
         reverseRecursive(words, 0, words.length - 1);
         System.out.println(Arrays.toString(words).replaceAll(", ", " ").replace('[', ' ').replace(']', ' '));
 
-        words = sentence.split(" ");
+        words = sentence.split("\\s+");
         reverseSwap(words, 0, words.length - 1);
         System.out.println(Arrays.toString(words).replaceAll(", ", " ").replace('[', ' ').replace(']', ' '));
         /*
+        String[] words2 = {"Loop", "Through", "Many", "Times"};
+        reverseSwap(words2, 0, words2.length - 1);
+        System.out.println(Arrays.toString(words2).replaceAll(", ", " ").replace('[', ' ').replace(']', ' '));
+        // */
+ /*
         StringBuilder sb = new StringBuilder();
         for (String word : words) {
             sb.append(word + " ");
@@ -66,9 +73,7 @@ public class ReverseWordsOfSentence {
         String tmp = words[i];
         words[i] = words[j];
         words[j] = tmp;
-        i++;
-        j--;
-        reverseRecursive(words, i, j);
+        reverseRecursive(words, ++i, --j);
     }
 
     public static String reverseWords(String[] arr) {

@@ -29,4 +29,9 @@ public class FibonacciRecursive {
 
         return sb.toString().trim();
     }
+
+    public static void main(String[] args) {
+        FibonacciRecursive fib = new FibonacciRecursive();
+        System.out.println(fib.printFib(8));
+    }
 }

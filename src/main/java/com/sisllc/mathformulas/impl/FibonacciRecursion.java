@@ -29,8 +29,7 @@ public class FibonacciRecursion {
     }
 
     public static void main(String[] args) {
-        printFib(8);
-        printFib(12);
-
+        printFib(2);
+        //SprintFib(12);
     }
 }
