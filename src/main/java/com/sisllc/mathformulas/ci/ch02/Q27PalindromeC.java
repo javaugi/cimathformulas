@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Q27PalindromeC {
 
     public static void main(String[] args) {
-        String[] words = {"Anna", "Madam", "Are we not drawn onward to new era",
+        String[] words = {"12321", "Anna", "Madam", "Are we not drawn onward to new era",
             "A man, a plan, a cat, a ham, a yak, a yam, a hat, a canal-Panama!"};
         for (String word : words) {
             //word = word.replaceAll("[^a-zA-Z]", "").toLowerCase().replaceAll(" ", "");
