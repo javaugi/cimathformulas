@@ -29,4 +29,10 @@ class Q42Node {
     public String getVertex() {
         return vertex;
     }
+
+    @Override
+    public String toString() {
+        return "Q42Node{" + "adjacentCount=" + adjacentCount + ", vertex=" + vertex + '}';
+    }
+
 }
