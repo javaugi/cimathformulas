@@ -7,7 +7,6 @@
  */
 package com.mycompany.davidlee.api;
 
-
 /**
  *
  *
@@ -16,9 +15,10 @@ package com.mycompany.davidlee.api;
  * $LastChangedBy
  */
 public interface Item {
-	public static enum Category {
-	    Bagged, Weight, Discount, BuyGetFree;
-	}	
+
+    public static enum Category {
+        Bagged, Weight, Discount, BuyGetFree;
+    }
 
     public String getName();
 
@@ -32,4 +32,7 @@ public interface Item {
 
     public void setPrice(double price);
 
+    public double getUnits();
+
+    public void setUnits(double units);
 }
