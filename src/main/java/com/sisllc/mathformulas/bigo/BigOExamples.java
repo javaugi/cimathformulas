@@ -86,6 +86,7 @@ public class BigOExamples {
 
     /**
      * Quadratic. O(n^2)
+     * sum of sq1 + sq2 + sq33 + sq4 + ....
      *
      * @param n the n
      * @return the int
@@ -138,7 +139,7 @@ public class BigOExamples {
             } else if (key < midValue) {
                 endIndex = midIndex - 1;
             } else {
-                return midIndex;
+                return data[midIndex];
             }
         }
         return -1;
