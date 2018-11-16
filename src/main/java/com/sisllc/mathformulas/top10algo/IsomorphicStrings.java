@@ -4,7 +4,6 @@
  */
 package com.sisllc.mathformulas.top10algo;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,12 +32,6 @@ public class IsomorphicStrings {
             return false;
         }
 
-        //This is to test anagram
-        //char[] c1 = s1.toCharArray();
-        //char[] c2 = s2.toCharArray();
-        //Arrays.sort(c1);
-        //Arrays.sort(c2);
-        //return Arrays.equals(c1, c2);
         HashMap<Character, Character> map = new HashMap<Character, Character>();
         for (int i = 0; i < s.length(); i++) {
             char c1 = s.charAt(i);

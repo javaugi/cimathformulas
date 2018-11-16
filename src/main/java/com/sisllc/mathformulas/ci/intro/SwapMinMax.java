@@ -58,9 +58,18 @@ public class SwapMinMax {
 
     public static void main(String[] args) {
         int[] array = AssortedMethods.randomArray(10, -10, 10);
-        System.out.println(AssortedMethods.arrayToString(array));
+        System.out.println("        " + AssortedMethods.arrayToString(array));
+        int[] array2 = array;
+        int[] array3 = array;
+        long time1 = System.currentTimeMillis();
+        swapMinMax(array2);
+        System.out.println("array2  " + AssortedMethods.arrayToString(array2));
+        long time2 = System.currentTimeMillis();
+        System.out.println("1. it takes " + (time2 - time1));
         swapMinMaxBetter(array);
-        System.out.println(AssortedMethods.arrayToString(array));
+        System.out.println("array   " + AssortedMethods.arrayToString(array));
+        time1 = System.currentTimeMillis();
+        System.out.print("2. it takes " + (time1 - time2));
     }
 
 }
