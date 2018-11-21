@@ -19,6 +19,7 @@ public class SumOfSquares {
         int sum2 = n * (n + 1) * ((2 * n) + 1) / 6;
         System.out.println("sum2: " + sum2);
 
+        System.out.println("sumRecursive: " + sumRecursive(10));
     }
 
     public static int sum(int number) {
