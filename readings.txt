@@ -5,6 +5,8 @@ Convert React to RN:
   https://medium.com/@gwen_faraday/converting-a-react-app-to-react-native-d7df17968fc6
 Share Code between React and RN: 
   https://hackernoon.com/code-reuse-using-higher-order-hoc-and-stateless-functional-components-in-react-and-react-native-6eeb503c665
+  https://hackernoon.com/react-js-a-better-introduction-to-the-most-powerful-ui-library-ever-created-ecd96e8f4621
+  https://hackernoon.com/mastering-react-functional-components-with-recompose-d4dd6ac98834
 Core UI for Dashboard: 
   https://github.com/javaugi/coreui-free-react-admin-template
 Major Diff between React and RN: 
