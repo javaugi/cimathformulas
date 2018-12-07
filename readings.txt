@@ -15,6 +15,7 @@ Flux frameowrk
   https://facebook.github.io/flux/
   https://github.com/facebook/flux
   
+  https://scotch.io/@kenwheeler
   https://scotch.io/tutorials/learning-react-getting-started-and-concepts
   https://scotch.io/tutorials/build-a-real-time-twitter-stream-with-node-and-react-js
   https://scotch.io/tutorials/getting-to-know-flux-the-react-js-architecture
