@@ -14,6 +14,9 @@ Major Diff between React and RN:
 Flux frameowrk
   https://facebook.github.io/flux/
   https://github.com/facebook/flux
+  
+  https://scotch.io/tutorials/learning-react-getting-started-and-concepts
+  https://scotch.io/tutorials/build-a-real-time-twitter-stream-with-node-and-react-js
   https://scotch.io/tutorials/getting-to-know-flux-the-react-js-architecture
   https://www.cabotsolutions.com/2017/01/detailed-study-flux-react-js-application-architecture
 How to structure your project and manage static resources in React Native  
