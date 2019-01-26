@@ -7,8 +7,6 @@
  */
 package com.mycompany.davidlee.impl;
 
-
-
 /**
  *
  *
@@ -22,11 +20,10 @@ public class WeightItem extends ItemImpl {
     private double pricePerPound;
 
     public WeightItem(String name, double weightInPound, double pricePerPound) {
-        super(name);
+        super(name, weightInPound * pricePerPound);
         this.weightInPound = weightInPound;
         this.pricePerPound = pricePerPound;
         super.setCategory(Category.Weight);
-        super.setPrice(weightInPound * pricePerPound);
     }
 
     public double getWeightInPound() {

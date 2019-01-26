@@ -7,7 +7,6 @@
  */
 package com.mycompany.davidlee.impl;
 
-
 import java.util.Objects;
 
 import com.mycompany.davidlee.api.Item;
@@ -25,14 +24,10 @@ public class ItemImpl implements Item {
     private Category category;
     private double price;
 
-    public ItemImpl(String name) {
-        this.name = name;
-        this.category = Category.Bagged;
-    }
-
     public ItemImpl(String name, double price) {
-        this(name);
+        this.name = name;
         this.price = price;
+        this.category = Category.Bagged;
     }
 
     public String getName() {
