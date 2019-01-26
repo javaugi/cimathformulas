@@ -4,10 +4,10 @@
  */
 package com.sisllc.mathformulas.stringmanipulation;
 
-import static com.sisllc.mathformulas.stringmanipulation.CapitalizeFirstLetter.sentence;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static com.sisllc.mathformulas.stringmanipulation.CapitalizeFirstLetter.SENTENCE;
 
 /**
  *
@@ -21,10 +21,9 @@ public class ReverseWordsOfSentence {
     private static final Logger log = LoggerFactory.getLogger(ReverseWordsOfSentence.class);
 
     public static void main(String[] args) {
-        String[] words = null;
-        sentence = sentence.replaceAll("\\W", " ");
+        String sentence = SENTENCE.replaceAll("\\W", " ");
 
-        words = sentence.split("\\s+");
+        String[] words = sentence.split("\\s+");
         System.out.println(reverseWords(words));
 
         words = sentence.split("\\s+");
@@ -34,12 +33,12 @@ public class ReverseWordsOfSentence {
         words = sentence.split("\\s+");
         reverseSwap(words, 0, words.length - 1);
         System.out.println(Arrays.toString(words).replaceAll(", ", " ").replace('[', ' ').replace(']', ' '));
-        /*
+        //*
         String[] words2 = {"Loop", "Through", "Many", "Times"};
-        reverseSwap(words2, 0, words2.length - 1);
-        System.out.println(Arrays.toString(words2).replaceAll(", ", " ").replace('[', ' ').replace(']', ' '));
+        reverseSwap(words, 0, words.length - 1);
+        System.out.println(Arrays.toString(words).replaceAll(", ", " ").replace('[', ' ').replace(']', ' '));
         // */
- /*
+        /*
         StringBuilder sb = new StringBuilder();
         for (String word : words) {
             sb.append(word + " ");
