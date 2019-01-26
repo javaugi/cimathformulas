@@ -32,6 +32,6 @@ public class FibonacciRecursive {
 
     public static void main(String[] args) {
         FibonacciRecursive fib = new FibonacciRecursive();
-        System.out.println(fib.printFib(8));
+        log.info(fib.printFib(8));
     }
 }

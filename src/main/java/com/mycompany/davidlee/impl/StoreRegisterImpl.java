@@ -16,6 +16,8 @@ import com.mycompany.davidlee.api.Item;
 import com.mycompany.davidlee.api.Receipt;
 import com.mycompany.davidlee.api.ShoppingCart;
 import com.mycompany.davidlee.api.StoreRegister;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -26,12 +28,13 @@ import com.mycompany.davidlee.api.StoreRegister;
  */
 public class StoreRegisterImpl implements StoreRegister {
 
+    private static final Logger log = LoggerFactory.getLogger(StoreRegisterImpl.class);
+
     Receipt receipt = null;
 
     public StoreRegisterImpl() {
         receipt = new ReceiptImpl();
     }
-
 
     @Override
     public Receipt checkout(ShoppingCart cart) {
@@ -49,7 +52,7 @@ public class StoreRegisterImpl implements StoreRegister {
         StoreRegisterImpl reg = new StoreRegisterImpl();
         ShoppingCart cart = populateShoppingCart();
         Receipt receipt = reg.checkout(cart);
-        System.out.println("Here is the Receipt Detail: \n" + receipt);
+        log.info("Here is the Receipt Detail: \n" + receipt);
     }
 
     private static ShoppingCart populateShoppingCart() {

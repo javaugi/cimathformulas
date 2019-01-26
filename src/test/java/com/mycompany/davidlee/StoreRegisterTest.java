@@ -36,18 +36,21 @@ public class StoreRegisterTest {
 
     @Before
     public void setup() {
+        log.info("SETUP");
         reg = new StoreRegisterImpl();
         cart = new ShoppingCartImpl();
     }
 
     @Test
     public void whenCartEmptyThenTotalZero() {
+        log.info("whenCartEmptyThenTotalZero");
         Receipt receipt = reg.checkout(cart);
         Assert.assertTrue(0 == receipt.getTotal());
     }
 
     @Test
     public void whenAdd1ThenTotal1Item() {
+        log.info("whenAdd1ThenTotal1Item");
         cart.addItem(new ItemImpl("Id100", 1.25));
         reg = new StoreRegisterImpl();
         Receipt receipt = reg.checkout(cart);
