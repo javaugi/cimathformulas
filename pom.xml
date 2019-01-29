@@ -20,10 +20,16 @@
         <log4jVerson>1.2.17</log4jVerson>
         <slf4jVersion>1.7.25</slf4jVersion>
         <junitVersion>4.12</junitVersion>
+        <rxjava2.verson>2.0.4</rxjava2.verson>
         <project.encoding>UTF-8</project.encoding>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>${rxjava2.verson}</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
