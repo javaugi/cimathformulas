@@ -23,7 +23,8 @@ public class FibonacciRecursive {
 
     public String printFib(int n) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= n; i++) {
+        // for (int i = 0; i <= n; i++) {
+        for (int i = 1; i <= n; i++) {
             sb.append(fib(i) + ", ");
         }
 

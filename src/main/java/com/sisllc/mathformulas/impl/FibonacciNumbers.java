@@ -14,14 +14,15 @@ public class FibonacciNumbers {
         long n2 = 1;
         long n3;
 
-        for (int i = 0; i <= n; i++) {
+        // for (int i = 1; i <= n; i++) {
+        for (int i = 1; i <= n; i++) {
             if (i <= 1) {
-                System.out.print("  " + i);
+                System.out.print(" " + i);
                 continue;
             }
 
             n3 = n1 + n2;
-            System.out.print("  " + n3);
+            System.out.print(", " + n3);
 
             n1 = n2;
             n2 = n3;
