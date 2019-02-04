@@ -1,7 +1,6 @@
 package com.sisllc.mathformulas.ci.ch02;
 
 import java.util.Objects;
-import java.util.Random;
 
 public class Q27PalindromeC {
 
@@ -19,13 +18,19 @@ public class Q27PalindromeC {
 
         Q27PalindromeC palindrome = new Q27PalindromeC();
         palindrome.runExample();
+        palindrome.numberOfDigits(123454321);
+    }
+
+    void numberOfDigits(int num) {
+        System.out.println("The number " + num + " lenght=" + String.valueOf(num).length());
+        System.out.println("The number " + num + " lenght=" + (int) (Math.log10(num) + 1));
     }
 
     void runExample() {
-        int num = new Random().nextInt();
+        int num = 1234321;
         long reversed = reverse(num);
-        System.out.println("The number " + num + " is a palindrome ?" + (num == reversed));
-        System.out.println("The number " + num + " is a palindrome ?" + isPalindrome(num));
+        System.out.println("The number " + num + " its reversed =" + reversed + " is a palindrome ?" + (num == reversed));
+        System.out.println("The number " + num + " its reversed =" + reversed + " is a palindrome ?" + isPalindrome(num));
     }
 
     /*
@@ -37,11 +42,15 @@ public class Q27PalindromeC {
     type might not always be available on all languages.
      */
     public long reverse(int num) {
-        assert num >= 0; // for non-negative integers only.
+        if (num <= 0) {
+            return 0;
+        }
         int rev = 0;
+        System.out.println("The original number is " + num);
         while (num != 0) {
             rev = rev * 10 + num % 10;
             num /= 10;
+            System.out.println("num=" + num + " and rev=" + rev);
         }
         return rev;
     }
@@ -58,22 +67,31 @@ public class Q27PalindromeC {
     digit in a generic way requires some thought. I will leave this to you as an exercise.
     Please think your solution out before you peek on the solution below.
      */
-    public boolean isPalindrome(int x) {
-        if (x < 0) {
-            return false;
-        }
+    private int getDivFromNumnber(int num) {
+        //this will return 1 * 10 of power of num lenght - 1. Ex 1234321 -> 1000,000
         int div = 1;
-        while (x / div >= 10) {
+        while (num / div >= 10) {
             div *= 10;
         }
-        while (x != 0) {
-            int l = x / div;
-            int r = x % 10;
-            if (l != r) {
+        return div;
+    }
+
+    public boolean isPalindrome(int num) {
+        if (num < 0) {
+            return false;
+        }
+        int div = getDivFromNumnber(num);
+        System.out.println("NOW num=" + num + " and the div=" + div);
+        while (num != 0) {
+            int left = num / div;
+            int right = num % 10;
+            System.out.println("LOOPING left=" + left + " and right=" + right + " and the num=" + num + " and the div=" + div);
+            if (left != right) {
                 return false;
             }
-            x = (x % div) / 10;
+            num = (num % div) / 10; //this remove the front and last digit from the number
             div /= 100;
+            System.out.println("LOOPING num=" + num + " and div=" + div);
         }
         return true;
     }

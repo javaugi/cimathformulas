@@ -18,7 +18,8 @@ public class FibonacciRecursion {
     }
 
     private static void printFib(int n) {
-        for (int i = 0; i <= n; i++) {
+        // for (int i = 0; i <= n; i++) {
+        for (int i = 1; i <= n; i++) {
             long total = 0;
             for (int j = 1; j <= i; j++) {
                 total = fib(j);
@@ -29,7 +30,7 @@ public class FibonacciRecursion {
     }
 
     public static void main(String[] args) {
-        printFib(2);
-        //SprintFib(12);
+        printFib(8);
+        printFib(12);
     }
 }
