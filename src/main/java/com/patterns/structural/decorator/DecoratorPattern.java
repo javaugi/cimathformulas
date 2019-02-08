@@ -38,6 +38,16 @@ Create concrete decorator class extending the ShapeDecorator class.
 Step 5
 Use the RedShapeDecorator to decorate Shape objects.
 
+
+Decorator Design Pattern – Important Points
+Decorator design pattern is helpful in providing runtime modification
+    abilities and hence more flexible. Its easy to maintain and extend when the
+    number of choices are more.
+The disadvantage of decorator design pattern is that it uses a lot of similar
+    kind of objects (decorators).
+Decorator pattern is used a lot in Java IO classes, such as FileReader, BufferedReader etc.
+
+
  */
 public class DecoratorPattern {
 

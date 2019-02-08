@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ *
+ * GOF: Use sharing to support large numbers of fine-grained objects efficiently
+ *
  * Flyweight pattern is primarily used to reduce the number of objects created
  * and to decrease memory footprint and increase performance. This type of
  * design pattern comes under structural pattern as this pattern provides ways
@@ -41,6 +44,20 @@ import org.slf4j.LoggerFactory;
  */
 /*
 Synchronized Map is usually used
+
+Flyweight Design Pattern Example in JDK
+All the wrapper classes valueOf() method uses cached objects showing use of Flyweight
+    design pattern. The best example is Java String class String Pool implementation.
+
+Flyweight Design Pattern Important Points
+In our example, the client code is not forced to create object using Flyweight factory
+    but we can force that to make sure client code uses flyweight pattern implementation
+    but its a complete design decision for particular application.
+Flyweight pattern introduces complexity and if number of shared objects are huge then
+    there is a trade of between memory and time, so we need to use it judiciously based on our requirements.
+Flyweight pattern implementation is not useful when the number of intrinsic properties
+    of Object is huge, making implementation of Factory class complex.
+
  */
 public class FlyweightPattern {
 

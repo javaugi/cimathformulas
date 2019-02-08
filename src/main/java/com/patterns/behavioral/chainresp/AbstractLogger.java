@@ -5,7 +5,7 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.behavioral;
+package com.patterns.behavioral.chainresp;
 
 /**
  *

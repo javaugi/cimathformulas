@@ -40,6 +40,26 @@ Create concrete class implementing the MediaPlayer interface.
 
 Step 5
 Use the AudioPlayer to play different types of audio formats.
+
+
+
+Two Way Adapter Pattern
+While implementing Adapter pattern, there are two approaches – class adapter and
+    object adapter – however both these approaches produce same result.
+
+
+Class Adapter – This form uses java inheritance and extends the source
+    interface, in our case Socket class.
+Object Adapter – This form uses Java Composition and adapter contains
+    the source object.
+
+Adapter Design Pattern Example in JDK
+Some of the adapter design pattern example I could easily find in JDK classes are;
+
+    java.util.Arrays#asList()
+    java.io.InputStreamReader(InputStream) (returns a Reader)
+    java.io.OutputStreamWriter(OutputStream) (returns a Writer)
+
  */
 public class AdapterPattern {
 
@@ -52,5 +72,42 @@ public class AdapterPattern {
         audioPlayer.play("mp4", "alone.mp4");
         audioPlayer.play("vlc", "far far away.vlc");
         audioPlayer.play("avi", "mind me.avi");
+
+        System.out.println("\n\n\n moe testing ");
+        testClassAdapter();
+        testObjectAdapter();
+    }
+
+    private static void testObjectAdapter() {
+        SocketAdapter sockAdapter = new SocketObjectAdapterImpl();
+        Volt v3 = getVolt(sockAdapter, 3);
+        Volt v12 = getVolt(sockAdapter, 12);
+        Volt v120 = getVolt(sockAdapter, 120);
+        System.out.println("v3 volts using Object Adapter=" + v3.getVolts());
+        System.out.println("v12 volts using Object Adapter=" + v12.getVolts());
+        System.out.println("v120 volts using Object Adapter=" + v120.getVolts());
+    }
+
+    private static void testClassAdapter() {
+        SocketAdapter sockAdapter = new SocketClassAdapterImpl();
+        Volt v3 = getVolt(sockAdapter, 3);
+        Volt v12 = getVolt(sockAdapter, 12);
+        Volt v120 = getVolt(sockAdapter, 120);
+        System.out.println("v3 volts using Class Adapter=" + v3.getVolts());
+        System.out.println("v12 volts using Class Adapter=" + v12.getVolts());
+        System.out.println("v120 volts using Class Adapter=" + v120.getVolts());
+    }
+
+    private static Volt getVolt(SocketAdapter sockAdapter, int i) {
+        switch (i) {
+            case 3:
+                return sockAdapter.get3Volt();
+            case 12:
+                return sockAdapter.get12Volt();
+            case 120:
+                return sockAdapter.get120Volt();
+            default:
+                return sockAdapter.get120Volt();
+        }
     }
 }

@@ -5,7 +5,7 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.behavioral;
+package com.patterns.structural.bridge;
 
 /**
  *
@@ -14,14 +14,15 @@ package com.patterns.behavioral;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class ConsoleLogger extends AbstractLogger {
+public class Triangle extends Shape1 {
 
-    public ConsoleLogger(int level) {
-        this.level = level;
+    public Triangle(Color c) {
+        super(c);
     }
 
     @Override
-    protected void write(String message) {
-        System.out.println("Standard Console::Logger: " + message);
+    public void applyColor() {
+        System.out.print("Triangle filled with color ");
+        color.applyColor();
     }
 }

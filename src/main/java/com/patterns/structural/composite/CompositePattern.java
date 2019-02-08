@@ -48,6 +48,13 @@ import org.slf4j.LoggerFactory;
  * composite – has leaf elements. It implements the base component methods and
  *      defines the child-related operations.
  * client – has access to the composition elements by using the base component object.
+
+Composite Pattern Important Points
+Composite pattern should be applied only when the group of objects should behave
+    as the single object.
+Composite design pattern can be used to create a tree like structure.
+
+java.awt.Container#add(Component) is a great example of Composite pattern in java and used a lot in Swing.
  *
  */
 public class CompositePattern {

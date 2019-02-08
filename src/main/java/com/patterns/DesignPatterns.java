@@ -11,53 +11,55 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * https://www.tutorialspoint.com/design_pattern/design_pattern_overview.htm
+ * https://www.journaldev.com/java/design-patterns
  *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
 /*
-Software design patterns
-Creational
-    Abstract factory
-    Builder
+Software design patterns * denotes GOF patterns)
+Creational (* 4)
+    Singleton *
+    Abstract factory *
+    Builder *
     Dependency injection
-    Factory method
+    Factory method *
     Lazy initialization
     Multiton
     Object pool
-    Prototype
+    Prototype *
     RAII Singleton
-Structural
-    Adapter
-    Bridge
-    Composite
-    Decorator
+Structural (* 7)
+    Adapter *
+    Bridge *
+    Composite *
+    Decorator *
     Delegation
-    Facade
-    Flyweight
+    Facade *
+    Flyweight *
     Front controller
     Marker interface
     Module
-    Proxy
+    Proxy *
     Twin
-Behavioral
+Behavioral (* 11)
     Blackboard
-    Chain of responsibility
-    Command
-    Interpreter
-    Iterator
-    Mediator
-    Memento
+    Chain of responsibility *
+    Command *
+    Interpreter *
+    Iterator *
+    Mediator *
+    Memento *
     Null object
-    Observer
+    Observer *
     Servant
     Specification
-    State
-    Strategy
-    Template method
-    Visitor
+    State *
+    Strategy *
+    Template method *
+    Visitor *
 Functional
     Closure
     Currying

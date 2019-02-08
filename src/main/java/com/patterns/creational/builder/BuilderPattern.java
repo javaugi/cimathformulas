@@ -31,6 +31,26 @@ Step 5 Create a Meal class having Item objects defined above.
 Step 6 Create a MealBuilder class, the actual builder class responsible to create Meal objects.
 Step 7 BuiderPatternDemo uses MealBuider to demonstrate builder pattern.
 
+
+Builder Design Pattern in Java
+Let’s see how we can implement builder design pattern in java.
+
+First of all you need to create a static nested class and then copy all the arguments
+    from the outer class to the Builder class. We should follow the naming convention
+    and if the class name is Computer then builder class should be named as ComputerBuilder.
+Java Builder class should have a public constructor with all the required attributes
+    as parameters.
+Java Builder class should have methods to set the optional parameters and it should
+    return the same Builder object after setting the optional attribute.
+The final step is to provide a build() method in the builder class that will return
+    the Object needed by client program. For this we need to have a private constructor in the Class with Builder class as argument.
+
+Builder Design Pattern Example in JDK
+Some of the builder pattern example in Java classes are;
+
+    java.lang.StringBuilder#append() (unsynchronized)
+    java.lang.StringBuffer#append() (synchronized)
+
  */
 public class BuilderPattern {
 

@@ -5,7 +5,7 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.behavioral;
+package com.patterns.behavioral.interpreter;
 
 /**
  *
@@ -13,9 +13,7 @@ package com.patterns.behavioral;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public interface DispenseChain {
+public interface Expression1 {
 
-    void setNextChain(DispenseChain nextChain);
-
-    void dispense(Currency cur);
+    String interpret(InterpreterContext ic);
 }

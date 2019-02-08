@@ -11,6 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ *
+ * GOF: Provide a surrogate or placeholder for another object to control access
+ * to it.
+ *
  * Provide a surrogate or placeholder for another object to control access to
  * it.
  *

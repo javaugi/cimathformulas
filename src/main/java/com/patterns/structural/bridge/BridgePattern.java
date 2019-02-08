@@ -46,5 +46,11 @@ public class BridgePattern {
 
         redCircle.draw();
         greenCircle.draw();
+
+        Shape1 tri = new Triangle(new RedColor());
+        tri.applyColor();
+
+        Shape1 pent = new Pentagon(new GreenColor());
+        pent.applyColor();
     }
 }

@@ -5,23 +5,17 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.behavioral;
+package com.patterns.behavioral.iterator;
 
 /**
- *
  *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class ErrorLogger extends AbstractLogger {
+public interface ChannelIterator {
 
-    public ErrorLogger(int level) {
-        this.level = level;
-    }
+    public boolean hasNext();
 
-    @Override
-    protected void write(String message) {
-        System.out.println("Error Console::Logger: " + message);
-    }
+    public Channel next();
 }

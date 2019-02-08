@@ -5,24 +5,15 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.behavioral;
+package com.patterns.behavioral.iterator;
 
 /**
- *
  *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class Currency {
+public interface Container {
 
-    private int amount;
-
-    public Currency(int amt) {
-        this.amount = amt;
-    }
-
-    public int getAmount() {
-        return this.amount;
-    }
+    public Iterator getIterator();
 }
