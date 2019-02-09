@@ -24,23 +24,31 @@ import java.util.List;
  */
 public class SieveOfEratosthenes {
 
+    public static void init(boolean[] flags) {
+        flags[0] = false;
+        flags[1] = false;
+        // 0 and 1 are not prime and set all other as prime
+        for (int i = 2; i < flags.length; i++) {
+            flags[i] = true;
+        }
+    }
+
     public static List<Integer> calculate(int n) {
+        List<Integer> returnValue = new ArrayList<Integer>();
 
         boolean[] prime = new boolean[n + 1];
+        init(prime);
 
-        List<Integer> list = new ArrayList<Integer>();
-        for (int i = 2; i < n; i++) {
-            prime[i] = true;
-        }
+        //starts with 2 
         for (int i = 2; i < n; i++) {
             if (prime[i]) {
-                list.add(i);
+                returnValue.add(i);
                 for (int j = i; j * i <= n; j++) {
                     prime[i * j] = false;
                 }
             }
         }
-        return list;
+        return returnValue;
     }
 
     public static void main(String[] args) {
