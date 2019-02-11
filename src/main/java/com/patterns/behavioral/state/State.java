@@ -5,18 +5,15 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.structural.filtercriteria;
-
-import java.util.List;
+package com.patterns.behavioral.state;
 
 /**
- *
  *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public interface Criteria {
+public interface State {
 
-    public List<Person> meetCriteria(List<Person> persons);
+    public void doAction(Context context);
 }

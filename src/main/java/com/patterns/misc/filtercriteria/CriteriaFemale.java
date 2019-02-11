@@ -5,7 +5,7 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.structural.filtercriteria;
+package com.patterns.misc.filtercriteria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +17,17 @@ import java.util.List;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class CriteriaMale implements Criteria {
+public class CriteriaFemale implements Criteria {
 
     @Override
     public List<Person> meetCriteria(List<Person> persons) {
-        List<Person> malePersons = new ArrayList<Person>();
+        List<Person> femalePersons = new ArrayList<Person>();
 
         for (Person person : persons) {
-            if (person.getGender().equalsIgnoreCase("MALE")) {
-                malePersons.add(person);
+            if (person.getGender().equalsIgnoreCase("FEMALE")) {
+                femalePersons.add(person);
             }
         }
-        return malePersons;
+        return femalePersons;
     }
 }

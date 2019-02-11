@@ -5,7 +5,7 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.structural.filtercriteria;
+package com.patterns.misc.filtercriteria;
 
 import java.util.ArrayList;
 import java.util.List;
