@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class RedColor implements Color {
+public class RedColor implements ColorBridge {
 
     public void applyColor() {
         System.out.println("red.");

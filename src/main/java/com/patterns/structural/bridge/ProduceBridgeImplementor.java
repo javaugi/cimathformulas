@@ -7,6 +7,9 @@
  */
 package com.patterns.structural.bridge;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  *
  *
@@ -14,15 +17,12 @@ package com.patterns.structural.bridge;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class Pentagon extends Shape1 {
-
-    public Pentagon(ColorBridge c) {
-        super(c);
-    }
+public class ProduceBridgeImplementor implements Workshop {
+    // Concrete implementation 1 for bridge pattern 
 
     @Override
-    public void applyColor() {
-        System.out.print("Pentagon filled with color ");
-        color.applyColor();
+    public void work() {
+        System.out.print("Produced");
     }
+
 }

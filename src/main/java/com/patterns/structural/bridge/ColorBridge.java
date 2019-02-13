@@ -9,12 +9,11 @@ package com.patterns.structural.bridge;
 
 /**
  *
- *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public interface DrawAPI {
+public interface ColorBridge {
 
-    public void drawCircle(int radius, int x, int y);
+    void applyColor();
 }

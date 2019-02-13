@@ -14,15 +14,7 @@ package com.patterns.structural.bridge;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class Pentagon extends Shape1 {
+public interface DrawApiBridge {
 
-    public Pentagon(ColorBridge c) {
-        super(c);
-    }
-
-    @Override
-    public void applyColor() {
-        System.out.print("Pentagon filled with color ");
-        color.applyColor();
-    }
+    public void drawCircle(int radius, int x, int y);
 }

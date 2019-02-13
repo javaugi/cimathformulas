@@ -94,9 +94,9 @@ public class ObserverPattern {
         System.out.println("\n\n\n More observer example ...");
         Subject subject = new Subject();
 
-        new HexaObserver(subject);
-        new OctalObserver(subject);
-        new BinaryObserver(subject);
+        Observer obs1 = new HexaObserver(subject);
+        Observer obs2 = new OctalObserver(subject);
+        Observer obs3 = new BinaryObserver(subject);
 
         System.out.println("First state change: 15");
         subject.setState(15);

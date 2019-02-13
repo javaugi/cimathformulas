@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
  * https://www.tutorialspoint.com/design_pattern/design_pattern_overview.htm
  * https://www.journaldev.com/java/design-patterns
  *
+ * https://github.com/iluwatar/java-design-patterns
+ *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy

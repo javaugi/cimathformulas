@@ -22,7 +22,7 @@ public class SingleObject {
     private static final Logger log = LoggerFactory.getLogger(SingleObject.class);
 
     //create an object of SingleObject
-    private static SingleObject instance = null;
+    private static SingleObject instance = new SingleObject();
 
     //make the constructor private so that this class cannot be
     //instantiated

@@ -16,7 +16,7 @@ package com.patterns.structural.bridge;
  */
 public class Triangle extends Shape1 {
 
-    public Triangle(Color c) {
+    public Triangle(ColorBridge c) {
         super(c);
     }
 

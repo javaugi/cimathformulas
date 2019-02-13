@@ -36,6 +36,8 @@ public class Quicksort {
 
     public static void quickSort(int arr[], int left, int right) {
         int index = partition(arr, left, right);
+
+        // recursively sort two sub parts
         if (left < index - 1) { // Sort left half
             quickSort(arr, left, index - 1);
         }

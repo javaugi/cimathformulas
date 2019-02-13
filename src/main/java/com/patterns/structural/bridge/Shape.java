@@ -16,9 +16,9 @@ package com.patterns.structural.bridge;
  */
 public abstract class Shape {
 
-    protected DrawAPI drawAPI;
+    protected DrawApiBridge drawAPI;
 
-    protected Shape(DrawAPI drawAPI) {
+    protected Shape(DrawApiBridge drawAPI) {
         this.drawAPI = drawAPI;
     }
 

@@ -19,7 +19,6 @@ import java.util.Arrays;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-
 public class QuickSortExample {
 
     public static void main(String[] args) {
@@ -49,14 +48,17 @@ public class QuickSortExample {
         // make left < pivot and right > pivot
         int i = low, j = high;
         while (i <= j) {
+            // Find element on left that should be on right
             while (arr[i] < pivot) {
                 i++;
             }
 
+            // Find element on right that should be on left
             while (arr[j] > pivot) {
                 j--;
             }
 
+            // Swap elements, and move left and right indices
             if (i <= j) {
                 int temp = arr[i];
                 arr[i] = arr[j];

@@ -14,7 +14,7 @@ package com.patterns.structural.bridge;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class RedCircle implements DrawAPI {
+public class RedCircle implements DrawApiBridge {
 
     @Override
     public void drawCircle(int radius, int x, int y) {

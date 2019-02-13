@@ -14,7 +14,7 @@ package com.patterns.structural.bridge;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class GreenColor implements Color {
+public class GreenColor implements ColorBridge {
 
     public void applyColor() {
         System.out.println("green.");

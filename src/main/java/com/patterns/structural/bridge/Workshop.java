@@ -9,20 +9,12 @@ package com.patterns.structural.bridge;
 
 /**
  *
- *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class Pentagon extends Shape1 {
+public interface Workshop {
+    // Implementor for bridge pattern
 
-    public Pentagon(ColorBridge c) {
-        super(c);
-    }
-
-    @Override
-    public void applyColor() {
-        System.out.print("Pentagon filled with color ");
-        color.applyColor();
-    }
+    abstract public void work();
 }

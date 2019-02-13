@@ -5,24 +5,27 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.structural.bridge;
+package com.compositevisitor;
 
 /**
- *
  *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class Pentagon extends Shape1 {
+public interface Employee {
 
-    public Pentagon(ColorBridge c) {
-        super(c);
-    }
+    public void add(Employee employee);
 
-    @Override
-    public void applyColor() {
-        System.out.print("Pentagon filled with color ");
-        color.applyColor();
-    }
+    public void remove(Employee employee);
+
+    public Employee getChild(int i);
+
+    public String getName();
+
+    public double getSalary();
+
+    public void printSalary();
+
+    void accept(SalaryCalculator visitor);
 }

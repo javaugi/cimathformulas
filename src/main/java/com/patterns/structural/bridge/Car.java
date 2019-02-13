@@ -7,6 +7,9 @@
  */
 package com.patterns.structural.bridge;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  *
  *
@@ -14,15 +17,17 @@ package com.patterns.structural.bridge;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class Pentagon extends Shape1 {
+public class Car extends VehicleBridgeAbstraction {
+    /// Refine abstraction 1 in bridge pattern 
 
-    public Pentagon(ColorBridge c) {
-        super(c);
+    public Car(Workshop workShop1, Workshop workShop2) {
+        super(workShop1, workShop2);
     }
 
     @Override
-    public void applyColor() {
-        System.out.print("Pentagon filled with color ");
-        color.applyColor();
+    public void manufacture() {
+        System.out.print("Car ");
+        workShop1.work();
+        workShop2.work();
     }
 }

@@ -17,15 +17,16 @@ import org.slf4j.LoggerFactory;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public abstract class Shape1 {
-    //Composition - implementor
+public abstract class VehicleBridgeAbstraction {
+    // abstraction in bridge pattern
 
-    protected ColorBridge color;
+    protected Workshop workShop1;
+    protected Workshop workShop2;
 
-    //constructor with implementor as input argument
-    public Shape1(ColorBridge c) {
-        this.color = c;
+    protected VehicleBridgeAbstraction(Workshop workShop1, Workshop workShop2) {
+        this.workShop1 = workShop1;
+        this.workShop2 = workShop2;
     }
 
-    abstract public void applyColor();
+    abstract public void manufacture();
 }

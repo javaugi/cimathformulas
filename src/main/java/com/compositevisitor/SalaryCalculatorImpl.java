@@ -5,7 +5,10 @@
  * Redistribution without permission is strictly prohibited.
  * For more information, contact <http://www.ciminc.com>
  */
-package com.patterns.structural.bridge;
+package com.compositevisitor;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -14,15 +17,12 @@ package com.patterns.structural.bridge;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class Pentagon extends Shape1 {
+public class SalaryCalculatorImpl implements SalaryCalculator {
 
-    public Pentagon(ColorBridge c) {
-        super(c);
-    }
+    private static final Logger log = LoggerFactory.getLogger(SalaryCalculatorImpl.class);
 
     @Override
-    public void applyColor() {
-        System.out.print("Pentagon filled with color ");
-        color.applyColor();
+    public double calculateSalary(Employee employee) {
+        return employee.getSalary();
     }
 }
