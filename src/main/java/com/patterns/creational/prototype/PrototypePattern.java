@@ -22,6 +22,31 @@ import org.slf4j.LoggerFactory;
  * request and update the database as and when needed thus reducing database
  * calls.
  *
+ * When Would I Use This Pattern?
+ *
+ * The Prototype pattern should be considered when
+ *
+ * Composition, creation and representation of objects should be decoupled from
+ * the system
+ *
+ * Classes to be created are specified at runtime
+ *
+ * You need to hide the complexity of creating new instance from the client
+ *
+ * Creating an object is an expensive operation and it would be more efficient
+ * to copy an object.
+ *
+ * Objects are required that are similar to existing objects.
+ *
+ *
+ * The pattern is used by the Clonable interface in Java. Cloneable is
+ * implemented as a marker interface to show what objects can be cloned, as
+ * Object already defined a protected clone() method. Client can override, or
+ * call the superclass implementation, of this clone method to do the copy.
+ *
+ *
+ *
+ *
  * @author david
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy

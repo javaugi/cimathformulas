@@ -84,6 +84,11 @@ public class DependencyInjectionPattern {
         String email = "pankaj@abc.com";
         String phone = "4088888888";
 
+        /*
+        Java Dependency Injection – Service Components: MessagingService            - to sendMessage
+        Java Dependency Injection – Injectors Classes:  MessagingServiceInjector    - to get Consumer
+        Java Dependency Injection – Service Consumer: Consumer                      - to process message
+         */
         //Send email
         MessageServiceInjector injector = new EmailServiceInjector();
         Consumer app = injector.getConsumer();
