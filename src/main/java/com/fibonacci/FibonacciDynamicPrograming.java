@@ -121,6 +121,11 @@ public class FibonacciDynamicPrograming {
 
         System.out.println("\n fib3 \n  ");
         System.out.println(fib.fib3(8));
+
+        System.out.println("\n fib3 again \n  ");
+        for (int i = 0; i <= 8; i++) {
+            System.out.print(fib.fib3(i) + ", ");
+        }
         System.out.println("\n fib4 \n  ");
         System.out.println(fib.fib4(8));
         System.out.println("\n fib5 \n  ");
@@ -141,7 +146,7 @@ public class FibonacciDynamicPrograming {
         StringBuilder sb = new StringBuilder();
         // for (int i = 0; i <= n; i++) {
         for (int i = 0; i <= n; i++) {
-            System.out.println(fib(i) + ", ");
+            System.out.print(fib(i) + ", ");
         }
     }
 

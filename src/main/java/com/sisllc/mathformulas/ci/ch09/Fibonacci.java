@@ -3,11 +3,8 @@ package com.sisllc.mathformulas.ci.ch09;
 public class Fibonacci {
 
     public static int fibonacci(int i) {
-        if (i == 0) {
+        if (i <= 1) {
             return 0;
-        }
-        if (i == 1) {
-            return 1;
         }
         return fibonacci(i - 1) + fibonacci(i - 2);
     }
