@@ -4,8 +4,11 @@
  */
 package com.spring.jpapagination;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +26,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeClient {
 
+    public static final String[] firstNames = {"Abbey", "Adam", "Alan", "Albert", "Alice", "Amy", "Jax", "John", "Jonathan", "Jeffrey", "Barbara", "Ben", "Bernie",
+        "Byron", "Carl", "Carol", "Cathy", "Dan", "David", "Mark", "Mike", "Kevin", "Will"};
+    public static final String[] lastNames = {"Smith", "Lee", "Barkley", "Green", "Clinton", "Bloom", "Bryant", "Collins", "Gere", "Dewey"};
+    public static final String[] departments = {"Sales", "Marketing", "IT", "HR", "Customer Relations", "Product Management", "Researches"};
+    public static final Integer[] salaries = {83578, 55672, 84567, 102321, 102593, 67345, 73895, 93461, 89410, 135921, 176543, 197043, 89054};
+    private static final int PAGE_SIZE = 10;
+
     @Autowired
     private EmployeeRepository repo;
+
+    @PostConstruct
+    public void init() {
+        createEmployees();
+        System.out.println("EmployeeClient creating employees ");
+    }
 
     public void run() {
         List<Employee> employees = createEmployees();
@@ -54,7 +70,21 @@ public class EmployeeClient {
     }
 
     private List<Employee> createEmployees() {
-        return Arrays.asList(
+        List<Employee> employees = new ArrayList();
+        Employee emp;
+        Random rand = new Random();
+        int i = 0;
+        while (i < 50) {
+            i++;
+            emp = Employee.create(Arrays.asList(firstNames).get(rand.nextInt(firstNames.length))
+                    + Arrays.asList(lastNames).get(rand.nextInt(lastNames.length)),
+                    Arrays.asList(departments).get(rand.nextInt(departments.length)),
+                    Arrays.asList(salaries).get(rand.nextInt(salaries.length)));
+            employees.add(emp);
+        }
+        return employees;
+
+        /* Arrays.asList(
                 Employee.create("Diana", "Sales", 2000),
                 Employee.create("Mike", "Sales", 1000),
                 Employee.create("Rose", "IT", 4000),
@@ -67,5 +97,6 @@ public class EmployeeClient {
                 Employee.create("Jane", "Sales", 5500),
                 Employee.create("Joe", "Sales", 1500)
         );
+         */
     }
 }
