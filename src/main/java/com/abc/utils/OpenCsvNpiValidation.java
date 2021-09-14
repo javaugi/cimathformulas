@@ -14,9 +14,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -56,9 +53,9 @@ public class OpenCsvNpiValidation {
 
     public static void main(String[] args) throws IOException, CsvException {
 
-        //validateNPIWithRegistry("1316139314");
+        validateNPIWithRegistry("1316139314");
         String fileName = "/Prod_NPI.csv";
-        new OpenCsvNpiValidation().validateNpiFile(fileName);
+        //new OpenCsvNpiValidation().validateNpiFile(fileName);
     }
 
     public static boolean validateNPIWithRegistry(String npiEntry, BufferedWriter writer) {
@@ -136,17 +133,8 @@ public class OpenCsvNpiValidation {
     private void validateNpiFile(String filename) {
         BufferedWriter writer = null;
         try {
-            URL resource = OpenCsvNpiValidation.class.getResource(filename);
-            File file = Paths.get(resource.toURI()).toFile();
-
-            String fileWithDir = new File("src/main/resources").getAbsolutePath() + "/output.txt";
-            log.info("fileWithDir {}", fileWithDir);
-            File outputFile = new File(fileWithDir);
-            if (!outputFile.exists()) {
-                outputFile.delete();
-            }
-            outputFile.createNewFile();
-            outputFile.setWritable(true);
+            File file = ProjectResourceAccess.getResourceFile(filename);
+            File outputFile = ProjectResourceAccess.createResourceFile("output.txt");
             writer = new BufferedWriter(new FileWriter(outputFile));
 
             try (CSVReader reader = new CSVReader(new FileReader(file))) {
@@ -170,7 +158,7 @@ public class OpenCsvNpiValidation {
                     }
                 }
             }
-        } catch (CsvException | IOException | URISyntaxException e) {
+        } catch (CsvException | IOException e) {
             log.error("Error validateNpiFile {}", filename, e);
         } finally {
             try {
