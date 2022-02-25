@@ -4,6 +4,7 @@
  */
 package com.sisllc.mathformulas.impl;
 
+import com.test.ProjectTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class FactorNumberIntoPrimeIntArrayTest {
+public class FactorNumberIntoPrimeIntArrayTest extends ProjectTest {
 
     private static final Logger log = LoggerFactory.getLogger(FactorNumberIntoPrimeIntArrayTest.class);
 

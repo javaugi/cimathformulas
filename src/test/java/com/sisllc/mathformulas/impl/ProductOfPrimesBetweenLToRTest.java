@@ -1,5 +1,6 @@
 package com.sisllc.mathformulas.impl;
 
+import com.test.ProjectTest;
 import org.junit.Assert;
 
 import org.junit.Before;
@@ -12,7 +13,7 @@ import org.junit.Test;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class ProductOfPrimesBetweenLToRTest {
+public class ProductOfPrimesBetweenLToRTest extends ProjectTest {
 
     PrimeNumbers pn = null;
 

@@ -15,6 +15,7 @@ import com.mycompany.davidlee.api.Item.Category;
 import com.mycompany.davidlee.impl.InventoryImpl;
 import com.mycompany.davidlee.impl.ItemImpl;
 import com.mycompany.davidlee.impl.WeightItem;
+import com.test.ProjectTest;
 import org.junit.Before;
 
 /**
@@ -24,7 +25,7 @@ import org.junit.Before;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class InventoryTest {
+public class InventoryTest extends ProjectTest {
 
     Inventory impl = null;
 

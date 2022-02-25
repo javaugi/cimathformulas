@@ -17,6 +17,7 @@ import com.mycompany.davidlee.api.StoreRegister;
 import com.mycompany.davidlee.impl.ItemImpl;
 import com.mycompany.davidlee.impl.ShoppingCartImpl;
 import com.mycompany.davidlee.impl.StoreRegisterImpl;
+import com.test.ProjectTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class StoreRegisterTest {
+public class StoreRegisterTest extends ProjectTest {
 
     private static final Logger log = LoggerFactory.getLogger(StoreRegisterTest.class);
 

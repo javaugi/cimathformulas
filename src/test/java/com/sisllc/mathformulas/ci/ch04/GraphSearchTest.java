@@ -4,6 +4,7 @@
  */
 package com.sisllc.mathformulas.ci.ch04;
 
+import com.test.ProjectTest;
 import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class GraphSearchTest {
+public class GraphSearchTest extends ProjectTest {
 
     private static final Logger log = LoggerFactory.getLogger(GraphSearchTest.class);
 

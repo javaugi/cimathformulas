@@ -1,5 +1,6 @@
 package com.sisllc.mathformulas.impl;
 
+import com.test.ProjectTest;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ import org.junit.Test;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class PrimeNumbersTest {
+public class PrimeNumbersTest extends ProjectTest {
 
     @Test
     public void when1ThenTrue() {

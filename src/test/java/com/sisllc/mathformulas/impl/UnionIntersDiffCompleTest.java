@@ -1,11 +1,12 @@
 package com.sisllc.mathformulas.impl;
 
+import com.test.ProjectTest;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ import org.junit.Test;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class UnionIntersDiffCompleTest {
+public class UnionIntersDiffCompleTest extends ProjectTest {
 
     String[] arr1 = {"1", "3", "5", "7", "9"};
     String[] arr2 = {"2", "3", "4", "5", "6", "7", "8"};

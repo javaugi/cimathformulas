@@ -4,6 +4,7 @@
  */
 package com.sisllc.mathformulas.stringmanipulation;
 
+import com.test.ProjectTest;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ import org.junit.Test;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class ExampleTest {
+public class ExampleTest extends ProjectTest{
 
     @Test
     public void whenThen() {

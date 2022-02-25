@@ -1,5 +1,6 @@
 package com.sisllc.mathformulas.stringmanipulation;
 
+import com.test.ProjectTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-public class CapitalizeFirstLetterTest {
+public class CapitalizeFirstLetterTest extends ProjectTest {
 
     private static final Logger log = LoggerFactory.getLogger(CapitalizeFirstLetterTest.class);
 

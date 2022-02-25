@@ -8,7 +8,7 @@
 package com.sisllc.mathformulas.utils;
 
 import com.abc.utils.OpenCsvNpiValidation;
-import com.sisllc.mathformulas.ProjectTest;
+import com.test.ProjectTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
