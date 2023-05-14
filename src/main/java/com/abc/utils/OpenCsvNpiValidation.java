@@ -19,11 +19,13 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +95,7 @@ public class OpenCsvNpiValidation {
                     return false;
                 }
             }
-        } catch (IOException ex) {
+        } catch (IOException | ParseException | JSONException ex) {
             log.error(ERROR_GET_NPI, npiEntry, ex);
         } finally {
             if (response != null) {
