@@ -73,7 +73,7 @@ public class EventsServiceTest {
         {13, 9, 20}, // interval 3 days diff
         {4, 28, 4}};  // interval 4 days diff
     
-    //@Test
+    @Test
     public void testExtractInterval() {
         for (int i = 0; i < recurrenceRules.size(); i++) {
             String token = recurrenceRules.get(i);
@@ -90,7 +90,7 @@ public class EventsServiceTest {
         
     }
     
-    //@Test
+    @Test
     public void testFindDaysBetweenDates() {
         String startDateStr0301 = "03/01/2023";
         String endDateStr = "03/28/2023"; 
@@ -112,7 +112,7 @@ public class EventsServiceTest {
         assertEquals(daysFrequency4, 25);
     }
 
-    //@Test
+    @Test
     public void testFindWeeklyAnytimeStartDate() {
         String periodStartDateStr, periodEndDateStr;
         LocalDate localPeriodStartDate, localPeriodEndDate;
@@ -143,7 +143,7 @@ public class EventsServiceTest {
         }
     }
 
-    //@Test
+    @Test
     public void testFindWeeklyAnytimeEndDate() {
         String periodEndDateStr;
         LocalDate localPeriodEndDate;
