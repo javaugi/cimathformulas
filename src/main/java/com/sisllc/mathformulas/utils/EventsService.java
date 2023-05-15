@@ -348,18 +348,13 @@ public class EventsService {
         long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate) + 1;
         return new Long(numberOfDays).intValue();
     }
+
     public static void main(String[] args) {
         int intervalByWeeks = 3;
         LocalDate initialStartDate = LocalDate.of(2023, 2, 6);
         LocalDate targetPeriodStart = LocalDate.of(2023, 4, 1);
         LocalDate targetPeriodEnd = LocalDate.of(2023, 4, 30);
-        LocalDate targetPeriodUntil = null;
-        LocalDate firstEventDate = LocalDate.of(2023, 4, 1);
-        LocalDate lastEventDate = LocalDate.of(2023, 4, 30);
 
-        long numberOfDates = 0;
-        //numberOfDates = getNumberOfEventDatesByWeekInterval(intervalByWeeks, targetPeriodStart, firstEventDate, lastEventDate);
-        //log.info("numberOfDates {} intervalByWeeks {} targetPeriodStart {} firstEventDate {} lastEventDate {}", numberOfDates, intervalByWeeks, targetPeriodStart, firstEventDate, lastEventDate);
         EventPeriodCmd eventPeriod = new EventPeriodCmd(intervalByWeeks, initialStartDate, targetPeriodStart, targetPeriodEnd);
         eventPeriod = getTargetPeriodEventDates(eventPeriod);
         eventPeriod = getNumberOfEventDates(eventPeriod);
@@ -367,48 +362,39 @@ public class EventsService {
     }
 
     public static EventPeriodCmd getNumberOfEventPeriodDates(EventPeriodCmd eventPeriod) {
-        log.info("\n \n **** getNumberOfEventDates started {}", eventPeriod);
         int numberOfEventDates = 0;
 
-        int intervalByWeeks = eventPeriod.getIntervalByWeeks();
         if (eventPeriod.getFirstEventDate() == null) {
             eventPeriod = getTargetPeriodEventDates(eventPeriod);
         }
 
+        int intervalByWeeks = eventPeriod.getIntervalByWeeks();
         LocalDate firstEventDate = eventPeriod.getFirstEventDate();
         LocalDate lastEventDate = eventPeriod.getLastEventDate();
-        LocalDate eventPeriodSunday = eventPeriod.getEventPeriodSunday();
         LocalDate eventPeriodSaturday = eventPeriod.getEventPeriodSaturday();
-        log.info("1 getNumberOfEventDates {}", eventPeriod);
 
+        int countOfDatesBetween;
+        boolean doneWeeklyCount;
         while (!firstEventDate.isAfter(lastEventDate)) {
-            log.info("1 numberOfEventDates {} firstEventDate {} lastEventDate {} eventPeriodSunday {} eventPeriodSaturday {}",
-                    numberOfEventDates, firstEventDate, lastEventDate, eventPeriodSunday, eventPeriodSaturday);
-            boolean doneWeeklyCount = false;
+            doneWeeklyCount = false;
             while (!doneWeeklyCount) {
                 if (!firstEventDate.isAfter(eventPeriodSaturday)) {
-                    numberOfEventDates++;
-                    firstEventDate = firstEventDate.plusDays(1);
+                    countOfDatesBetween = getNumberOfDatesBetweenTwoDates(firstEventDate, eventPeriodSaturday);
+                    numberOfEventDates = numberOfEventDates + countOfDatesBetween;
+                    firstEventDate = firstEventDate.plusDays(countOfDatesBetween);
                 } else {
                     firstEventDate = firstEventDate.plusWeeks(intervalByWeeks);
-                    eventPeriodSunday = firstEventDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
                     eventPeriodSaturday = firstEventDate.plusWeeks(intervalByWeeks).with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY));
                     if (eventPeriodSaturday.isAfter(lastEventDate)) {
                         eventPeriodSaturday = lastEventDate;
                     }
-                    log.info("2-1 numberOfEventDates {} firstEventDate {} lastEventDate {} eventPeriodSunday {} eventPeriodSaturday {}",
-                            numberOfEventDates, firstEventDate, lastEventDate, eventPeriodSunday, eventPeriodSaturday);
+
                     doneWeeklyCount = true;
                 }
-                log.info("2 numberOfEventDates {} firstEventDate {} lastEventDate {} eventPeriodSunday {} eventPeriodSaturday {}",
-                        numberOfEventDates, firstEventDate, lastEventDate, eventPeriodSunday, eventPeriodSaturday);
             }
         }
 
         eventPeriod.setNumberOfEventDates(numberOfEventDates);
-        log.info("numberOfEventDates {} firstEventDate {} lastEventDate {} eventPeriodSunday {} eventPeriodSaturday {}",
-                numberOfEventDates, firstEventDate, lastEventDate, eventPeriodSunday, eventPeriodSaturday);
-
         return eventPeriod;
     }
 
@@ -471,7 +457,6 @@ public class EventsService {
         int intervalByWeeks = eventPeriodCmd.getIntervalByWeeks();
         LocalDate initialStartDate = eventPeriodCmd.getInitialStartDate();
         LocalDate targetPeriodStart = eventPeriodCmd.getTargetPeriodStart();
-        LocalDate targetPeriodEnd = eventPeriodCmd.getTargetPeriodEnd();
         LocalDate lastEventDate = eventPeriodCmd.getLastEventDate();
 
         // Assign the desired event date to the initial start date
@@ -480,27 +465,21 @@ public class EventsService {
 
         // Move the first event date to the occurrence of the desired day of week - period start date Sunday
         firstEventDate = firstEventDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
-        log.info("1 getFirstEventDates isEventPeriod {} firstEventDate {}", isEventPeriod, firstEventDate);
-
         // Adjust the event date based on the bi-weekly interval
         while (firstEventDate.isBefore(targetPeriodStart)) {
             firstEventDate = firstEventDate.plusWeeks(intervalByWeeks);
-            log.info("2 looping isEventPeriod {} firstEventDate {}", isEventPeriod, firstEventDate);
 
             isEventPeriod = !isEventPeriod;
         }
 
         LocalDate eventPeriodSunday = firstEventDate;
         LocalDate eventPeriodSaturday = eventPeriodSunday.plusWeeks(intervalByWeeks).with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY));
-        log.info("3 isEventPeriod {} firstEventDate {} firstEventPeriodSunday {} eventPeriodSaturday {}",
-                isEventPeriod, firstEventDate, eventPeriodSunday, eventPeriodSaturday);
+
         if (!isEventPeriod && firstEventDate.isAfter(targetPeriodStart)) {
             firstEventDate = targetPeriodStart;
             eventPeriodSunday = eventPeriodSunday.minusWeeks(intervalByWeeks).with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
             eventPeriodSaturday = eventPeriodSunday.plusWeeks(intervalByWeeks).with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY));
         }
-        log.info("final isEventPeriod {} firstEventDate {} firstEventPeriodSunday {} eventPeriodSaturday {}",
-                isEventPeriod, firstEventDate, eventPeriodSunday, eventPeriodSaturday);
 
         if (eventPeriodSaturday.isAfter(lastEventDate)) {
             eventPeriodSaturday = lastEventDate;
