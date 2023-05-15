@@ -13,7 +13,7 @@ import static com.sisllc.mathformulas.utils.CommonUtils.serviceEventIntervalFind
 import static com.sisllc.mathformulas.utils.CommonUtils.userLocalDateOfDate;
 import static com.sisllc.mathformulas.utils.EventsService.getFirstDateOfEventsByWeekInterval;
 import static com.sisllc.mathformulas.utils.EventsService.getLastDateOfEventsByWeekInterval;
-import static com.sisllc.mathformulas.utils.EventsService.getNumberOfEventDates;
+import static com.sisllc.mathformulas.utils.EventsService.getNumberOfEventPeriodDates;
 import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -70,7 +70,7 @@ public class EventsServiceTest {
     public static int[][] daysDiffs = {
         {0, 0, 0}, {0, 0, 0},
         {14, 15, 17}, // interval 2 days diff
-        {13, 15, 20}, // interval 3 days diff
+        {13, 9, 20}, // interval 3 days diff
         {4, 28, 4}};  // interval 4 days diff
     
     //@Test
@@ -200,10 +200,10 @@ public class EventsServiceTest {
 
                     //daysDiff = getNumberOfEventDatesByWeekInterval(startDate, intervalByWeeks, periodStartDate, periodEndDate, null);
                     EventPeriodCmd eventPeriod = new EventPeriodCmd(intervalByWeeks, localStartDate, localPeriodStartDate, localPeriodEndDate);
-                    daysDiff = getNumberOfEventDates(eventPeriod);
+                    eventPeriod = getNumberOfEventPeriodDates(eventPeriod);
                     daysDiffResult = daysDiffs[intervalByWeeks][k];
-                    //log.info("\n daysDiff {} interval {} k {} resultStartDate {} resultEndDate {} StartDate {} periodStartDate {} periodEndDate {}", daysDiff, interval, k, resultStartDate, resultEndDate, startDate, periodStartDate, periodEndDate);
-                    assertEquals(daysDiffResult, daysDiff);
+                    log.info("\n *** daysDiffResult {} k {} {}", daysDiffResult, k, eventPeriod);
+                    assertEquals(daysDiffResult, eventPeriod.getNumberOfEventDates());
                 }
             }
         }

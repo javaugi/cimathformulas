@@ -23,7 +23,8 @@ import org.slf4j.LoggerFactory;
 public class EventPeriodCmd {
     private static final Logger log = LoggerFactory.getLogger(EventPeriodCmd.class);
 
-    int intervalByWeeks;
+    int intervalByWeeks = 0;
+    int numberOfEventDates = 0;
     LocalDate initialStartDate;
     LocalDate targetPeriodStart;
     LocalDate targetPeriodEnd;
@@ -31,7 +32,8 @@ public class EventPeriodCmd {
 
     LocalDate firstEventDate;
     LocalDate lastEventDate;
-    LocalDate firstEventPeriodSunday;
+    LocalDate eventPeriodSunday;
+    LocalDate eventPeriodSaturday;
 
     public EventPeriodCmd(int intervalByWeeks, LocalDate initialStartDate, LocalDate targetPeriodStart, LocalDate targetPeriodEnd) {
         this(intervalByWeeks, initialStartDate, targetPeriodStart, targetPeriodEnd, null);
@@ -58,6 +60,14 @@ public class EventPeriodCmd {
 
     private static LocalDate userLocalDateOfDate(Date date) {
         return (date == null) ? null : date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    public int getNumberOfEventDates() {
+        return numberOfEventDates;
+    }
+
+    public void setNumberOfEventDates(int numberOfEventDates) {
+        this.numberOfEventDates = numberOfEventDates;
     }
 
     public int getIntervalByWeeks() {
@@ -116,26 +126,36 @@ public class EventPeriodCmd {
         this.lastEventDate = lastEventDate;
     }
 
-    public LocalDate getFirstEventPeriodSunday() {
-        return firstEventPeriodSunday;
+    public LocalDate getEventPeriodSunday() {
+        return eventPeriodSunday;
     }
 
-    public void setFirstEventPeriodSunday(LocalDate firstEventPeriodSunday) {
-        this.firstEventPeriodSunday = firstEventPeriodSunday;
+    public void setEventPeriodSunday(LocalDate eventPeriodSunday) {
+        this.eventPeriodSunday = eventPeriodSunday;
+    }
+
+    public LocalDate getEventPeriodSaturday() {
+        return eventPeriodSaturday;
+    }
+
+    public void setEventPeriodSaturday(LocalDate eventPeriodSaturday) {
+        this.eventPeriodSaturday = eventPeriodSaturday;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n EventPeriodCmd{");
-        sb.append("intervalByWeeks=").append(intervalByWeeks);
+        sb.append("numberOfEventDates=").append(numberOfEventDates);
+        sb.append(", intervalByWeeks=").append(intervalByWeeks);
         sb.append(", initialStartDate=").append(initialStartDate);
         sb.append(", targetPeriodStart=").append(targetPeriodStart);
         sb.append(", targetPeriodEnd=").append(targetPeriodEnd);
         sb.append(", targetPeriodUntil=").append(targetPeriodUntil);
         sb.append(", firstEventDate=").append(firstEventDate);
         sb.append(", lastEventDate=").append(lastEventDate);
-        sb.append(", firstEventPeriodSunday=").append(firstEventPeriodSunday);
+        sb.append(", eventPeriodSunday=").append(eventPeriodSunday);
+        sb.append(", eventPeriodSaturday=").append(eventPeriodSaturday);
         sb.append('}');
         return sb.toString();
     }
