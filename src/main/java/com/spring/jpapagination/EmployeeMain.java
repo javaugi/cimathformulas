@@ -5,6 +5,8 @@
 package com.spring.jpapagination;
 
 import javax.persistence.EntityManagerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -15,11 +17,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * $LastChangedBy
  */
 public class EmployeeMain {
+    private static final Logger log = LoggerFactory.getLogger(EmployeeMain.class);
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context
                 = new AnnotationConfigApplicationContext(AppConfig.class);
 
+        log.debug("EmployeeMain starts ...");
+        log.debug("Contains employee  {}", context.containsBeanDefinition("employee"));
         System.out.println("Contains employee  " + context.containsBeanDefinition("employee"));
         System.out.println("Contains EmployeeClient  " + context.containsBeanDefinition("employeeClient"));
 
@@ -27,6 +32,6 @@ public class EmployeeMain {
         exampleClient.run();
         EntityManagerFactory emf = context.getBean(EntityManagerFactory.class);
         emf.close();
-
+        log.debug("EmployeeMain done");
     }
 }
