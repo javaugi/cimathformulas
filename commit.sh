@@ -1,1 +1,1 @@
-git push https://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@github.com/javaugi/cimathformulas.git
+git push https://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@github.com/javaugi/cimathformulas.git
