@@ -8,7 +8,7 @@
     <artifactId>cimathformulas</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>patterns-formulars</name>
+    <name>cimathformulas</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
