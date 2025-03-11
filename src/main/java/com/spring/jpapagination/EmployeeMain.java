@@ -20,6 +20,11 @@ public class EmployeeMain {
     private static final Logger log = LoggerFactory.getLogger(EmployeeMain.class);
 
     public static void main(String[] args) {
+        EmployeeMain main = new EmployeeMain();
+        main.run();
+    }
+    
+    private void run() {
         AnnotationConfigApplicationContext context
                 = new AnnotationConfigApplicationContext(AppConfig.class);
 
