@@ -2,6 +2,8 @@ package com.sisllc.mathformulas.ci.lib;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,27 +128,27 @@ public class AssortedMethods {
     }
 
     public static void printMatrix(int[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] < 10 && matrix[i][j] > -10) {
+        for (int[] matrix1 : matrix) {
+            for (int j = 0; j < matrix1.length; j++) {
+                if (matrix1[j] < 10 && matrix1[j] > -10) {
                     System.out.print(" ");
                 }
-                if (matrix[i][j] < 100 && matrix[i][j] > -100) {
+                if (matrix1[j] < 100 && matrix1[j] > -100) {
                     System.out.print(" ");
                 }
-                if (matrix[i][j] >= 0) {
+                if (matrix1[j] >= 0) {
                     System.out.print(" ");
                 }
-                System.out.print(" " + matrix[i][j]);
+                System.out.print(" " + matrix1[j]);
             }
             System.out.println();
         }
     }
 
     public static void printMatrix(boolean[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j]) {
+        for (boolean[] matrix1 : matrix) {
+            for (int j = 0; j < matrix1.length; j++) {
+                if (matrix1[j]) {
                     System.out.print("1");
                 } else {
                     System.out.print("0");
@@ -208,7 +210,7 @@ public class AssortedMethods {
     public static TreeNode createTreeFromArray(int[] array) {
         if (array.length > 0) {
             TreeNode root = new TreeNode(array[0]);
-            java.util.Queue<TreeNode> queue = new java.util.LinkedList<TreeNode>();
+            Queue<TreeNode> queue = new LinkedList<>();
             queue.add(root);
             boolean done = false;
             int i = 1;
