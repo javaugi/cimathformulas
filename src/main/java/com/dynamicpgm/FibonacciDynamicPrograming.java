@@ -7,7 +7,6 @@
  */
 package com.dynamicpgm;
 
-import com.fibonacci.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,13 +108,15 @@ public class FibonacciDynamicPrograming {
 
     public static void main(String[] args) {
         FibonacciDynamicPrograming fib = new FibonacciDynamicPrograming();
+        System.out.println("    Calling fib.printFib1(8) ");
         fib.printFib1(8);
-        System.out.println("\n ");
+        System.out.println("\n  Calling fib.printFib2(8) ");
         fib.printFib2(8);
-        System.out.println("\n ");
+        System.out.println("\n  Calling fib2(8) ");
         fib2(8);
-        System.out.println("\n ");
+        System.out.println("\n  Calling fib.printFib3(8) ");
         System.out.println(fib.printFib3(8));
+        System.out.println("    Done");
     }
 
     private void printFib1(int n) {
@@ -132,7 +133,7 @@ public class FibonacciDynamicPrograming {
         StringBuilder sb = new StringBuilder();
         // for (int i = 0; i <= n; i++) {
         for (int i = 0; i <= n; i++) {
-            System.out.println(fib(i) + ", ");
+            System.out.print(fib(i) + ", ");
         }
     }
 

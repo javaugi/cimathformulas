@@ -2,7 +2,7 @@ package com.fibonacci;
 
 public class Fibonacci {
 
-    public static int fibonacci(int i) {
+    public static long fibonacci(int i) {
         if (i <= 1) {
             return i;
         }

@@ -4,8 +4,6 @@
  */
 package com.enumusage;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
