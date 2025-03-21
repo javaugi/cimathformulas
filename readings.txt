@@ -33,3 +33,6 @@ Higher-Order Components (HOC) pattern
 Add .env to react.js project and run the following after the .env file is created
   npm install --save-dev dotenv
   https://medium.com/@trekinbami/using-environment-variables-in-react-6b0a99d83cf5
+Run maven using cli
+  mvn clean install
+  mvn spring-boot:run

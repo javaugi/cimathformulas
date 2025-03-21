@@ -39,6 +39,12 @@ public class UserController {
         return "editUsers";
     }
 
+    @GetMapping("/editUsers")
+    public String editUser(Locale locale, Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "editUsers";
+    }
+
     @ModelAttribute("user")
     public User formBackingObject() {
         return new User();

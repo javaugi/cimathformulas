@@ -4,8 +4,10 @@
  */
 package com.spring5.repository;
 
-import com.spring5.entity.Product;
-import com.spring5.service.ProductServiceImpl;
+import com.abc.utils.IterableToList;
+import com.spring5.dao.UserDao;
+import com.spring5.entity.User;
+import com.spring5.service.UserServiceImp;
 import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import org.junit.Test;
@@ -22,17 +24,15 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
  *
  * @author javaugi
  */
-//@RunWith(MockitoJUnitRunner.class)
 @ExtendWith(MockitoExtension.class)
 @DataJpaTest
-//@SpringBootTest
-public class ProductServiceTest {
+public class UserServiceTest {
     @Mock
-    private ProductRepository productRepo;
+    private UserDao userDao;
     
     //When using Mockito Use @InjectMocks to inject Mocked beans to following class
     @InjectMocks
-    private ProductServiceImpl productService;
+    private UserServiceImp userService;
     
     @BeforeEach
     public void setup() {
@@ -44,19 +44,19 @@ public class ProductServiceTest {
     }
 
     //@Test
-    public void testGetAllProducts() {
+    public void testGetAllUsers() {
         //given
         long id = 1;
         long id2 = 2;
-        Product product = new Product(id, "Soap");
-        Product product2 = new Product(id2, "Mirror");
+        User user = new User(id, "John Smith", "jsmith@email.com");
+        User user2 = new User(id2, "Kevin Hart", "khart@email.com");
         //When
-        given(this.productRepo.findAll())
-                .willReturn(List.of(product, product2));
-        List<Product> productList = productService.findAll();
+        given(this.userDao.findAll())
+                .willReturn(List.of(user, user2));
+        List<User> userList = IterableToList.iterableToList(userService.findAll());
         //Then
         //Make sure to import assertThat From org.assertj.core.api package
-        assertThat(productList).isNotNull();
-        assertThat(productList.size()).isEqualTo(2);
-    }
+        assertThat(userList).isNotNull();
+        assertThat(userList.size()).isEqualTo(2);
+    }    
 }

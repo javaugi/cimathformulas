@@ -16,14 +16,16 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+/*
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableTransactionManagement
 @ComponentScan
 @Configuration
+// */
 public class AppConfig {
 
+    /*
     public static void main(String[] args) {
         SpringApplication.run(AppConfig.class, args);
     }
@@ -42,4 +44,5 @@ public class AppConfig {
         txManager.setEntityManagerFactory(entityManagerFactory);
         return txManager;
     }
+    // */
 }
