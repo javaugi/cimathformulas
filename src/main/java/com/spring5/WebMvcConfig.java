@@ -22,7 +22,19 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.spring5"})
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    /*
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
     
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+       registry.jsp("/WEB-INF/views/", ".jsp");
+    }
+    // */
+
     @Bean
     public InternalResourceViewResolver resolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -54,6 +66,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         // Register resource handler for images
         registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/images/")
+                .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+
+        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/")
+                .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+
+        registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/js/")
+                .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+
+        registry.addResourceHandler("/tags/**").addResourceLocations("/WEB-INF/tags/")
                 .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
     }
 

@@ -33,11 +33,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /*
     @GetMapping("/")
     public String userForm(Locale locale, Model model) {
         model.addAttribute("users", userService.findAll());
         return "editUsers";
     }
+    // */
 
     @GetMapping("/editUsers")
     public String editUser(Locale locale, Model model) {
