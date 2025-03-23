@@ -24,7 +24,7 @@
         <project.encoding>UTF-8</project.encoding>
 
         <log4jVerson>1.2.17</log4jVerson>
-        <slf4jVersion>1.7.25</slf4jVersion>
+        <slf4jVersion>2.0.16</slf4jVersion>
         <rxjava2.verson>2.0.0</rxjava2.verson>
         <commons-parent.version>52</commons-parent.version>
         <opencsv.version>5.5.1</opencsv.version>
@@ -62,6 +62,7 @@
         
         <c3p0.version>0.9.5.3</c3p0.version>        
         <hibernate.validator>8.0.2.Final</hibernate.validator>
+        <hibernate.validator.version>6.6.8.Final</hibernate.validator.version>
     </properties>
 
     <dependencies>
@@ -253,15 +254,18 @@
           <type>pom</type>
         </dependency>
         <dependency>
-          <groupId>org.hibernate</groupId>
+          <groupId>org.hibernate.orm</groupId>
           <artifactId>hibernate-entitymanager</artifactId>
           <version>6.0.0.Alpha7</version>
           <type>pom</type>
         </dependency>         
         <dependency>
-          <groupId>org.hibernate</groupId>
+          <groupId>org.hibernate.orm</groupId>
           <artifactId>hibernate-hikaricp</artifactId>
+          <!--
           <version>6.0.0.CR1</version>
+          -->
+            <version>${hibernate.validator.version}</version>
           <type>pom</type>
         </dependency>         
         <dependency>
@@ -277,9 +281,9 @@
           <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.validator}</version>
+<!--            <version>${hibernate.validator}</version>-->
         </dependency>         
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -331,31 +335,6 @@
           <version>1.2</version>
         </dependency>
         -->
-
-        <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.tomcat.embed</groupId>
-          <artifactId>tomcat-embed-jasper</artifactId>
-          <scope>provided</scope>
-        </dependency>
 
        <dependency>
             <groupId>taglibs</groupId>
@@ -438,7 +417,7 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
+            <artifactId>slf4j-reload4j</artifactId>
         </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>
@@ -469,11 +448,18 @@
             <artifactId>commons-text</artifactId>
             <version>${commons-text.version}</version>
         </dependency>
+        <!--
         <dependency>
         <groupId>org.apache.commons</groupId>
           <artifactId>commons-io</artifactId>
           <version>${commons-io.version}</version>
         </dependency>
+        -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.18.0</version>
+        </dependency>        
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>org.json</artifactId>
@@ -626,6 +612,12 @@
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.10.1</version>
+                    <configuration>
+                        <compilerArgs>
+                          <arg>-Xlint:-unchecked</arg>
+                          <arg>-Xlint:-deprecation</arg>
+                        </compilerArgs>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>

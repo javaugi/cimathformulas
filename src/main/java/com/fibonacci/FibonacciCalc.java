@@ -2,15 +2,26 @@ package com.fibonacci;
 
 import java.math.BigInteger;
 
-public class FibonacciFB {
+public class FibonacciCalc {
 
+    /*
+    Compiling 23 source files to E:\springtutorial\cimathformulas\target\test-classes
+    /E:/springtutorial/cimathformulas/src/test/java/com/spring5/repository/ContactRepositoryTest.java: 
+        E:\springtutorial\cimathformulas\src\test\java\com\spring5\repository\ContactRepositoryTest.java uses or overrides a deprecated API.
+    /E:/springtutorial/cimathformulas/src/test/java/com/spring5/repository/ContactRepositoryTest.java: 
+        Recompile with -Xlint:deprecation for details.
+    /E:/springtutorial/cimathformulas/src/test/java/com/sisllc/mathformulas/utils/PhoneNumberExtensionTest.java: 
+        Some input files use unchecked or unsafe operations.
+    /E:/springtutorial/cimathformulas/src/test/java/com/sisllc/mathformulas/utils/PhoneNumberExtensionTest.java: 
+        Recompile with -Xlint:unchecked for details.    
+    // */
     public static int max = 100; // Make this as big as you want! (Though you'll exceed the bounds of a long around 46)
     public static int[] fib = new int[max];
 
     public static int fibonacci(int i) {
-        //if (i < 0) {
-        //    throw new IllegalArgumentException("Input must be non-negative");
-        //}
+        if (i < 0) {
+            throw new IllegalArgumentException("Input must be non-negative");
+        }
         
         if (i <= 1) {
             return i;
@@ -39,13 +50,13 @@ public class FibonacciFB {
     // */
     
     public static BigInteger fibonacci2(int i) {
-        //if (i < 0) {
-        //    throw new IllegalArgumentException("Input must be non-negative");
-        //}
+        if (i < 0) {
+            throw new IllegalArgumentException("Input must be non-negative");
+        }
         if (i <= 1) {
             return BigInteger.valueOf(i);
         }
-        return BigInteger.valueOf(fibonacci(i - 1) + fibonacci(i - 2));
+        return fibonacci2(i - 1).add(fibonacci2(i - 2));
     }    
 
     /**
@@ -53,7 +64,7 @@ public class FibonacciFB {
      */
     public static void main(String[] args) {
         
-        FibonacciFB f = new FibonacciFB();
+        FibonacciCalc f = new FibonacciCalc();
         f.run1();
         //f.run2();
     }
