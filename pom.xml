@@ -77,9 +77,20 @@
         </dependency>
         <dependency>
             <groupId>com.mchange</groupId>
+            <artifactId>mchange-commons-java</artifactId>
+            <version>0.2.15</version>
+        </dependency>        
+        <dependency>
+            <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>${c3p0.version}</version>
         </dependency>
+        <!--
+        java.nio.file.NoSuchFileException: C:\Users\javaugi\.m2\repository\com\mchange\c3p0\0.9.5.3\mchange-commons-java-0.2.15.jar
+        add the following to the application.properties to prevent startup error but got running error
+        server.tomcat.additional-tld-skip-patterns=*.jar
+        -->        
+        
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -182,6 +193,19 @@
             <scope>test</scope>
         </dependency>
 
+       <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+        </dependency>        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -192,6 +216,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-jasper</artifactId>
+          <scope>provided</scope>
+        </dependency>        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
@@ -290,11 +319,19 @@
         -->
 
         <!-- JSTL Dependency -->
+        <!--
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>javax.servlet.jsp.jstl-api</artifactId>
             <version>${jstl.version}</version>
         </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <version>1.2</version>
+        </dependency>
+        -->
+
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
@@ -302,29 +339,41 @@
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-        </dependency>        
-
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-jasper</artifactId>
+          <scope>provided</scope>
+        </dependency>
+
+       <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>${tld.version}</version>
         </dependency>
-
-        <!-- Servlet Dependency -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId> 
             <version>4.0.1</version>
         </dependency>
-
-        <!-- JSP Dependency -->
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
             <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
-
+        
         <!-- JUnit Jupiter dependencies -->
         <!-- Test dependencies -->
         <!--
@@ -561,7 +610,7 @@
 
     <build>
         <defaultGoal>install</defaultGoal>
-        <finalName>mathformulas</finalName>
+        <finalName>cimathformulas</finalName>
         <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
         <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
         <pluginManagement>
