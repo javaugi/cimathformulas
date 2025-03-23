@@ -37,14 +37,14 @@ public class DomainUtils {
 
     public static PhoneNumberExtensionVO extractUsPhoneExtension(String phoneNumberExtension) {
         PhoneNumberExtensionVO phoneNumberExtensionVO = new PhoneNumberExtensionVO();
-        // see PhoneFormatExtensionTest for example phone number with extensions from the CTS.VENDORVIEW_USERS.PHONE_NUMBER
+        // see PhoneFormatExtensionTest for example phone number with extensions
         phoneNumberExtensionVO.setOriginalPhoneExtension(phoneNumberExtension);
         if (StringUtils.isBlank(phoneNumberExtension)) {
             phoneNumberExtensionVO.setValid(false);
             return phoneNumberExtensionVO;
         }
 
-        //trim and remove country code
+        // trim and remove country code
         phoneNumberExtension = phoneNumberExtension.trim();
         phoneNumberExtension = phoneNumberExtension.replaceAll("^1-", "");
         phoneNumberExtension = phoneNumberExtension.replaceAll("^1 ", "");
@@ -62,7 +62,8 @@ public class DomainUtils {
 
         String phoneNumber = phoneExtentionNumber.substring(0, 9);
         String formattedPhone = phoneNumberToUSFormat(phoneExtentionNumber.substring(0, 10));
-        //System.out.println("phoneNumber=" + phoneNumber + "-formattedPhone=" + formattedPhone);
+        // System.out.println("phoneNumber=" + phoneNumber + "-formattedPhone=" +
+        // formattedPhone);
         phoneNumberExtensionVO.setPhoneNumber(phoneNumber);
         phoneNumberExtensionVO.setFormattedPhoneNumber(formattedPhone);
 
@@ -73,14 +74,14 @@ public class DomainUtils {
         return phoneNumberExtensionVO;
     }
 
-    public static String join(Collection collection, String separator) {
+    public static String join(Collection<String> collection, String separator) {
         if (collection == null) {
             return null;
         }
         return join(collection.iterator(), separator);
     }
 
-    public static String join(Iterator iterator, String separator) {
+    public static String join(Iterator<String> iterator, String separator) {
 
         // handle null, zero and one elements before building a buffer
         if (iterator == null) {
@@ -95,7 +96,7 @@ public class DomainUtils {
         }
 
         // two or more elements
-        StringBuffer buf = new StringBuffer(256);
+        StringBuilder buf = new StringBuilder(256);
         if (first != null) {
             buf.append(first);
         }
@@ -148,7 +149,8 @@ public class DomainUtils {
         }
 
         if (addressPoBoxVO.isPoBoxFound() && address.length() != addressPoBoxVO.length()) {
-            log.info("stringToSearch {} length {} \n return length {} return value {}", address, address.length(), addressPoBoxVO.length(), addressPoBoxVO);
+            log.info("stringToSearch {} length {} \n return length {} return value {}", address, address.length(),
+                    addressPoBoxVO.length(), addressPoBoxVO);
         }
         return addressPoBoxVO;
     }

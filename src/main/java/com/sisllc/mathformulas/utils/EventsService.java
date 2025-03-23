@@ -35,7 +35,7 @@ public class EventsService {
         Pattern pattern = Pattern.compile(REC_RULES_INTERVAL_PATTERN);
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()) {
-            return new Integer(matcher.group(1));
+            return Integer.valueOf(matcher.group(1));
         }
 
         return 1;

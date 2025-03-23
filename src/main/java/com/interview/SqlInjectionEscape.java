@@ -21,7 +21,7 @@ public class SqlInjectionEscape {
 
     private static final Logger log = LoggerFactory.getLogger(SqlInjectionEscape.class);
 
-    private static final class ESCAPE_MAP_CLASS extends HashMap {
+    public static final class ESCAPE_MAP_CLASS extends HashMap {
 
         public ESCAPE_MAP_CLASS() {
             super.put("[a-zA-Z0-9_!@#$%^&*()-=+~.;:,\\Q[\\E\\Q]\\E<>{}\\/? ]", "");

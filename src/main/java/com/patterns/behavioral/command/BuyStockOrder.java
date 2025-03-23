@@ -7,9 +7,6 @@
  */
 package com.patterns.behavioral.command;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  *
  *
@@ -25,6 +22,7 @@ public class BuyStockOrder implements OrderCommand {
         this.abcStock = abcStock;
     }
 
+    @Override
     public void execute() {
         abcStock.buy();
     }

@@ -4,6 +4,11 @@
  */
 package com.fibonacci;
 
+import static com.fibonacci.FibonacciCalc.fib;
+import static com.fibonacci.FibonacciCalc.fibonacci;
+import static com.fibonacci.FibonacciCalc.max;
+import java.math.BigInteger;
+
 /**
  *
  * @author javaugi
@@ -124,5 +129,26 @@ public class FibonacciCalculator {
         System.out.println("Fibonacci Recursive (" + n + "): " + fibonacciRecursive(n));
         System.out.println("Fibonacci Iterative with Array (" + n + "): " + fibonacciIterativeWithArray(n));
         System.out.println("Fibonacci Memoization (" + n + "): " + fibonacciMemoizationWrapper(n));
+        System.out.println("Fibonacci Recursive (" + n + "): \n" + printFib(n));
     }    
+    
+    public static String printFib(int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= n; i++) {
+            sb.append(fibonacci2(i));
+            sb.append(", ");
+        }
+
+        return sb.toString().trim();
+    }    
+    
+    public static BigInteger fibonacci2(int i) {
+        if (i < 0) {
+            throw new IllegalArgumentException("Input must be non-negative");
+        }
+        if (i <= 1) {
+            return BigInteger.valueOf(i);
+        }
+        return fibonacci2(i - 1).add(fibonacci2(i - 2));
+    }   
 }
