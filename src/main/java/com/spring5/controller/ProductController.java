@@ -73,7 +73,7 @@ public class ProductController {
     }    
 
     //*
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index(HttpServletRequest request, ModelMap modelMap) {
         LOG.info("index page");
         return "index";

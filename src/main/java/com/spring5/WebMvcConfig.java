@@ -12,6 +12,7 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -34,6 +35,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
        registry.jsp("/WEB-INF/views/", ".jsp");
     }
     // */
+    
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+        registry.addMapping("/h2-console/**");
+    }    
 
     @Bean
     public InternalResourceViewResolver resolver() {

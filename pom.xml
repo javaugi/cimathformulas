@@ -55,7 +55,7 @@
         <log4jVerson>1.2.17</log4jVerson>
         <slf4jVersion>1.7.25</slf4jVersion>
         <groovy-all.version>2.4.10</groovy-all.version>
-        <h2.version>1.4.198</h2.version>
+        <h2.version>2.3.232</h2.version>
 
         <joda-time.version>2.10.6</joda-time.version>
         <javax.soap-api.version>1.4.0</javax.soap-api.version>
@@ -66,6 +66,22 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.codemonstur</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>1.4.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.ozimov</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+       
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
@@ -95,13 +111,11 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2-mvstore</artifactId>
             <version>${h2.version}</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.hsqldb</groupId>
@@ -116,7 +130,7 @@
 
         
         <!--
-	<dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
@@ -159,7 +173,7 @@
             <version>5.6.15.Final</version>
         </dependency>
         
-       <!-- Hibernate-C3P0 Integration -->
+        <!-- Hibernate-C3P0 Integration -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId> 
@@ -194,7 +208,7 @@
             <scope>test</scope>
         </dependency>
 
-       <dependency>
+        <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
         </dependency>
@@ -218,9 +232,9 @@
             </exclusions>
         </dependency>
         <dependency>
-          <groupId>org.apache.tomcat.embed</groupId>
-          <artifactId>tomcat-embed-jasper</artifactId>
-          <scope>provided</scope>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
         </dependency>        
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -242,48 +256,48 @@
         </dependency>   
         
         <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-tools-parent</artifactId>
-          <version>5.6.2.Final</version>
-          <type>pom</type>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-tools-parent</artifactId>
+            <version>5.6.2.Final</version>
+            <type>pom</type>
         </dependency>
         <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-jpamodelgen</artifactId>
-          <version>5.6.5.Final</version>
-          <type>pom</type>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.6.5.Final</version>
+            <type>pom</type>
         </dependency>
         <dependency>
-          <groupId>org.hibernate.orm</groupId>
-          <artifactId>hibernate-entitymanager</artifactId>
-          <version>6.0.0.Alpha7</version>
-          <type>pom</type>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>6.0.0.Alpha7</version>
+            <type>pom</type>
         </dependency>         
         <dependency>
-          <groupId>org.hibernate.orm</groupId>
-          <artifactId>hibernate-hikaricp</artifactId>
-          <!--
-          <version>6.0.0.CR1</version>
-          -->
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-hikaricp</artifactId>
+            <!--
+            <version>6.0.0.CR1</version>
+            -->
             <version>${hibernate.validator.version}</version>
-          <type>pom</type>
+            <type>pom</type>
         </dependency>         
         <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-search-parent</artifactId>
-          <version>5.11.10.Final</version>
-          <type>pom</type>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search-parent</artifactId>
+            <version>5.11.10.Final</version>
+            <type>pom</type>
         </dependency>
         <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator-parent</artifactId>
-          <version>5.4.3.Final</version>
-          <type>pom</type>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator-parent</artifactId>
+            <version>5.4.3.Final</version>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-<!--            <version>${hibernate.validator}</version>-->
+            <!--            <version>${hibernate.validator}</version>-->
         </dependency>         
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -313,6 +327,10 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
 
         <!--
         <dependency>
@@ -336,7 +354,7 @@
         </dependency>
         -->
 
-       <dependency>
+        <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>${tld.version}</version>
@@ -434,10 +452,10 @@
             <version>4.5.14</version>
         </dependency>
         <dependency>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-parent</artifactId>
-          <version>${commons-parent.version}</version>
-          <type>pom</type>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-parent</artifactId>
+            <version>${commons-parent.version}</version>
+            <type>pom</type>
         </dependency>        
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -614,8 +632,8 @@
                     <version>3.10.1</version>
                     <configuration>
                         <compilerArgs>
-                          <arg>-Xlint:-unchecked</arg>
-                          <arg>-Xlint:-deprecation</arg>
+                            <arg>-Xlint:-unchecked</arg>
+                            <arg>-Xlint:-deprecation</arg>
                         </compilerArgs>
                     </configuration>
                 </plugin>
@@ -635,7 +653,7 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>3.4.3</version>
-                  </plugin>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
