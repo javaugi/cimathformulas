@@ -47,14 +47,14 @@ public class ProductRestController {
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
 
-        /*
+        //*
         if (productOptional.isPresent()) {
-            return ResponseEntity.ok(productOptional.orElse(null));
+            return ResponseEntity.ok(productOptional.get());
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found if the product doesn't exist
         }
         // */
-        return ResponseEntity.ok(productOptional.orElse(null));
+        //return ResponseEntity.ok(productOptional.orElse(null));
     }
     
     @GetMapping("/restProducts")
@@ -94,12 +94,16 @@ public class ProductRestController {
     @DeleteMapping
     public ResponseEntity<Void> deleteProduct(org.springframework.http.RequestEntity<Product> request) {  
         Optional<Product> productOptional = Optional.empty();
-        if (request.getBody() != null && request.getBody().getId() > 0) {
-            productOptional = productRepository.findById(request.getBody().getId());
+        long id = 0;
+        if (request.getBody() != null) {
+            id = request.getBody().getId();            
+        }        
+        if (id > 0) {
+            productOptional = productRepository.findById(id);
         }
         
-        if (productOptional.isPresent()) {
-            productRepository.deleteById(request.getBody().getId()); // Use deleteById for deleting by ID
+        if (id > 0 && productOptional.isPresent()) {
+            productRepository.deleteById(id); // Use deleteById for deleting by ID
             return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 No Content for successful deletion
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found if the product doesn't exist
