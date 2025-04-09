@@ -65,15 +65,26 @@ public class FibonacciCalc {
     public static void main(String[] args) {
         
         FibonacciCalc f = new FibonacciCalc();
-        f.run1();
+        f.runFibonacciBigInteger();
+        //f.run1();
         //f.run2();
+    }
+    
+    private void runFibonacciBigInteger() {
+        // What is the rule for the Fibonacci sequence?
+        // What Is the Fibonacci Sequence and How It Applies to Agile
+        // The rule for the Fibonacci sequence is that each number is the sum of the two preceding numbers, starting with 0 and 1. 
+        int calcNumber = 10;
+        for (int i = 0; i < calcNumber; i++) {
+            System.out.print(" " + fibonacci2(i));
+        }
     }
     
     private void run1() {
         int trials = 10; // Run code multiple times to compute average time.
         double[] times = new double[max]; // Store times
 
-        for (int j = 1; j < trials; j++) { // Run this 10 times to compute
+        for (int j = 0; j < trials; j++) { // Run this 10 times to compute
             for (int i = 1; i < max; i++) {
                 fib = new int[max];
                 long start = System.currentTimeMillis();
@@ -84,7 +95,7 @@ public class FibonacciCalc {
             }
         }
 
-        for (int j = 1; j < max; j++) {
+        for (int j = 0; j < max; j++) {
             System.out.println(j + ": " + times[j] / trials + "ms");
         }
     }
@@ -93,8 +104,8 @@ public class FibonacciCalc {
         int trials = 12; // Run code multiple times to compute average time.
         double[] times = new double[max]; // Store times
 
-        for (int j = 1; j < trials; j++) { // Run this 10 times to compute
-            for (int i = 1; i < max; i++) {
+        for (int j = 0; j < trials; j++) { // Run this 10 times to compute
+            for (int i = 0; i < max; i++) {
                 fib = new int[max];
                 long start = System.currentTimeMillis();
                 fibonacci2(i);
@@ -104,7 +115,7 @@ public class FibonacciCalc {
             }
         }
 
-        for (int j = 1; j < max; j++) {
+        for (int j = 0; j < max; j++) {
             System.out.println(j + ": " + times[j] / trials + "ms");
         }
     }    

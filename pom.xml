@@ -13,13 +13,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.3</version>
+        <version>3.4.4</version>
         <relativePath />
         <!--  lookup parent from repository  -->
     </parent>
 
 
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.encoding>UTF-8</project.encoding>
 
@@ -127,15 +129,12 @@
             <version>8.0.20</version>
             <scope>runtime</scope>
         </dependency>
-
         
-        <!--
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
-        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -220,7 +219,11 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-        </dependency>        
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>         
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -382,9 +385,22 @@
         -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+<!--            <version>5.9.3</version>-->
+            <scope>test</scope>
+          </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
+<!--            <version>5.12.1</version>-->
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+<!--            <version>5.11.4</version>-->
+            <scope>test</scope>
+        </dependency>        
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -421,10 +437,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--
+        Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
+        -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -451,6 +470,18 @@
             <artifactId>httpclient</artifactId> 
             <version>4.5.14</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.core5</groupId>
+            <artifactId>httpcore5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5-fluent</artifactId>
+        </dependency>  
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-parent</artifactId>
@@ -613,7 +644,8 @@
     </dependencies>
 
     <build>
-        <defaultGoal>install</defaultGoal>
+<!--        <defaultGoal>install</defaultGoal>-->
+        <defaultGoal>spring-boot:run</defaultGoal>
         <finalName>cimathformulas</finalName>
         <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
         <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
@@ -658,6 +690,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.5.2</version>
+                    <configuration>
+                        <useModulePath>false</useModulePath>
+                    </configuration>
+                    <!--
+                    make @ParameterizedTest work
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.surefire</groupId>
@@ -665,6 +702,7 @@
                             <version>3.5.2</version>
                         </dependency>
                     </dependencies>
+                    -->
                 </plugin>
             </plugins>
         </pluginManagement>

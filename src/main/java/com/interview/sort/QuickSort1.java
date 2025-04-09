@@ -70,11 +70,8 @@ public class QuickSort1<T extends Comparable<T>> {
      * @param array the array
      */
     public void sort(T[] array) {
-        array = quicksort(array, 0, array.length - 1);
-    }
-
-    public void sort2(T[] array) {
-        array = quickSort(array, 0, array.length - 1);
+        T[] sortedArr = quicksort(array, 0, array.length - 1);
+        System.out.println("sort \n original array=" + Arrays.toString(array) + "\n sorted array=" + Arrays.toString(sortedArr));
     }
 
     /**
@@ -131,6 +128,11 @@ public class QuickSort1<T extends Comparable<T>> {
         array[j] = temp;
     }
 
+    public void sort2(T[] array) {
+        T[] sortedArr = quickSort(array, 0, array.length - 1);
+        System.out.println("sort2 \n original array=" + Arrays.toString(array) + "\n sorted array=" + Arrays.toString(sortedArr));
+    }
+    
     private T[] quickSort(T[] arr, int low, int high) {
         if (low < high) {
             /* pi is partitioning index, arr[pi] is now
@@ -146,7 +148,6 @@ public class QuickSort1<T extends Comparable<T>> {
     private int partition(T[] arr, int low, int high) {
         // pivot (Element to be placed at right position)
         T pivot = arr[high];
-
         int i = (low - 1); // Index of smaller element
 
         for (int j = low; j <= high - 1; j++) {
@@ -157,7 +158,9 @@ public class QuickSort1<T extends Comparable<T>> {
                 swap(arr, i, j);
             }
         }
-        swap(arr, i + 1, high);
-        return (i + 1);
+        
+        int returnValue = i + 1;
+        swap(arr, returnValue, high);
+        return returnValue;
     }
 }

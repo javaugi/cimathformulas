@@ -14,6 +14,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
@@ -22,10 +26,17 @@ import jakarta.persistence.GenerationType;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
+@Getter
+@Setter
+@ToString
+@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Entity
 @Table(name = "PRODUCT")
 public class Product {
     
+    //*
     public Product() {        
     }
 
@@ -33,6 +44,16 @@ public class Product {
         this.id = id;
         this.name = name;
     }
+    
+    public Product(long id, String name, BigDecimal price, int quantity, String description, boolean status) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+        this.status = status;
+    }
+    // */
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)

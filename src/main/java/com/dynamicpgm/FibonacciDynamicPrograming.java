@@ -7,6 +7,7 @@
  */
 package com.dynamicpgm;
 
+import java.math.BigInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,6 +111,7 @@ public class FibonacciDynamicPrograming {
         FibonacciDynamicPrograming fib = new FibonacciDynamicPrograming();
         System.out.println("    Calling fib.printFib1(8) ");
         fib.printFib1(8);
+        //*
         System.out.println("\n  Calling fib.printFib2(8) ");
         fib.printFib2(8);
         System.out.println("\n  Calling fib2(8) ");
@@ -117,15 +119,12 @@ public class FibonacciDynamicPrograming {
         System.out.println("\n  Calling fib.printFib3(8) ");
         System.out.println(fib.printFib3(8));
         System.out.println("    Done");
+        // */
     }
 
     private void printFib1(int n) {
         for (int i = 0; i <= n; i++) {
-            long total = 0;
-            for (int j = 1; j <= i; j++) {
-                total = fib(j);
-            }
-            System.out.print(total + ", ");
+            System.out.print(fib(i) + ", ");
         }
     }
 
@@ -140,17 +139,18 @@ public class FibonacciDynamicPrograming {
     public String printFib3(int n) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i <= n; i++) {
-            sb.append(fib(i) + ", ");
+            sb.append(fib(i));
+            sb.append(", ");
         }
 
         return sb.toString().trim();
     }
 
-    public long fib(int n) {
+    public BigInteger fib(int n) {
         if (n <= 1) {
-            return n;
+            return BigInteger.valueOf(n);
         }
-        return fib(n - 1) + fib(n - 2);
+        return fib(n - 1).add(fib(n - 2));
     }
 
     private static void fib2(int n) {

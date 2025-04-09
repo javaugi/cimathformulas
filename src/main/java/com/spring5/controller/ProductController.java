@@ -20,10 +20,12 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -70,8 +72,13 @@ public class ProductController {
         List<T> list = new ArrayList<>();
         iterable.forEach(list::add);
         return list;
-    }    
-
+    }  
+    
+    @GetMapping
+    public ResponseEntity<Collection<Product>> getAllProducts() {
+        return ResponseEntity.ok(productService.findAll());
+    }
+    
     //*
     @GetMapping("/index")
     public String index(HttpServletRequest request, ModelMap modelMap) {

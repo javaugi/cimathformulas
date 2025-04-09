@@ -1,15 +1,29 @@
 package com.spring5.entity;
 
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Entity
-@Table(name = "TBL_USERS")
+@Table(name = "USER")
+@Cacheable
 public class User {
     
+    //*
     public User() {
         
     }
@@ -19,10 +33,11 @@ public class User {
         this.name = name;
         this.email = email;
     }
+    // */
 
     @Id
-    @GeneratedValue
-    @Column(name = "USER_ID")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "USER_NAME")

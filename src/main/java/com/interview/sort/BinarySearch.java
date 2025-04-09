@@ -21,7 +21,7 @@ public class BinarySearch {
     }
 
     public static int binarySearchRecursive(int[] a, int x, int low, int high) {
-        if (low > high) {
+        if (a.length < 1 || low > high) {
             return -1; // Error
         }
         int mid = (low + high) / 2;

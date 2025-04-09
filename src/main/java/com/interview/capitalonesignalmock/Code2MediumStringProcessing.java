@@ -46,19 +46,25 @@ O(N) time, O(1) space (since map size ≤ 3).
     public int longestSubstringWithAtLeastTwoDistinctChars(String s) {
         Map<Character, Integer> map = new HashMap<>();
         int left = 0, maxLen = 0;
+        
         for (int right = 0; right < s.length(); right++) {
             char c = s.charAt(right);
             map.put(c, map.getOrDefault(c, 0) + 1);
-            while (map.size() > 2) {
-                char leftChar = s.charAt(left);
-                map.put(leftChar, map.get(leftChar) - 1);
-                if (map.get(leftChar) == 0) {
-                    map.remove(leftChar);
-                }
-                left++;
-            }
+            left = processMapReducer(map, s, left);
             maxLen = Math.max(maxLen, right - left + 1);
         }
         return maxLen;
+    }
+
+    private int processMapReducer(Map<Character, Integer> map, String s, int left) {
+        while (map.size() > 2) {
+            char leftChar = s.charAt(left);
+            map.put(leftChar, map.get(leftChar) - 1);
+            if (map.get(leftChar) == 0) {
+                map.remove(leftChar);
+            }
+            left++;
+        }
+        return left;
     }
 }

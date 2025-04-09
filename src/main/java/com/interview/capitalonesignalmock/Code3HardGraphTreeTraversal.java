@@ -58,6 +58,64 @@ Other DFS Traversal Types:
     Pre-Order: Visit the root, then the left subtree, then the right subtree. 
     In-Order: Visit the left subtree, then the root, then the right subtree
     
+    
+                A      
+            /       \    
+           B         C    
+         /   \       / \   
+        D     E     F   G    
+    ASummary of Traversal Orders
+    Pre-order: A, B, D, E, C, F, G
+    In-order: D, B, E, A, F, C, G
+    Post-order: D, E, B, F, G, C, A
+
+    Pre-order Traversal (Root, Left, Right) 
+    In pre-order traversal, you visit the root node first, then the left subtree, followed by the right subtree.
+    Traversal Order: A, B, D, E, C, F, G
+    
+    In-order Traversal (Left, Root, Right)
+    In in-order traversal, you visit the left subtree first, then the root node, and finally the right subtree.
+    Traversal Order: D, B, E, A, F, C, G    
+        
+    Post-order Traversal (Left, Right, Root)
+    In post-order traversal, you visit the left subtree first, then the right subtree, and finally the root node.
+    Traversal Order: D, E, B, F, G, C,     
+    
+    Different tree traversal methods provide various benefits and are suited for specific tasks in computer science. 
+    Here are some key benefits of using pre-order, in-order, and post-order traversals:1. 
+    
+    Pre-order Traversal
+    Structure Preservation: Pre-order traversal is useful for creating a copy of a tree or generating a prefix expression for expression trees.
+    It preserves the structure of the tree.
+    Node Processing: It allows processing the root node before its children, which is beneficial for tasks like serialization of trees.
+    Hierarchical Data Representation: Pre-order traversal is often used in scenarios where you need to represent hierarchical data, 
+    such as file systems or organizational charts.
+
+    2. In-order Traversal
+    Sorted Output for Binary Search Trees (BST): In-order traversal of a BST retrieves the nodes in sorted order. This is particularly 
+    useful for applications requiring sorted data without additional sorting algorithms.
+    Natural Ordering: It allows for the natural ordering of elements, making it useful for operations that depend on the order 
+    of elements, like range queries.
+    Evaluation of Expressions: In expression trees, in-order traversal can be used to produce infix expressions, which are easier to read and understand.
+
+    3. Post-order Traversal
+    Deletion and Cleanup: Post-order traversal is ideal for deleting nodes in a tree since it processes child nodes before the parent, 
+    ensuring that all dependencies are handled before the parent is deleted.
+    Evaluation of Expression Trees: In expression trees, post-order traversal allows for evaluating expressions where operands are 
+    processed before operators, which is crucial for correct computation.
+    Memory Management: It is useful in algorithms that require processing child nodes before their parent, such as garbage collection or memory deallocation.
+
+    General Benefits of Tree Traversal Methods
+
+    Flexibility: Different traversal methods provide flexibility in how tree data is processed, allowing developers to choose the most appropriate 
+    method based on the task.
+    Efficiency: Depending on the operation being performed, certain traversal methods may be more efficient, reducing the time complexity 
+    associated with tree operations.
+    Algorithm Design: Understanding traversal methods is essential for designing algorithms related to trees, such as searching, insertion, and deletion.
+
+    In summary, the choice of tree traversal method can significantly impact the efficiency and clarity of various algorithms and operations 
+    in computer science. Each method has its specific use cases and advantages, making them valuable tools in a programmer's toolkit.    
+    
      */
     int maxSum = Integer.MIN_VALUE;
 
@@ -67,19 +125,76 @@ Other DFS Traversal Types:
     }
     
     private void run() {
-        TreeNode root = createBinaryTree();
-        System.out.println("\n Test 1: The Maxsum of the binaryTree created: " + maxPathSum(root));
-        
+        //run1();
+        run2();
+        //run3();
+    }
 
-        int[] values = {5, 3, 7, 2, 4, 6, 8}; // Example values to insert.
-        root = null;
+    private void run3() {
+        int[] values = {5, 3, 7, 1, 2, 4, 6, 8}; // Example values to insert.
+        maxSum = Integer.MIN_VALUE;
+        TreeNode root = null;
         for (int val : values) {
             root = insert(root, val);
         }
-
-        System.out.println("Inorder traversal of the BST:");
+        System.out.println("\nThe final tree:\n" + root);
+        System.out.println("\nInorder traversal of the BST:");
         inorderTraversal(root);        
         System.out.println("\n Test 2: The Maxsum of the binaryTree created: " + maxPathSum(root));
+    }
+
+    private void run2() {
+        /*
+        int values[] = {1, 2, 3, 4, 5};
+        maxSum = Integer.MIN_VALUE;
+        TreeNode root = null;
+        for (int val : values) {
+            root = insert(root, val);
+        }
+        // */
+        TreeNode root = new TreeNode(1);
+
+        // Create the left child node (2).
+        TreeNode leftChild = new TreeNode(2);
+        // Create the right child node (3).
+        TreeNode rightChild = new TreeNode(3);
+        // Connect the nodes to form the tree.
+        root.left = leftChild;
+        root.right = rightChild;
+
+        // Create the left child node (2).
+        TreeNode leftChild4 = new TreeNode(4);
+        // Create the right child node (3).
+        TreeNode rightChild5 = new TreeNode(5);
+        leftChild.left = leftChild4;
+        leftChild.right = rightChild5;
+        
+        /*
+                1
+               / \
+              2   3
+             / \
+            4   5                
+        Pre-order Traversal:
+        1 2 4 5 3
+        In-order Traversal:
+        4 2 5 1 3
+        Post-order Traversal:
+        4 5 2 3 1        
+        */
+        System.out.println("\n This is the preOrder: " + maxPathSum(root));
+        preOrder(root);
+        System.out.println("\n This is the inOrder: " + maxPathSum(root));
+        inOrder(root);
+        System.out.println("\n This is the postOrder: " + maxPathSum(root));
+        postOrder(root);
+        System.out.println("\n All Done ");
+    }
+
+    private TreeNode run1() {
+        TreeNode root = createBinaryTree();
+        System.out.println("\n Test 1: The Maxsum of the binaryTree created: " + maxPathSum(root));
+        return root;
     }
 
     private TreeNode createBinaryTree() {
@@ -97,7 +212,7 @@ Other DFS Traversal Types:
         root.right = rightChild;
 
         // Optionally, print the tree using a traversal method (e.g., inorder).
-        System.out.println("Inorder traversal:");
+        System.out.println("\n Inorder traversal:");
         inorderTraversal(root);
         return root;
     }
@@ -107,11 +222,13 @@ Other DFS Traversal Types:
             return new TreeNode(val);
         }
 
+        System.out.print("\n  1. insert TreeNode val=" + val + "-root.vl=" + root.val + "\n     -root.left=" + root.left + "\n      -root.right=" + root.right);
         if (val < root.val) {
             root.left = insert(root.left, val);
         } else if (val > root.val) {
             root.right = insert(root.right, val);
         }
+        System.out.print("\n  2. return root=" + root);
 
         return root; // Return the (possibly modified) root.
     }    
@@ -130,7 +247,8 @@ Other DFS Traversal Types:
         int right = Math.max(0, dfs(node.right));
         maxSum = Math.max(maxSum, left + right + node.val);
         int rtnValue = Math.max(left, right) + node.val;
-        System.out.print("\nPost-Order Depth-First Search rtnValue: " + rtnValue);
+        System.out.print("\nPost-Order Depth-First Search left=" + left + "-right=" + right + "-node.val=" + node.val + "-rtnValue: " + rtnValue
+         + "\n (Math.max(maxSum, left + right + node.val)) -maxSum=" + maxSum);
         return rtnValue;
     }
     
@@ -141,15 +259,54 @@ Other DFS Traversal Types:
             inorderTraversal(root.right);
         }
     }    
+    
+    // Pre-order Traversal: (Root, Left, Right) 
+    // Visit the current node first, then the left subtree, then the right subtree.
+    public static void preOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        System.out.print(root.val + " ");    // Process the current node
+        preOrder(root.left);             // Traverse the left subtree
+        preOrder(root.right);            // Traverse the right subtree
+    }
+
+    // In-order Traversal: (Left, Root, Right)
+    // Visit the left subtree first, then the current node, then the right subtree.
+    public static void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);              // Traverse the left subtree
+        System.out.print(root.val + " ");    // Process the current node
+        inOrder(root.right);             // Traverse the right subtree
+    }
+
+    // Post-order Traversal: (Left, Right, Root)
+    // Visit the left subtree first, then the right subtree, then the current node.
+    public static void postOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left);             // Traverse the left subtree
+        postOrder(root.right);            // Traverse the right subtree
+        System.out.print(root.val + " ");     // Process the current node
+    }    
 
     public class TreeNode {
         int val;
         TreeNode left, right;
 
-        TreeNode(int x) {
+        public TreeNode(int x) {
             this.val = x;
             this.left = null;
             this.right = null;
         }
+
+        @Override
+        public String toString() {
+            return "{" + "val=" + val + ", left=" + left + ", right=" + right + '}';
+        }
+        
     }
 }

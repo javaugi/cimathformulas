@@ -9,7 +9,10 @@ package com.spring5.service;
 
 import com.spring5.entity.Product;
 import com.spring5.repository.ProductRepository;
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class ProductServiceImpl implements ProductService {
+    private long nextId = 1;
 
     @Autowired
     private ProductRepository productRepository;
@@ -47,4 +51,22 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findByName(String name) {
         return productRepository.findByName(name);
     }
+    
+    
+    private final Map<Long, Product> products = new HashMap<>();
+    public Product saveProduct(Product product) {
+        Product newProduct = new Product(nextId++, product.getName(), product.getPrice(), product.getQuantity(), product.getDescription(), product.isStatus());
+        products.put(newProduct.getId(), newProduct);
+        return newProduct;
+    }
+    
+    public static Product createProduct(String name, BigDecimal price, int quantity, String description, boolean status) {
+        return Product.builder()
+                .name(name)
+                .price(price)
+                .quantity(quantity)
+                .description(description)
+                .status(status)
+                .build();
+    }        
 }
