@@ -8,7 +8,7 @@ package com.spring5.type;
  *
  * @author javaugi
  */
-public enum Role {
+public enum RoleTypes {
     ROLE_PATIENT,
     ROLE_NURSE,
     ROLE_PHYSICIAN,

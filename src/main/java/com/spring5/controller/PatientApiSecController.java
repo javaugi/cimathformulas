@@ -6,6 +6,7 @@ package com.spring5.controller;
 
 import com.spring5.entity.MedicalHistory;
 import com.spring5.entity.Patient;
+import com.spring5.repository.MedicalHistoryRepository;
 import com.spring5.repository.PatientRepository;
 import com.spring5.resource.PatientResource;
 import java.util.Optional;
@@ -31,13 +32,14 @@ public class PatientApiSecController {
     @Autowired
     private PatientRepository patientRepository;
     
-    /*
+    @Autowired
+    private MedicalHistoryRepository medicalHistoryRepository;
+
     @GetMapping("/{id}/medical-history")
     @PreAuthorize("hasRole('PHYSICIAN') or hasRole('NURSE')")
     public ResponseEntity<MedicalHistory> getMedicalHistory(@PathVariable Long id) {
-        // Implementation
+        return ResponseEntity.ok(medicalHistoryRepository.findById(id).orElse(null));
     }
-    //*/
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('NURSE')")
