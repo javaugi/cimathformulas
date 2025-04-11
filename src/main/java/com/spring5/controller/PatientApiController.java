@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/patients")
-public class PatientApiController1 {
+public class PatientApiController {
 
     //*
     @Autowired

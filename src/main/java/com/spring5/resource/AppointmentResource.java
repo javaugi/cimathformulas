@@ -34,7 +34,8 @@ The ResourceSupport/Resource/Resources/PagedResources group of classes never rea
 @ToString
 public class AppointmentResource extends RepresentationModel {
     private Long appointmentId;
-    private LocalDateTime appointmentDateTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String reason;
     private String status; 
     private Patient patient;
@@ -44,7 +45,8 @@ public class AppointmentResource extends RepresentationModel {
     // Constructor, getters, and setters
     public AppointmentResource(Appointment appointment) {
         this.appointmentId = appointment.getId();
-        this.appointmentDateTime = appointment.getAppointmentDateTime();
+        this.startTime = appointment.getStartTime();
+        this.endTime = appointment.getEndTime();
         this.reason = appointment.getReason();
         this.status = appointment.getStatus();
         this.patient = appointment.getPatient();

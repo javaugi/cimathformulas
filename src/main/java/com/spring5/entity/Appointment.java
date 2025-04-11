@@ -4,6 +4,8 @@
  */
 package com.spring5.entity;
 
+import com.spring5.validator.AllowedValues;
+import com.spring5.validator.ValidAppointment;
 import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import jakarta.persistence.Table;
@@ -31,13 +33,18 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 @Table(name = "APPOINTMENT")
+@ValidAppointment
 public class Appointment implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     
-    private LocalDateTime appointmentDateTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String reason;
+    
+    @AllowedValues(value = {"SCHEDULED", "COMPLETED", "CANCELLED"}, 
+                  message = "Status must be SCHEDULED, COMPLETED, or CANCELLED")
     private String status; // Scheduled, Completed, Cancelled
     
     @ManyToOne
