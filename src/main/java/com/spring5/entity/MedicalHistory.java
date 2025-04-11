@@ -5,13 +5,12 @@
 package com.spring5.entity;
 
 import jakarta.persistence.Entity;
-import java.time.LocalDateTime;
-import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,25 +29,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "APPOINTMENT")
-public class Appointment implements java.io.Serializable {
+@Table(name = "MED_HISTORY")
+public class MedicalHistory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    
-    private LocalDateTime appointmentDateTime;
-    private String reason;
-    private String status; // Scheduled, Completed, Cancelled
-    
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
     
-    @ManyToOne
-    @JoinColumn(name = "nurse_id")
-    private Nurse nurse;
+    private String history;
     
-    @ManyToOne
-    @JoinColumn(name = "physician_id")
-    private Physician physician;
 }

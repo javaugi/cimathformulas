@@ -4,52 +4,40 @@
  */
 package com.spring5.entity;
 
-import jakarta.persistence.Cacheable;
 import jakarta.persistence.CascadeType;
-import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  *
  * @author javaugi
  */
-@Getter
-@Setter
-@ToString
-@Builder
+@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "PATIENT")
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Patient implements java.io.Serializable {
+public class Physician {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     
     private String name;
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
-    private String gender;
-    private String address;
-    private String phoneNumber;
+    private String licenseNumber;
+    private String specialization;
     
-    //@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<Appointment> appointments;    
+    @OneToMany(mappedBy = "supervisingPhysician")
+    private List<Nurse> supervisedNurses = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "physician", cascade = CascadeType.ALL)
+    private List<Appointment> appointments = new ArrayList<>();
 }

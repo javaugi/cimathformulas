@@ -35,5 +35,5 @@ public class Answer implements java.io.Serializable {
     
     Long assessmentId;
     Long questionId;
-    String value;
+    String answerText;
 }

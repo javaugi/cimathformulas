@@ -90,9 +90,9 @@ public class UserController {
         Random rand = new Random();
         for (int i = 0; i < 100; i++) {
             user = new User();
-            user.setName(F_N_LIST.get(rand.nextInt(F_N_LIST.size()))
+            user.setUsername(F_N_LIST.get(rand.nextInt(F_N_LIST.size()))
                     + " " + L_N_LIST.get(rand.nextInt(L_N_LIST.size())));
-            user.setEmail(getAlphaNumericString(5) + E_LIST.get(rand.nextInt(E_LIST.size())));
+            user.setUserEmail(getAlphaNumericString(5) + E_LIST.get(rand.nextInt(E_LIST.size())));
 
             userService.save(user);
             returnValue.add(user);

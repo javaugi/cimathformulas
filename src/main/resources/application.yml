@@ -1,0 +1,10 @@
+## YAML Template.
+---
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://your-auth-server.com
+          jwk-set-uri: https://your-auth-server.com/.well-known/jwks.json
+          audience: healthcare-api

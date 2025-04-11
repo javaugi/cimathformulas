@@ -4,10 +4,8 @@
  */
 package com.spring5.controller;
 
-import static com.spring5.controller.ProductController.iterableToList;
 import com.spring5.entity.Assessment;
 import com.spring5.entity.Patient;
-import com.spring5.entity.Product;
 import com.spring5.model.AssessmentModel;
 import com.spring5.model.PatientModel;
 import com.spring5.service.AssessmentService;

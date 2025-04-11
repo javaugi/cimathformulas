@@ -12,6 +12,38 @@ public class RestMaturityLevelSprintHATEOAS {
     
 }
 /*
+Key Features
+
+RESTful API with HATEOAS:
+    Resources include links to related resources
+    Follows REST principles
+    Self-descriptive messages
+
+Web Interface with Spring MVC:
+    Traditional server-side rendering
+    Thymeleaf templates for HTML generation
+    Simple CRUD operations through web forms
+
+Data Model:
+    JPA entities with proper relationships
+    Repository pattern for data access
+
+Separation of Concerns:
+    API endpoints separate from web interface
+    Clear distinction between data model and resource representation
+
+This implementation provides a solid foundation that can be extended with additional features like:
+
+    Authentication and authorization
+    Validation
+    Advanced search capabilities
+    Pagination
+    Caching
+    API documentation with Swagger
+*/
+
+
+/*
 Example: REST Maturity Levels & API Design Critique
 Let’s break down the Richardson Maturity Model (RMM) with a concrete example and then critique a real-world API design.
 

@@ -25,6 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    @Query("SELECT u FROM User u WHERE u.name= (:name)")
-    List<User> findByName(@Param("name") String name);
+    @Query("SELECT u FROM User u WHERE u.username= (:username)")
+    List<User> findByUsername(@Param("username") String username);
 }

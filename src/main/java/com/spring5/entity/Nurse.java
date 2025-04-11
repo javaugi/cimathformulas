@@ -4,51 +4,42 @@
  */
 package com.spring5.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import java.time.LocalDateTime;
-import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  *
  * @author javaugi
  */
-@Getter
-@Setter
-@ToString
-@Builder
+@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "APPOINTMENT")
-public class Appointment implements java.io.Serializable {
+public class Nurse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     
-    private LocalDateTime appointmentDateTime;
-    private String reason;
-    private String status; // Scheduled, Completed, Cancelled
-    
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
+    private String name;
+    private String firstName;
+    private String lastName;
+    private String licenseNumber;
+    private String specialization;
     
     @ManyToOne
-    @JoinColumn(name = "nurse_id")
-    private Nurse nurse;
+    @JoinColumn(name = "supervising_physician_id")
+    private Physician supervisingPhysician;
     
-    @ManyToOne
-    @JoinColumn(name = "physician_id")
-    private Physician physician;
+    @OneToMany(mappedBy = "physician", cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
 }

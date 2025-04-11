@@ -24,11 +24,15 @@ public class PatientModel extends RepresentationModel<PatientModel> {
         return patient.getId();
     }
 
-    public String getName() {
-        return patient.getName();
+    public String getLastName() {
+        return patient.getLastName();
     }
 
-    public LocalDate getDob() {
-        return patient.getDob();
+    public String getFirstName() {
+        return patient.getFirstName();
+    }
+
+    public LocalDate getDateOfBirth() {
+        return patient.getDateOfBirth();
     }
 }

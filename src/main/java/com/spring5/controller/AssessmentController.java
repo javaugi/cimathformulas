@@ -132,7 +132,7 @@ public class AssessmentController {
         if (assessment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Assessment not found");
         }
-        Answer createdAnswer = answerService.save(new Answer(null, assessmentId, answer.getQuestionId(), answer.getValue()));
+        Answer createdAnswer = answerService.save(new Answer(null, assessmentId, answer.getQuestionId(), answer.getAnswerText()));
         //AnswerModel answerModel = new AnswerModel(createdAnswer)
         EntityModel<Answer> answerModel = EntityModel.of(createdAnswer)
                 .add(linkTo(methodOn(AnswerController.class).getAnswerById(createdAnswer.getId())).withSelfRel())

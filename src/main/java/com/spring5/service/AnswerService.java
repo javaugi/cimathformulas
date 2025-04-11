@@ -20,7 +20,7 @@ public class AnswerService {
     private long nextId = 1;
 
     public Answer save(Answer answer) {
-        Answer newAnswer = new Answer(nextId++, answer.getAssessmentId(), answer.getQuestionId(), answer.getValue());
+        Answer newAnswer = new Answer(nextId++, answer.getAssessmentId(), answer.getQuestionId(), answer.getAnswerText());
         answers.put(newAnswer.getId(), newAnswer);
         return newAnswer;
     }
@@ -29,7 +29,7 @@ public class AnswerService {
         return Answer.builder()
                 .assessmentId(assessmentId)
                 .questionId(questionId)
-                .value(value)
+                .answerText(value)
                 .build();
     }
 

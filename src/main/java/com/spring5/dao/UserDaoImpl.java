@@ -61,11 +61,11 @@ public class UserDaoImpl implements UserDao {
     
     @Override
     public List<User> findByName(String name) {
-        return userRepository.findByName(name);
+        return userRepository.findByUsername(name);
     }
 
     @Override
     public List<User> findByName(String name, int limit, int offset) {
-        return userRepository.findByName(name);
+        return userRepository.findByUsername(name);
     }
 }

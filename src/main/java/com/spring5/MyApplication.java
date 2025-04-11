@@ -68,8 +68,6 @@ public class MyApplication {
     }
     
     public void run(String... args) throws Exception {
-        PatientAssessmentMain.main(args);
-        ProductMain.main(args);
     }
     
 }

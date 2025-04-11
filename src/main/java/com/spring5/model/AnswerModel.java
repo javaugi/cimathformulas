@@ -30,8 +30,8 @@ public class AnswerModel extends EntityModel<Answer> {
         return answer.getQuestionId();
     }
 
-    public String getValue() {
-        return answer.getValue();
+    public String getAnswerText() {
+        return answer.getAnswerText();
     }
     
     

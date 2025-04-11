@@ -8,13 +8,16 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  *
  * @author javaugi
  */
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
     
     @Bean
@@ -23,9 +26,26 @@ public class SecurityConfig {
         //this is required to make the console screen work, otherwise the RequestBody/JSON data is displayed
         
         http.authorizeHttpRequests(auth -> auth
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"),
+                               AntPathRequestMatcher.antMatcher("/management/**"),
+                               AntPathRequestMatcher.antMatcher("/actuator/**")).hasRole("ADMIN")
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"),
+                               AntPathRequestMatcher.antMatcher("/profile/**")).hasRole("USER")
+                .requestMatchers("/admin/**", "/management/**", "/actuator/**").hasRole("ADMIN")
+                .requestMatchers("/user/**", "/profile/**").hasRole("USER")
+                .requestMatchers("/api/patients/**").hasAnyRole("PATIENT", "NURSE", "PHYSICIAN", "ADMIN")
+                .requestMatchers("/api/nurses/**").hasAnyRole("NURSE", "PHYSICIAN", "ADMIN")
+                .requestMatchers("/api/physicians/**").hasAnyRole("PHYSICIAN", "ADMIN")
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                //.mvcMatchers("/user/**", "/profile/**").hasRole("USER") 
+                //.regexMatchers("/api/v[0-9]+/.*", "/public/.*").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().permitAll())
             .csrf(csrf -> csrf.disable())
+                .formLogin(form -> form.permitAll()
+            )
+            .logout(logout -> logout.permitAll()
+            )
             .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())
         ); 
         

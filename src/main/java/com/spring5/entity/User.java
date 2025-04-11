@@ -1,14 +1,15 @@
 package com.spring5.entity;
 
 import jakarta.persistence.Cacheable;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -16,61 +17,25 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 @Cacheable
 public class User {
     
-    //*
-    public User() {
-        
-    }
-
-    public User(Long id, String name, String email) {
+    public User(Long id, String username, String userEmail) {
         this.id = id;
-        this.name = name;
-        this.email = email;
+        this.username = username;
+        this.userEmail = userEmail;
     }
-    // */
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
-    @Column(name = "USER_NAME")
-    //@Size(max = 20, min = 3, message = "{user.name.invalid}")
-    //@NotEmpty(message = "Please Enter your name")
-    private String name;
-
-    @Column(name = "USER_EMAIL", unique = true)
-    //@Email(message = "{user.email.invalid}")
-    //@NotEmpty(message = "Please Enter your email")
-    private String email;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    private String username;
+    private String userEmail;
+    private String lastName;
+    private String firstName;
 }
