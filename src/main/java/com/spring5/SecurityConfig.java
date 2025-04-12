@@ -4,13 +4,25 @@
  */
 package com.spring5;
 
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  *
@@ -19,18 +31,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher(PathRequest.toH2Console());
         //this is required to make the console screen work, otherwise the RequestBody/JSON data is displayed
-        
+
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"),
-                               AntPathRequestMatcher.antMatcher("/management/**"),
-                               AntPathRequestMatcher.antMatcher("/actuator/**")).hasRole("ADMIN")
+                        AntPathRequestMatcher.antMatcher("/management/**"),
+                        AntPathRequestMatcher.antMatcher("/actuator/**")).hasRole("ADMIN")
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"),
-                               AntPathRequestMatcher.antMatcher("/profile/**")).hasRole("USER")
+                        AntPathRequestMatcher.antMatcher("/profile/**")).hasRole("USER")
                 .requestMatchers("/admin/**", "/management/**", "/actuator/**").hasRole("ADMIN")
                 .requestMatchers("/user/**", "/profile/**").hasRole("USER")
                 .requestMatchers("/api/patients/**").hasAnyRole("PATIENT", "NURSE", "PHYSICIAN", "ADMIN")
@@ -41,20 +53,141 @@ public class SecurityConfig {
                 //.regexMatchers("/api/v[0-9]+/.*", "/public/.*").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().permitAll())
-            .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable())
+                //.ignoringRequestMatchers("/api/**")
                 .formLogin(form -> form.permitAll()
-            )
-            .logout(logout -> logout.permitAll()
-            )
-            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())
-        ); 
-        
+                )
+                .logout(logout -> logout.permitAll()
+                )
+                .cors(cors -> cors
+                .configurationSource(corsConfigurationSource())
+                )
+                //.oauth2ResourceServer(oauth2 -> oauth2
+                //    .jwt(Customizer.withDefaults())
+                //)
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())
+                );
+
         return http.build();
     }
-    
+
+    //CSRF (Cross-Site Request Forgery):
+    //CORS (Cross-Origin Resource Sharing):
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://localhost:8080"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        configuration.setAllowedHeaders(List.of("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.withUsername("user")
+                .password("{noop}password")
+                .roles("USER")
+                .build();
+
+        UserDetails admin = User.withUsername("admin")
+                .password("{noop}admin")
+                .roles("ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+
+    // If using in-memory for testing:
+    @Bean
+    public UserDetailsService users() {
+        UserDetails user = User.builder()
+                .username("john")
+                .password("{noop}password")
+                .roles("USER")
+                .build();
+
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password("{noop}admin")
+                .roles("ADMIN", "USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/resources/**");
+    }
 }
 
 /*
+
+Migrating from WebSecurityConfigurerAdapter to the New Security Configuration Style
+
+The WebSecurityConfigurerAdapter was deprecated in Spring Security 5.7.0 and removed in Spring Boot 3.0. Here's how to migrate to the new component-based security configuration approach.
+
+1. Understanding the Changes
+    The new approach:
+        Uses SecurityFilterChain beans instead of extending WebSecurityConfigurerAdapter
+        Uses WebSecurityCustomizer for web security customization
+        Uses UserDetailsService beans for authentication configuration
+2. Basic Migration Example
+3. Complete Migration Guide
+    Authentication Configuration
+    Web Security Customization
+    OAuth2 Resource Server Configuration
+4. Advanced Configuration Examples
+    Role-Based Access Control
+    CSRF Configuration  
+    CORS Configuration
+5. Multiple Security Filter Chains
+6. Method Security
+    Method security remains similar but now works better with the new configuration
+        @Configuration
+        @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+        public class MethodSecurityConfig {
+            // Method security configuration
+        }
+        
+        See SecureService for details
+7. Security Configuration Tip
+    Make sure your Spring Security is correctly configured to authenticate and provide roles. Roles are typically prefixed with ROLE_ in Spring.
+
+##################################
+Important Changes to Note
+
+Method Name Changes:
+    antMatchers() → requestMatchers()
+    mvcMatchers() → requestMatchers()
+    regexMatchers() → requestMatchers()
+
+Lambda DSL:
+    The new configuration uses a lambda-based DSL for better readability and type safety
+
+Multiple Configurations:
+    You can now define multiple SecurityFilterChain beans with different @Order
+
+No More AuthenticationManagerBuilder:
+    Configure authentication through UserDetailsService and PasswordEncoder beans
+
+Migration Benefits
+    More Flexible: Easier to compose and combine security configurations
+    More Modern: Uses contemporary Java features like lambdas
+    More Modular: Clear separation of concerns
+    Better for Component-Based Security: Fits better with Spring's overall component model
+
+The new approach is more aligned with Spring's general move towards functional configuration styles and provides better flexibility 
+    in configuring security for modern applications.
+##################################
+
 does the sprint boot properties spring.h2.console.path=/h2-console work for other databases?
 
 No, the Spring Boot property spring.h2.console.path=/h2-console is specific to the H2 in-memory database and its embedded web console. 
@@ -103,7 +236,6 @@ How to Create Spring MVC REST Mappings:
 
 To create REST mappings in Spring MVC, you'll use annotations within your controllers:
 
-Java
 
 import org.springframework.web.bind.annotation.*;
 
@@ -265,4 +397,4 @@ Integrate a third-party database administration tool into your application (less
 Build your own UI: For more controlled access and specific functionalities, you could build your own web interface using Spring MVC or Spring WebFlux to interact with your database through your application's services and data access layer (e.g., Spring Data JPA, Spring Data JDBC).
 In summary, spring.h2.console.path is exclusively for configuring the H2 database's web console. For other databases, you'll need to use their respective management tools.
 
-*/
+ */

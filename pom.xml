@@ -65,18 +65,33 @@
         <c3p0.version>0.9.5.3</c3p0.version>        
         <hibernate.validator>8.0.2.Final</hibernate.validator>
         <hibernate.validator.version>6.6.8.Final</hibernate.validator.version>
+        <resilience4jVersion>2.3.0</resilience4jVersion>
     </properties>
 
-    <dependencies>
-        <!--
+    <dependencies> 
         <dependency>
-            <groupId>com.github.everit-org.json-schema</groupId>
-            <artifactId>org.everit.json.schema</artifactId>
-            <version>1.14.0</version>
+            <groupId>com.neuronrobotics</groupId>
+            <artifactId>nrjavaserial</artifactId>
+            <version>5.2.1</version>
+        </dependency>        
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-all</artifactId>
+            <version>${resilience4jVersion}</version>
         </dependency>
-        -->
+        
         <dependency>
-          <groupId>org.everit.json</groupId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-graphql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-tools</artifactId>
+            <version>5.2.4</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>org.everit.json</groupId>
             <artifactId>org.everit.json.schema</artifactId>
             <version>1.5.1</version>
         </dependency>
@@ -444,19 +459,19 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-<!--            <version>5.9.3</version>-->
+            <!--            <version>5.9.3</version>-->
             <scope>test</scope>
-          </dependency>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-<!--            <version>5.12.1</version>-->
+            <!--            <version>5.12.1</version>-->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-<!--            <version>5.11.4</version>-->
+            <!--            <version>5.11.4</version>-->
             <scope>test</scope>
         </dependency>        
         <dependency>
@@ -702,7 +717,7 @@
     </dependencies>
 
     <build>
-<!--        <defaultGoal>install</defaultGoal>-->
+        <!--        <defaultGoal>install</defaultGoal>-->
         <defaultGoal>spring-boot:run</defaultGoal>
         <finalName>cimathformulas</finalName>
         <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
@@ -727,6 +742,21 @@
                         </compilerArgs>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.6.3</version> <!-- Use the latest version -->
+                    <!--
+                    <executions>
+                      <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                          <goal>jar</goal>
+                        </goals>
+                      </execution>
+                    </executions>
+                    -->
+                    
+                </plugin>                
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.3.0</version>
@@ -762,7 +792,7 @@
                     </dependencies>
                     -->
                 </plugin>
-            </plugins>
+            </plugins>  
         </pluginManagement>
     </build>
 </project>
