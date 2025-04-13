@@ -8,9 +8,18 @@ import java.util.Arrays;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author javaugi
+/* 
+/graph/user/graphqls
+type Query {
+    allUsers: [User]
+    userById(id: ID!): User
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+}
  */
 @Service
 public class GraphUserService {
