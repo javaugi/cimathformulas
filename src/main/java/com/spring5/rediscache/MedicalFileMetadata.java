@@ -2,39 +2,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.spring5.audit;
+package com.spring5.rediscache;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
-@Builder
+/**
+ *
+ * @author javaugi
+ */
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class AuditEvent implements java.io.Serializable {
+public class MedicalFileMetadata {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     
-    String eventId;
-    String userId;
-    Long entityId;
-    String action;
-    LocalDateTime timestamp;
-    String value;
-    String type;
-    String details;
+    private String name;
     
+    @OneToOne
+    @JoinColumn(name = "medicalFile_id")
+    private MedicalFile medicalFile;
 }

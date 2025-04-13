@@ -13,12 +13,20 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+//@ExtendWith(MockitoExtension.class)
 @DataJpaTest
 public class ContactRepositoryTest {
 
     @Autowired
     private ContactRepository contactRepository;
-
+    
+    /*
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
+    // */
+    
     @Test
     public void testit_can_find_the_contact_after_save_it() {
         Contact contact = new Contact("Mary", "Zheng", "test@test.com", PhoneType.HOME, "6365272943");
