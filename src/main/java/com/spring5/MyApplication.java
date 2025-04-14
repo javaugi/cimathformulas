@@ -4,7 +4,10 @@
  */
 package com.spring5;
 
+import com.spring5.utils.MapToJsonConverter;
 import jakarta.persistence.EntityManagerFactory;
+import java.util.HashMap;
+import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,8 +34,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 //@EnableCaching
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.spring5")
+@EnableJpaRepositories(basePackages = MyApplication.PACKAGES_TO_SCAN)
 public class MyApplication {
+    
+    protected static final String PACKAGES_TO_SCAN = "com.spring5";
 
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);
@@ -41,6 +46,11 @@ public class MyApplication {
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
+    }
+    
+    @Bean
+    public MapToJsonConverter mapToJsonConverter() {
+        return new MapToJsonConverter();
     }
 
     @Bean
@@ -52,6 +62,7 @@ public class MyApplication {
         return bean;
     }
 
+    /*
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter) {
@@ -61,6 +72,43 @@ public class MyApplication {
         bean.setPackagesToScan("com.spring5");
         return bean;
     }
+    // */
+    
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, 
+            JpaVendorAdapter jpaVendorAdapter, MapToJsonConverter mapToJsonConverter) {        
+        LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
+        bean.setDataSource(dataSource);
+        bean.setJpaVendorAdapter(jpaVendorAdapter);
+        bean.setPackagesToScan(PACKAGES_TO_SCAN);
+                
+        //HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        //bean.setJpaVendorAdapter(vendorAdapter);        
+        // Register the converter
+        //*
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
+        bean.setJpaPropertyMap(properties);
+        // */
+        
+        /*
+        Properties properties = new Properties();
+        properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
+        properties.put("hibernate.session_factory.interceptor", 
+        new EmptyInterceptor() {
+            @Override
+            public boolean onSave(Object entity, Serializable id, 
+                Object[] state, String[] propertyNames, Type[] types) {
+                System.out.println("entity=" + entity + "-propertyNames=" + propertyNames);
+                return true;
+            }
+        });
+        bean.setJpaProperties(properties);        
+        // */
+        
+        return bean;
+    }    
+    
 
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
