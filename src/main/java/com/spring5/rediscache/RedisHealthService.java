@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisServerCommands;
@@ -32,7 +33,7 @@ public class RedisHealthService {
                 "UP", 
                 Map.of("response", pong, "timestamp", Instant.now())
             );
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
             return new HealthCheckResponse(
                 "Redis", 
                 "DOWN", 
@@ -43,16 +44,16 @@ public class RedisHealthService {
 
     @Scheduled(fixedRate = 60000)
     public void monitorRedisPerformance() {
-        RedisConnection connection = redisConnectionFactory.getConnection();
-        RedisServerCommands serverCommands = connection.serverCommands();
-        
-        Map<String, Object> metrics = new HashMap<>();
-        metrics.put("used_memory", serverCommands.info("memory").getProperty("used_memory"));
-        metrics.put("connected_clients", serverCommands.info("clients").getProperty("connected_clients"));
-        
-        // Log or send to monitoring system
-        logRedisMetrics(metrics);
-        connection.close();
+        try (RedisConnection connection = redisConnectionFactory.getConnection()) {
+            RedisServerCommands serverCommands = connection.serverCommands();
+            
+            Map<String, Object> metrics = new HashMap<>();
+            metrics.put("used_memory", serverCommands.info("memory").getProperty("used_memory"));
+            metrics.put("connected_clients", serverCommands.info("clients").getProperty("connected_clients"));
+            
+            // Log or send to monitoring system
+            logRedisMetrics(metrics);
+        }
     }
     
     private void logRedisMetrics(Map<String, Object> metrics) {

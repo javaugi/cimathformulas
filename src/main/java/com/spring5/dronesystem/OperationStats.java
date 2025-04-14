@@ -23,6 +23,20 @@ public class OperationStats {
     private final AtomicLong minTime = new AtomicLong(Long.MAX_VALUE);
     private final AtomicLong maxTime = new AtomicLong(Long.MIN_VALUE);
 
+    public static void main(String[] args) {
+        OperationStats main = new OperationStats(10);
+        main.test();
+    }
+    
+    private void test() {
+        count.incrementAndGet();
+        System.out.println("count.incrementAndGet()=" + count.incrementAndGet());
+        System.out.println("totalTime.addAndGet(5)=" + totalTime.addAndGet(5));
+        System.out.println("minTime.accumulateAndGet(5, Math::min)=" + minTime.accumulateAndGet(5, Math::min));
+        System.out.println("maxTime.accumulateAndGet(5, Math::max)=" + maxTime.accumulateAndGet(5, Math::max));
+    }
+    
+    
     public OperationStats(long initialDuration) {
         recordDuration(initialDuration);
     }

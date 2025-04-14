@@ -2,19 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.interview.amazon;
+package com.interview;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
+    
 /**
  *
  * @author javaugi https://www.hackerrank.com/test
  */
-public class CodingAssessmentDemo {
+public class TwoDimMatrix {
 
-    private static final CodingAssessmentDemo main = new CodingAssessmentDemo();
+    private static final TwoDimMatrix main = new TwoDimMatrix();
 
     public static void main(String[] args) {
         //main.run1();
