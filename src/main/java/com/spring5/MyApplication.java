@@ -9,9 +9,14 @@ import jakarta.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -43,21 +48,22 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     MyApplication.PACKAGES_TO_SCAN,
     MyApplication.PACKAGES_TO_SCAN_2
 })
-public class MyApplication {
-    
+public class MyApplication implements CommandLineRunner, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+
     protected static final String PACKAGES_TO_SCAN = "com.spring5";
     protected static final String PACKAGES_TO_SCAN_2 = "com.spring5.kafkamicroservice";
 
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);
         //System.exit(SpringApplication.exit(SpringApplication.run(MyApplication.class, args)));
+        //new SpringApplicationBuilder().listeners(new AppController()).sources(AppController.class).run(args);
     }
 
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
-    
+
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
@@ -77,24 +83,23 @@ public class MyApplication {
         return bean;
     }    
     // */
-    
     @Bean
     public MapToJsonConverter mapToJsonConverter() {
         return new MapToJsonConverter();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, 
-            JpaVendorAdapter jpaVendorAdapter, MapToJsonConverter mapToJsonConverter) {        
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
+            JpaVendorAdapter jpaVendorAdapter, MapToJsonConverter mapToJsonConverter) {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);
         bean.setJpaVendorAdapter(jpaVendorAdapter);
         bean.setPackagesToScan(PACKAGES_TO_SCAN);
-                
+
         Map<String, Object> properties = new HashMap<>();
         properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
         bean.setJpaPropertyMap(properties);
-        
+
         /* DEBUUGGING
         Properties properties = new Properties();
         properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
@@ -109,18 +114,36 @@ public class MyApplication {
         });
         bean.setJpaProperties(properties);        
         // */
-        
         return bean;
-    }    
+    }
 
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }
+
+
+    @Autowired 
+    private MyApplicationMain appMain;
     
+    @Autowired
+    private ApplicationContext context;
+    
+    @Autowired 
+    MyApplicationProfileMain profile;
+    
+    @Override
     public void run(String... args) throws Exception {
+        System.out.println("CommandLineRunner ...");
+        //appMain.runTests();
     }
     
+    @Override
+    public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+        System.out.println("onApplicationEvent ...");
+        //profile.setupProfiles(event);
+    }
+
 }
 /*
 The Spring Framework's repository pattern, particularly when implemented using Spring Data JPA, commonly uses Hibernate as its underlying Java Persistence API (JPA) provider.   
@@ -241,4 +264,4 @@ In summary, to know which JPA provider Spring Data JPA is using:
 By checking these aspects of your project's configuration, you can reliably determine which JPA provider is being used by Spring Data JPA.
 
 
-*/
+ */

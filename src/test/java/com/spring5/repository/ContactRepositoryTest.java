@@ -4,14 +4,11 @@ import com.spring5.entity.Contact;
 import com.spring5.entity.Contact_Note;
 import com.spring5.type.PhoneType;
 import java.util.List;
-//import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@DataJpaTest
 @SpringBootTest
 public class ContactRepositoryTest {
 
