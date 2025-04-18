@@ -5,6 +5,7 @@
 package com.spring5.audit;
 
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,9 +14,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 @RestController
 public class AuditController {
+    
     private final KafkaTemplate<String, AuditEvent> kafkaTemplate;
     
-    public AuditController(KafkaTemplate<String, AuditEvent> kafkaTemplate) {
+    public AuditController(@Qualifier("auditEventKafkaTemplate") KafkaTemplate<String, AuditEvent> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 

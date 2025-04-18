@@ -5,27 +5,23 @@
 package com.spring5.kafkamicroservice;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import java.util.Map;
-import org.apache.kafka.common.Metric;
-import org.apache.kafka.common.MetricName;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaMonitoringService {
 
-    /* TODO
     private final MeterRegistry meterRegistry;
     private final KafkaTemplate<?, ?> kafkaTemplate;
 
-    public KafkaMonitoringService(MeterRegistry meterRegistry, KafkaTemplate<?, ?> kafkaTemplate) {
+    public KafkaMonitoringService(MeterRegistry meterRegistry, @Qualifier("objectKafkaTemplate") KafkaTemplate<?, ?> kafkaTemplate) {
         this.meterRegistry = meterRegistry;
         this.kafkaTemplate = kafkaTemplate;
-        monitorKafkaMetrics();
+        //monitorKafkaMetrics();
     }
 
+    /* TODO
     private void monitorKafkaMetrics() {
         // Track message production rates
         meterRegistry.gauge("kafka.producer.messages.sent", 

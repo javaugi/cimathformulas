@@ -4,7 +4,7 @@
  */
 package com.spring5.misc;
 
-import com.spring5.mbassador.EventBusConfig;
+import com.spring5.EventBusConfig;
 import com.spring5.mbassador.NotificationHandler;
 import com.spring5.mbassador.OrderCreatedEvent;
 import net.engio.mbassy.bus.MBassador;

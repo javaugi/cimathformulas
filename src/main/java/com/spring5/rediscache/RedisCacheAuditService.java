@@ -5,11 +5,13 @@
 package com.spring5.rediscache;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring5.RedisConfig;
 import com.spring5.audit.AuditEvent;
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.stream.MapRecord;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
 import org.springframework.data.redis.connection.stream.StreamOffset;
@@ -30,7 +32,7 @@ public class RedisCacheAuditService {
     private static final String AUDIT_STREAM = "healthcare:audit:stream";
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private @Qualifier(RedisConfig.REDIS_TPL) RedisTemplate<String, Object> redisTemplate;
 
     public void logAuditEvent(AuditEvent event) {
         ObjectRecord<String, AuditEvent> record = StreamRecords.newRecord()
@@ -75,7 +77,7 @@ public class RedisCacheAuditService {
         AuditEvent event = new AuditEvent();
         event.setEventId((String) record.getValue().get("eventId"));
         //event.setTimestamp((String) record.getValue().get("timestamp"));
-        event.setType((String) record.getValue().get("type"));
+        event.setEventType((String) record.getValue().get("type"));
         event.setDetails((String) record.getValue().get("details"));
         return event;
     }

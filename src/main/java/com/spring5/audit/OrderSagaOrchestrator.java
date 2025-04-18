@@ -6,16 +6,18 @@ package com.spring5.audit;
 
 // Saga Orchestrator
 
+import com.spring5.EventBusConfig;
 import lombok.RequiredArgsConstructor;
 import net.engio.mbassy.bus.MBassador;
 import net.engio.mbassy.listener.Handler;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class OrderSagaOrchestrator {
 
-    private final MBassador<Object> eventBus;
+    private final @Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus;
     private final InventoryClient inventoryClient;
     private final PaymentClient paymentClient;
 

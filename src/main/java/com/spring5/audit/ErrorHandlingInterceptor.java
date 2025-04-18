@@ -4,8 +4,10 @@
  */
 package com.spring5.audit;
 
+import com.spring5.EventBusConfig;
 import net.engio.mbassy.bus.MBassador;
 import net.engio.mbassy.subscription.SubscriptionContext;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.retry.backoff.FixedBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
@@ -17,7 +19,7 @@ public class ErrorHandlingInterceptor {//implements IHandlerInterceptor {
     private final MBassador<Object> eventBus;
     private final RetryTemplate retryTemplate;
 
-    public ErrorHandlingInterceptor(MBassador<Object> eventBus) {
+    public ErrorHandlingInterceptor(@Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus) {
         this.eventBus = eventBus;
         this.retryTemplate = new RetryTemplate();
 

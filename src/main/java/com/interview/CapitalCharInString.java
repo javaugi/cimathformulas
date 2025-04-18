@@ -9,26 +9,26 @@ package com.interview;
  * @author javaugi
  */
 public class CapitalCharInString {
+
     private static final CapitalCharInString main = new CapitalCharInString();
-    
+
     public static void main(String[] args) {
         main.test1();
         main.test2();
     }
-    
+
     private void test1() {
         String word = "This is the Test to Check How many Capital Chars are";
-        
+
         int capitalCharCount = 0;
-        for (char ch: word.toCharArray()) {
+        for (char ch : word.toCharArray()) {
             if (Character.isUpperCase(ch)) {
                 capitalCharCount++;
             }
         }
         System.out.println("There are total " + capitalCharCount + " capital characters ");
-        
-        
-char char1 = 'A';
+
+        char char1 = 'A';
         char char2 = 'a';
         char char3 = '1';
         char char4 = '$';
@@ -53,18 +53,23 @@ char char1 = 'A';
             if (Character.isUpperCase(c)) {
                 System.out.println(c + " is an uppercase letter.");
             } else {
-               System.out.println(c + " is not an uppercase letter.");
+                System.out.println(c + " is not an uppercase letter.");
             }
-        }        
-    }
-    
-    private void test2() {
-        char[] a = {'a', 'b', 'b', 'd', 'e'};
-        
-        int capitalCharCount = 0;
-        for (char ch: a) {
-            capitalCharCount++;
         }
-        System.out.println("The array length is: " + capitalCharCount);
+    }
+
+    private void test2() {
+        char[] a = {'a', 'b', 'c', 'd', 'e', 'A', 'B', 'C', 'D', 'E'};
+
+        int lowerCaseCount = 0;
+        int upperCaseCount = 0;
+        for (char ch : a) {
+            if (Character.isUpperCase(ch)) {
+                upperCaseCount++;
+            } else {
+                lowerCaseCount++;
+            }
+        }
+        System.out.println("The array length has " + upperCaseCount + " upper case and " + lowerCaseCount + " lower case and the total is " + (lowerCaseCount + lowerCaseCount));
     }
 }

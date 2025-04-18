@@ -4,31 +4,22 @@ import com.spring5.entity.Contact;
 import com.spring5.entity.Contact_Note;
 import com.spring5.type.PhoneType;
 import java.util.List;
+//import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-//@ExtendWith(MockitoExtension.class)
-@DataJpaTest
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@DataJpaTest
+@SpringBootTest
 public class ContactRepositoryTest {
 
     @Autowired
     private ContactRepository contactRepository;
-    
-    /*
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-    }
-    // */
-    
-    @Test
-    public void testit_can_find_the_contact_after_save_it() {
+
+    //@org.junit.jupiter.api.Test
+    public void it_can_find_the_contact_after_save_it() {
         Contact contact = new Contact("Mary", "Zheng", "test@test.com", PhoneType.HOME, "6365272943");
         Contact_Note note = new Contact_Note();
         note.setMessage("She is a java geek");
@@ -48,8 +39,8 @@ public class ContactRepositoryTest {
         assertEquals("She is a java geek", contacts.get(0).getNotes().get(0).getMessage());
     }
 
-    @Test
-    public void testit_can_delete_the_contact_after_save_it() {
+    //@org.junit.jupiter.api.Test
+    public void it_can_delete_the_contact_after_save_it() {
         Contact contact = new Contact("Mary", "Zheng", "test@test.com", PhoneType.HOME, "6365272943");
         Contact_Note note = new Contact_Note();
         note.setMessage("She is a java geek");
@@ -66,8 +57,8 @@ public class ContactRepositoryTest {
 
     }
 
-    @Test
-    public void testit_can_update_the_contact_after_save_it() {
+    //@org.junit.jupiter.api.Test
+    public void it_can_update_the_contact_after_save_it() {
         Contact contact = new Contact("Mary", "Zheng", "test@test.com", PhoneType.HOME, "6365272943");
 
         contactRepository.save(contact);
@@ -80,8 +71,8 @@ public class ContactRepositoryTest {
         assertEquals("mary.zheng@test.com", contacts.get(0).getEmail());
     }
 
-    @Test
-    public void testit_can_find_contacts_by_name_and_type() {
+    //@org.junit.jupiter.api.Test
+    public void it_can_find_contacts_by_name_and_type() {
 
         contactRepository.save(new Contact("Mary", "Zheng", "mary.zheng@jcg.org", PhoneType.HOME, "6368168164"));
         contactRepository.save(new Contact("Tom", "Smith", "tom.smith@jcg.org", PhoneType.MOBILE, "(636) 527-2943"));
@@ -105,5 +96,4 @@ public class ContactRepositoryTest {
         Contact found = contactRepository.getOne(2L);
         assertNull(found);
     }
-
 }

@@ -5,23 +5,24 @@
 package com.spring5.mbassador;
 
 import com.google.common.eventbus.DeadEvent;
+import com.spring5.EventBusConfig;
 import net.engio.mbassy.bus.MBassador;
-import net.engio.mbassy.bus.config.BusConfiguration;
-import net.engio.mbassy.bus.config.Feature;
 import net.engio.mbassy.listener.Handler;
 import net.engio.mbassy.listener.Invoke;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author javaugi
  */
+@Service
 public class NotificationService {
 
     // Configure async bus
-    MBassador<Object> asyncBus = new MBassador<>(
-            new BusConfiguration()
-                    .addFeature(Feature.AsynchronousMessageDispatch.Default())
-    );
+    @Autowired
+    private @Qualifier(EventBusConfig.MB_EVENT_BUS_HIGH_PERF) MBassador<Object> asyncBus;
 
 // Handler will execute in a separate thread
     @Handler(delivery = Invoke.Asynchronously)

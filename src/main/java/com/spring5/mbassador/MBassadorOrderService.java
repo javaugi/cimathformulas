@@ -4,9 +4,11 @@
  */
 package com.spring5.mbassador;
 
+import com.spring5.EventBusConfig;
 import net.engio.mbassy.bus.MBassador;
 import net.engio.mbassy.listener.Handler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,10 +16,10 @@ import org.springframework.stereotype.Service;
  * @author javaugi
  */
 @Service
-public class OrderService {
+public class MBassadorOrderService {
     
     @Autowired
-    private MBassador<Object> bus;
+    private @Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> bus;
     
     public void createOrder(String orderId) {
         // Business logic...

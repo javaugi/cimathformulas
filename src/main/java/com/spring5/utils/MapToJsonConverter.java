@@ -15,7 +15,6 @@ import javax.persistence.AttributeConverter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
 import org.springframework.stereotype.Component;
 
 //@Converter(autoApply = false) // Optional: set to true to apply globally

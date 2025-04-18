@@ -4,10 +4,12 @@
  */
 package com.spring5.rediscache;
 
+import com.spring5.RedisConfig;
 import java.io.FileNotFoundException;
 import java.time.Duration;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class MedicalFileStorageService {
     private FileMetadataRepository fileMetadataRepository;
     
     @Autowired
-    private RedisTemplate<String, MedicalFileMetadata> redisTemplate;
+    private @Qualifier(RedisConfig.REDIS_TPL_MFILE) RedisTemplate<String, MedicalFileMetadata> redisTemplate;
 
     @Cacheable(value = FILE_METADATA_CACHE, key = "#fileId")
     public MedicalFileMetadata getFileMetadata(String fileId) throws Exception {

@@ -4,10 +4,7 @@
  */
 package com.spring5.kafkamicroservice;
 
-import io.lettuce.core.tracing.Tracer;
-import io.lettuce.core.tracing.Tracer.Span;
-import java.util.List;
-import org.springframework.context.annotation.Scope;
+import io.opentelemetry.api.trace.Tracer;
 import org.springframework.stereotype.Service;
 
 @Service

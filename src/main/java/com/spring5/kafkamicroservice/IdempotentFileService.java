@@ -5,8 +5,10 @@
 package com.spring5.kafkamicroservice;
 
 import java.time.Instant;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.KafkaException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.Acknowledgment;
@@ -17,19 +19,20 @@ import org.springframework.stereotype.Service;
  * @author javaugi
  */
 @Service
+//@RequiredArgsConstructor
 public class IdempotentFileService {
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
     private final FileProcessedRepository processedRepo;
     
-    public IdempotentFileService(KafkaTemplate<String, Object> kafkaTemplate, FileProcessedRepository processedRepo) {
+    public IdempotentFileService(@Qualifier("stringKafkaTemplate") KafkaTemplate<String, String> kafkaTemplate, FileProcessedRepository processedRepo) {
         this.kafkaTemplate = kafkaTemplate;
         this.processedRepo = processedRepo;
     }
     
     private boolean fileExistByEventId(String eventId) {
-        //return (processedRepo.existsByEventId(eventId);
-        return false;
+        //return false;
+        return processedRepo.existsByEventId(eventId);
     }
 
     @KafkaListener(topics = "${app.topics.file-events}", groupId = "file-storage-group")
@@ -38,8 +41,7 @@ public class IdempotentFileService {
         if (fileExistByEventId(record.value().getEventId())) {
             ack.acknowledge();
             return;
-        }
-        
+        }        
 
         try {
             processFile(record.value());
@@ -57,6 +59,6 @@ public class IdempotentFileService {
     }
     
     private void processFile(FileStorageEvent fileStorageEvent) {
-        
+        System.out.println("processFile " + fileStorageEvent);
     }
 }

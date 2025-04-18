@@ -4,12 +4,14 @@
  */
 package com.spring5.audit;
 
+import com.spring5.EventBusConfig;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import net.engio.mbassy.bus.MBassador;
 import org.apache.kafka.clients.consumer.ConsumerPartitionAssignor.Subscription;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -18,7 +20,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class EventMetrics {
 
     private final MeterRegistry meterRegistry;
-    private final MBassador<Object> eventBus;
+    private final @Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus;
     
     @PostConstruct
     public void setupMetrics() {

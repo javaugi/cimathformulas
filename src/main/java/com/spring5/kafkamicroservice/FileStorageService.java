@@ -4,6 +4,9 @@
  */
 package com.spring5.kafkamicroservice;
 
+import static com.spring5.kafkamicroservice.FileOperation.DELETE;
+import static com.spring5.kafkamicroservice.FileOperation.UPDATE;
+import static com.spring5.kafkamicroservice.FileOperation.UPLOAD;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +45,26 @@ public class FileStorageService {
             // Implement retry or dead-letter queue logic here
         }
     }
+    
+    @KafkaListener(topics = "${app.topics.file-events}", groupId = "file-storage-group")
+    public void handleFileEventWithRuleSwitch(ConsumerRecord<String, FileStorageEvent> record, Acknowledgment ack) {
+        try {
+            FileStorageEvent event = record.value();
+            logger.info("Received file event: {}", event);
+
+            switch (event.getOperation()) {
+                case UPLOAD -> // Process file upload (would typically move from temp to permanent storage)
+                    processFileUpload(event);
+                case DELETE -> deleteFile(event.getFilePath());
+                case UPDATE -> updateFileMetadata(event.getFileId(), event.getFilePath());
+            }
+
+            ack.acknowledge();
+        } catch (Exception e) {
+            logger.error("Error processing file event: {}", e.getMessage());
+            // Implement retry or dead-letter queue logic here
+        }
+    }
 
     private void processFileUpload(FileStorageEvent event) {
         // Implementation would:
@@ -57,11 +80,10 @@ public class FileStorageService {
     } 
     
     private void updateFileMetadata(String fileId, String filePath) {
-        
+        logger.info("updateFileMetadata {}: {}", fileId, filePath);
     }
     
     public String store(MultipartFile confirmationFile){
-        String filePath = "";
-        return filePath;
+        return confirmationFile.getName();
     }
 }

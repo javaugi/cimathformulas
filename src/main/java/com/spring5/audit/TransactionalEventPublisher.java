@@ -4,9 +4,11 @@
  */
 package com.spring5.audit;
 
+import com.spring5.EventBusConfig;
 import java.util.LinkedList;
 import java.util.Queue;
 import net.engio.mbassy.bus.MBassador;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -17,7 +19,7 @@ public class TransactionalEventPublisher {
     private final MBassador<Object> eventBus;
     private final ThreadLocal<Queue<Object>> eventQueue = ThreadLocal.withInitial(LinkedList::new);
 
-    public TransactionalEventPublisher(MBassador<Object> eventBus) {
+    public TransactionalEventPublisher(@Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus) {
         this.eventBus = eventBus;
     }
 

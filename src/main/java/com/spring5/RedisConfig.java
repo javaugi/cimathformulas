@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.spring5.rediscache;
+package com.spring5;
 
+import com.spring5.rediscache.MedicalFileMetadata;
 import java.time.Duration;
 //import net.sf.ehcache.management.CacheManager;
 //import net.sf.ehcache.management.CacheManager;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -26,9 +28,12 @@ public class RedisConfig {
 
     @Value("${spring.redis.host}")
     private String redisHost;
-
     @Value("${spring.redis.port}")
     private int redisPort;
+
+    public static final String REDIS_TPL = "strObjRedisTemplate";
+    public static final String REDIS_TPL_STR = "strStrRedisTemplate";
+    public static final String REDIS_TPL_MFILE = "strMedFileRedisTemplate";
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
@@ -36,9 +41,28 @@ public class RedisConfig {
         return new LettuceConnectionFactory(config);
     }
 
-    @Bean
+    @Primary
+    @Bean(name = REDIS_TPL)
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        return template;
+    }
+
+    @Bean(name = REDIS_TPL_STR)
+    public RedisTemplate<String, String> redisStrTemplate() {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        return template;
+    }
+
+    @Bean(name = REDIS_TPL_MFILE)
+    public RedisTemplate<String, MedicalFileMetadata> redisMedFileTemplate() {
+        RedisTemplate<String, MedicalFileMetadata> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());

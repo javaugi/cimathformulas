@@ -4,14 +4,12 @@
  */
 package com.spring5.kafkamicroservice;
 
-import io.lettuce.core.tracing.Tracer;
-import io.lettuce.core.tracing.Tracer.Span;
+//import io.lettuce.core.tracing.Tracer;
 import io.micrometer.core.instrument.MeterRegistry;
-import java.util.HashMap;
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.trace.Tracer;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.apache.kafka.clients.admin.KafkaAdminClient;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +29,8 @@ public class MonitoringController {
         this.adminClient = adminClient;
         this.meterRegistry = meterRegistry;
         this.tracer = tracer;
-    }
-    
+        //this.tracer = GlobalOpenTelemetry.getTracer("trading-consumer");
+    }    
 
     @GetMapping("/kafka-health")
     public ResponseEntity<Map<String, Object>> getKafkaHealth() {

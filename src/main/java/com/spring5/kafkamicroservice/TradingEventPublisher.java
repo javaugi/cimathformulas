@@ -7,6 +7,7 @@ package com.spring5.kafkamicroservice;
 import java.time.Instant;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class TradingEventPublisher {
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, TradeEvent> kafkaTemplate;
     private final String tradeEventsTopic;
     private final String fileEventsTopic;
     private final String auditEventsTopic;
@@ -26,7 +27,7 @@ public class TradingEventPublisher {
     private FileStorageService fileStorageService;
 
     @Autowired
-    public TradingEventPublisher(KafkaTemplate<String, Object> kafkaTemplate,
+    public TradingEventPublisher(@Qualifier("tradeEventKafkaTemplate") KafkaTemplate<String, TradeEvent> kafkaTemplate,
                                @Value("${app.topics.trade-events}") String tradeEventsTopic,
                                @Value("${app.topics.file-events}") String fileEventsTopic,
                                @Value("${app.topics.audit-events}") String auditEventsTopic) {
@@ -69,7 +70,10 @@ public class TradingEventPublisher {
             "trade-confirmation"
         );
 
-        kafkaTemplate.send(fileEventsTopic, String.valueOf(trade.getId()), event);
+        TradeEvent tEvent = new TradeEvent(java.util.UUID.randomUUID().toString(),
+            Instant.now(), "trade-confirmation", event.getTradeId());
+        
+        kafkaTemplate.send(fileEventsTopic, String.valueOf(trade.getId()), tEvent);
         publishAuditEvent(event.getFileId(), EntityType.FILE, AuditAction.valueOf(operation.name()));
     }
 
@@ -83,8 +87,9 @@ public class TradingEventPublisher {
             "system-user",
             Map.of("system", "trading-engine")
         );
-
-        kafkaTemplate.send(auditEventsTopic, entityId, event);
+        
+        TradeEvent tEvent = new TradeEvent("trading-system", event.getEventId());
+        kafkaTemplate.send(auditEventsTopic, entityId, tEvent);
     }
 
     @Transactional(transactionManager = "kafkaTransactionManager")

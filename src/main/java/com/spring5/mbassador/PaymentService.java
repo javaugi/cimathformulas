@@ -4,19 +4,18 @@
  */
 package com.spring5.mbassador;
 
+import com.spring5.EventBusConfig;
 import lombok.RequiredArgsConstructor;
 import net.engio.mbassy.bus.MBassador;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
     
-    private final MBassador<Object> eventBus;
-    public PaymentService() {
-        eventBus = new MBassador<>();
-    }
-    
+    private final @Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus;
+
     public void processPayment(String orderId, double amount) {
         // Payment processing logic...
         boolean success = Math.random() > 0.2; // 80% success rate for demo

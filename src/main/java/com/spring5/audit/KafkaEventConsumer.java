@@ -5,10 +5,12 @@
 package com.spring5.audit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring5.EventBusConfig;
 import com.spring5.mbassador.OrderCreatedEvent;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import net.engio.mbassy.bus.MBassador;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class KafkaEventConsumer {
 
-    private final MBassador<Object> eventBus;
+    private final @Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus;
     private final ObjectMapper objectMapper;
 
     @KafkaListener(topics = "OrderCreatedEvent")

@@ -4,21 +4,38 @@
  */
 package com.spring5.audit;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring5.EventBusConfig;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import net.engio.mbassy.bus.MBassador;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class DistributedEventPublisher {
 
-    private final MBassador<Object> eventBus;
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    private final ObjectMapper objectMapper;
+    @Autowired
+    private @Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus;
+
+    @Autowired
+    private @Qualifier("stringKafkaTemplate") KafkaTemplate<String, String> kafkaTemplate;    
+
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    /*
+    public DistributedEventPublisher(MBassador<Object> eventBus, ObjectMapper objectMapper,
+            @Qualifier("stringKafkaTemplate") KafkaTemplate<String, String> kafkaTemplate) {
+        this.eventBus = eventBus;
+        this.objectMapper = objectMapper;
+        this.kafkaTemplate = kafkaTemplate;
+    }    
+    // */
+    
     
     @PostConstruct
     public void setupForwarding() {

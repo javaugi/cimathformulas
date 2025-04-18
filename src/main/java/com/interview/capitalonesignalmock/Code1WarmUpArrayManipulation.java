@@ -232,7 +232,8 @@ public class Code1WarmUpArrayManipulation {
         int[] intArr2 = {5, 5, 4, 2, 3};
         System.out.println("2-1 the original array: " + Arrays.toString(intArr2));
         List<Integer> intList = Arrays.stream(intArr2)
-                .boxed()
+                .boxed() 
+                .sorted()
                 .collect(Collectors.toList());
         System.out.println("2-2 the converted list: " + intList);
         Collections.sort(intList);

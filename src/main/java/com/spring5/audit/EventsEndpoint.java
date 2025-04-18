@@ -4,6 +4,7 @@
  */
 package com.spring5.audit;
 
+import com.spring5.EventBusConfig;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import net.engio.mbassy.bus.MBassador;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -25,7 +27,7 @@ public class EventsEndpoint {
     public List<String> VALID_EVENT_TYPES = new ArrayList<>();
     
     @Autowired
-    private MBassador<Object> eventBus;
+    private @Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus;
 
     //(1) Security:
     // Consider adding these validations:

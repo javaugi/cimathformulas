@@ -36,8 +36,15 @@ public class PatientApiController {
     @Autowired
     private PatientRepository patientRepository;
 
+    //@Autowired
+    //private EntityLinks entityLinks;
+    
+    private final EntityLinks entityLinks;
     @Autowired
-    private EntityLinks entityLinks;
+    public PatientApiController(EntityLinks entityLinks) {
+        this.entityLinks = entityLinks;
+    }    
+    
 
     @GetMapping
     public ResponseEntity<Collection<PatientResource>> getAllPatients() {

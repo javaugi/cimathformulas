@@ -4,10 +4,12 @@
  */
 package com.spring5.mbassador;
 
+import com.spring5.EventBusConfig;
 import jakarta.annotation.PostConstruct;
 import net.engio.mbassy.bus.MBassador;
 import net.engio.mbassy.bus.config.BusConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 /**
  *
  * @author javaugi
@@ -16,9 +18,9 @@ public class MbassadorDemoAppMain {
     private static final MbassadorDemoAppMain main = new MbassadorDemoAppMain();
     
     @Autowired
-    private MBassador<Object> eventBus;
+    private @Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus;
     @Autowired
-    private OrderService orderService;
+    private MBassadorOrderService orderService;
     @Autowired
     private PaymentService paymentService;
     

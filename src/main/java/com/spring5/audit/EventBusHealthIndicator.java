@@ -4,7 +4,9 @@
  */
 package com.spring5.audit;
 
+import com.spring5.EventBusConfig;
 import net.engio.mbassy.bus.MBassador;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
@@ -14,7 +16,7 @@ public class EventBusHealthIndicator implements HealthIndicator {
 
     private final MBassador<Object> eventBus;
 
-    public EventBusHealthIndicator(MBassador<Object> eventBus) {
+    public EventBusHealthIndicator(@Qualifier(EventBusConfig.MB_EVENT_BUS) MBassador<Object> eventBus) {
         this.eventBus = eventBus;
     }
 

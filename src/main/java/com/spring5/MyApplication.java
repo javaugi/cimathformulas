@@ -11,9 +11,12 @@ import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -32,15 +35,22 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @Configuration
-//@EnableCaching
+@EnableCaching
 @EnableTransactionManagement
+@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @EnableJpaRepositories(basePackages = MyApplication.PACKAGES_TO_SCAN)
+@ComponentScan(basePackages = {
+    MyApplication.PACKAGES_TO_SCAN,
+    MyApplication.PACKAGES_TO_SCAN_2
+})
 public class MyApplication {
     
     protected static final String PACKAGES_TO_SCAN = "com.spring5";
+    protected static final String PACKAGES_TO_SCAN_2 = "com.spring5.kafkamicroservice";
 
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);
+        //System.exit(SpringApplication.exit(SpringApplication.run(MyApplication.class, args)));
     }
 
     @Bean
@@ -48,11 +58,6 @@ public class MyApplication {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
     
-    @Bean
-    public MapToJsonConverter mapToJsonConverter() {
-        return new MapToJsonConverter();
-    }
-
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
@@ -62,18 +67,22 @@ public class MyApplication {
         return bean;
     }
 
-    /*
-    @Bean
+    /*@Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);
         bean.setJpaVendorAdapter(jpaVendorAdapter);
-        bean.setPackagesToScan("com.spring5");
+        bean.setPackagesToScan(PACKAGES_TO_SCAN);
         return bean;
-    }
+    }    
     // */
     
+    @Bean
+    public MapToJsonConverter mapToJsonConverter() {
+        return new MapToJsonConverter();
+    }
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, 
             JpaVendorAdapter jpaVendorAdapter, MapToJsonConverter mapToJsonConverter) {        
@@ -82,16 +91,11 @@ public class MyApplication {
         bean.setJpaVendorAdapter(jpaVendorAdapter);
         bean.setPackagesToScan(PACKAGES_TO_SCAN);
                 
-        //HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        //bean.setJpaVendorAdapter(vendorAdapter);        
-        // Register the converter
-        //*
         Map<String, Object> properties = new HashMap<>();
         properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
         bean.setJpaPropertyMap(properties);
-        // */
         
-        /*
+        /* DEBUUGGING
         Properties properties = new Properties();
         properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
         properties.put("hibernate.session_factory.interceptor", 
@@ -108,7 +112,6 @@ public class MyApplication {
         
         return bean;
     }    
-    
 
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {

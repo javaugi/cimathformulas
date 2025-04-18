@@ -5,9 +5,11 @@
 package com.spring5.rediscache;
 
 //import static jakarta.persistence.GenerationType.UUID;
+import com.spring5.RedisConfig;
 import java.time.Duration;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ public class CriticalHealthcareOperationService {
     private static final long LOCK_EXPIRE_TIME_MS = 30000;
     
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private @Qualifier(RedisConfig.REDIS_TPL_STR) RedisTemplate<String, String> redisTemplate;
 
     public boolean performCriticalOperation(String operationId, String patientId) {
         String lockKey = LOCK_KEY_PREFIX + operationId + ":" + patientId;

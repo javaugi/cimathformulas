@@ -42,6 +42,11 @@ public class LambdaExpression {
         T compute(T t);
     }
 
+    interface Factorial<T> {
+
+        T compute(T t);
+    }
+
     public static void main(String args[]) {
         NumericTest isEven = (n) -> (n % 2) == 0;
         NumericTest isNegative = (n) -> (n < 0);
@@ -78,6 +83,21 @@ public class LambdaExpression {
 
             return result;
         };
+        // Output: omeD adbmaL
+        System.out.println(reverse.compute("Lambda Demo"));
+
+        MyGeneric<String> reverse2 = (str) -> {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = str.length() - 1; i >= 0; i--) {
+                sb.append(str.charAt(i));
+            }
+
+            return sb.toString();
+        };
+        // Output: omeD adbmaL
+        System.out.println(reverse2.compute("Lambda Demo"));
+
 
         // Integer version of MyGeneric
         MyGeneric<Integer> factorial = (Integer n) -> {
@@ -85,14 +105,28 @@ public class LambdaExpression {
 
             for (int i = 1; i <= n; i++) {
                 result = i * result;
+                System.out.println("factorial calc n=" + i + "-result=" + result);
             }
 
             return result;
         };
-
-        // Output: omeD adbmaL
-        System.out.println(reverse.compute("Lambda Demo"));
         // Output: 120
         System.out.println(factorial.compute(5));
+        
+        
+        //Factorial
+        // Integer version of MyGeneric
+        Factorial<Integer> factorial2 = (Integer n) -> {
+            int result = 1;
+
+            for (int i = 1; i <= n; i++) {
+                result = i * result;
+                System.out.println("factorial calc n=" + i + "-result=" + result);
+            }
+
+            return result;
+        };
+        // Output: 720
+        System.out.println(factorial2.compute(6));
     }
 }

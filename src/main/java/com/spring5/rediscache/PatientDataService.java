@@ -4,6 +4,7 @@
  */
 package com.spring5.rediscache;
 
+import com.spring5.RedisConfig;
 import com.spring5.entity.Patient;
 import com.spring5.repository.PatientRepository;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,7 +31,7 @@ public class PatientDataService {
     private PatientRepository patientRepository;
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private @Qualifier(RedisConfig.REDIS_TPL) RedisTemplate<String, Object> redisTemplate;
 
     @Cacheable(value = PATIENT_CACHE, key = "#patientId")
     public Patient getPatientById(Long patientId) throws Exception {

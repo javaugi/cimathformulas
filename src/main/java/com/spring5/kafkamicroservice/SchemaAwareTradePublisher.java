@@ -4,22 +4,22 @@
  */
 package com.spring5.kafkamicroservice;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SchemaAwareTradePublisher {
-    //Schema-Aware Producer
-    @Autowired
-    private KafkaTemplate<String, GenericRecord> avroKafkaTemplate;
+
+    private final KafkaTemplate<String, TradeEvent> kafkaTemplate;    
+    public SchemaAwareTradePublisher(@Qualifier("tradeEventKafkaTemplate") KafkaTemplate<String, TradeEvent> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }    
 
     public void publishTradeEvent(Trade trade) {
         TradeEvent event = TradingEventPublisher.createTradeEventFromTrade(trade);
 
-        avroKafkaTemplate.send("trading.trade.events", String.valueOf(trade.getId()), getGenericRecord(event));
+        kafkaTemplate.send("trading.trade.events", String.valueOf(trade.getId()), event);
     }
     
     public static GenericRecord getGenericRecord(TradeEvent event) {

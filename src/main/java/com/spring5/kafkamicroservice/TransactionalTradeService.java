@@ -5,6 +5,7 @@
 package com.spring5.kafkamicroservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.transaction.ChainedKafkaTransactionManager;
@@ -21,19 +22,25 @@ public class TransactionalTradeService {
     @Autowired
     private DocumentRepository documentRepository;
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, DocumentEvent> kafkaDocTemplate;
+    private final KafkaTemplate<String, TradeEvent> kafkaTemplate;
     private final JpaTransactionManager jpaTransactionManager;
-    private final ChainedKafkaTransactionManager<Object, Object> transactionManager;
+    //private final ChainedKafkaTransactionManager<Object, Object> transactionManager;
+    // this causes conflict with the transaction manager in MyApplication
 
     @Autowired
-    public TransactionalTradeService(KafkaTemplate<String, Object> kafkaTemplate,
-                                   JpaTransactionManager jpaTransactionManager) {
+    public TransactionalTradeService(@Qualifier("docEventKafkaTemplate") KafkaTemplate<String, DocumentEvent> kafkaDocTemplate, 
+            @Qualifier("tradeEventKafkaTemplate") KafkaTemplate<String, 
+            TradeEvent> kafkaTemplate, JpaTransactionManager jpaTransactionManager) {
+        this.kafkaDocTemplate = kafkaDocTemplate;
         this.kafkaTemplate = kafkaTemplate;
         this.jpaTransactionManager = jpaTransactionManager;
+        /*
         this.transactionManager = new ChainedKafkaTransactionManager<>(
             new JpaTransactionManager(jpaTransactionManager.getEntityManagerFactory()),
             new KafkaTransactionManager<>(kafkaTemplate.getProducerFactory())
         );
+        // */
     }
 
     @Transactional(transactionManager = "transactionManager")
@@ -47,7 +54,7 @@ public class TransactionalTradeService {
         DocumentEvent docEvent = createDocumentEvent(document);
         
         kafkaTemplate.send("trading.trade.events", String.valueOf(trade.getId()), tradeEvent);
-        kafkaTemplate.send("trading.document.events", String.valueOf(document.getId()), docEvent);
+        kafkaDocTemplate.send("trading.document.events", String.valueOf(document.getId()), docEvent);
         
         // 3. The commit will happen automatically if no exceptions
     }
@@ -60,8 +67,10 @@ public class TransactionalTradeService {
         return TradingEventPublisher.createTradeEventFromTrade(trade);
     }
 
+    /*
     @Bean
     public ChainedKafkaTransactionManager<Object, Object> transactionManager() {
         return transactionManager;
     }
+    // */
 }

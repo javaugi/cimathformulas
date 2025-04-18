@@ -24,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class AuditEvent implements java.io.Serializable {
+public class AuditEvent extends Object implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -33,9 +33,9 @@ public class AuditEvent implements java.io.Serializable {
     String userId;
     Long entityId;
     String action;
-    LocalDateTime timestamp;
-    String value;
-    String type;
+    Instant timestamp;
+    String eventValue;
+    String eventType;
     String details;
     
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.spring5.audit;
+package com.spring5;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class ElasticsearchConfig {
-   @Bean
+    @Bean
     public ElasticsearchClient elasticsearchClient() {
         RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200)).build();
         RestClientTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());

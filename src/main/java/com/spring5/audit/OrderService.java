@@ -5,7 +5,7 @@
 package com.spring5.audit;
 
 import com.spring5.mbassador.OrderCreatedEvent;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
  * @author javaugi
  */
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OrderService {
-    private final OrderRepository orderRepository;
-    private final TransactionalEventPublisher eventPublisher;
+    
+    @Autowired
+    private OrderRepository orderRepository;
+    
+    @Autowired
+    private TransactionalEventPublisher eventPublisher;
     
     /*
     public OrderService(OrderRepository orderRepository, TransactionalEventPublisher eventPublisher ) {

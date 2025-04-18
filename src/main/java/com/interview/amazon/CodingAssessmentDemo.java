@@ -6,7 +6,6 @@ package com.interview.amazon;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -17,7 +16,7 @@ public class CodingAssessmentDemo {
     private static final CodingAssessmentDemo main = new CodingAssessmentDemo();
 
     public static void main(String[] args) {
-        //main.run1();
+        main.run1();
         main.run2();
     }
     
