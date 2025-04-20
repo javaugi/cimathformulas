@@ -85,14 +85,35 @@
     </licenses>
 
     <dependencies> 
-        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId> <!-- Implicitly includes Logback -->
+        </dependency>
+        
+        <!-- Analyze your Dependency Tree: This is crucial to find which dependency is including slf4j-nop 
+            (and any other unwanted SLF4J bindings). Use your build tool's command:
+            Maven: mvn dependency:tree | grep 'slf4j'
+        -->        
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-neo4j</artifactId>
+            <!--
+            <exclusions>
+                <exclusion>
+                  <groupId>org.slf4j</groupId>
+                  <artifactId>slf4j-nop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>                
+            </exclusions>
+            -->
         </dependency>        
         <dependency>
             <groupId>org.neo4j.driver</groupId>
-            <artifactId>neo4j-java-driver</artifactId>
+            <artifactId>neo4j-java-driver</artifactId> 
         </dependency>
         <dependency>
             <groupId>org.neo4j.gds</groupId>
@@ -106,13 +127,12 @@
             <version>5.26.5</version>
         </dependency>
         <dependency>
-               <groupId>org.neo4j</groupId>
-               <artifactId>neo4j-kernel</artifactId>
-               <version>3.5.1</version>
-               <classifier>tests</classifier>
-               <scope>test</scope>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-kernel</artifactId>
+            <version>3.5.1</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
         </dependency>
-        -->
 
         <!--
         <dependency>
@@ -973,7 +993,6 @@
         <dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient</artifactId>
-            <version>0.16.0</version>
             <type>jar</type>
         </dependency>
         
@@ -1065,9 +1084,8 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-aws-secrets-manager-config</artifactId>
             <version>2.2.6.RELEASE</version>
-        </dependency>
-	                     
-        
+        </dependency>	               
+                      
     </dependencies>
 
     <build>
