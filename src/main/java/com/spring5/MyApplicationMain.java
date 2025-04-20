@@ -41,7 +41,7 @@ public class MyApplicationMain {
         // */        
     }
     
-
+    
     private void mongoDbDemo() {
         try {
             repository.deleteAll();

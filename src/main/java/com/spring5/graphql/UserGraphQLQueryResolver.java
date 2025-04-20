@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 */
 @Controller
-@RequestMapping("/graphql")
 public class UserGraphQLQueryResolver {
     private final GraphUserService userService;
 

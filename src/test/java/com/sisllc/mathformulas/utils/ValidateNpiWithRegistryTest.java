@@ -28,23 +28,21 @@ public class ValidateNpiWithRegistryTest extends ProjectTest {
 
     private static final Logger log = LoggerFactory.getLogger(ValidateNpiWithRegistryTest.class);
 
-    @Autowired
-    Environment env;
-
-    @Value("${validNpiValue}")
-    public String validNpiValue;
-    @Value("${invalidNpiValue}")
-    public String invalidNpiValue;
-
-    //@Test
+    @Test
     public void validNPI() {
-        boolean isValidNPI = OpenCsvNpiValidation.validateNPIWithRegistry(validNpiValue);
-        //Assert.assertTrue(isValidNPI);
+        boolean isValidNPI = true;
+        if (npiRegistryEnabled) {
+            isValidNPI = OpenCsvNpiValidation.validateNPIWithRegistry(validNpiValue);
+        }
+        Assert.assertTrue("npiRegistryEnabled=" + npiRegistryEnabled, isValidNPI);
     }
 
-    //@Test
+    @Test
     public void invalidNPI() {
-        boolean isValidNPI = OpenCsvNpiValidation.validateNPIWithRegistry(invalidNpiValue);
-        //Assert.assertTrue(!isValidNPI);
+        boolean isValidNPI = false;
+        if (npiRegistryEnabled) {
+            isValidNPI = OpenCsvNpiValidation.validateNPIWithRegistry(invalidNpiValue);
+        }
+        Assert.assertTrue("npiRegistryEnabled=" + npiRegistryEnabled, !isValidNPI);
     }
 }
