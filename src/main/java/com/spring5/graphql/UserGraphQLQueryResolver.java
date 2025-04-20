@@ -8,11 +8,13 @@ import java.util.List;
 import org.springframework.data.repository.query.Param;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /*
 
 */
 @Controller
+@RequestMapping("/graphql")
 public class UserGraphQLQueryResolver {
     private final GraphUserService userService;
 

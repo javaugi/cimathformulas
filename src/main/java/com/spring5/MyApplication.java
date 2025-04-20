@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -43,15 +44,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCaching
 @EnableTransactionManagement
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
-@EnableJpaRepositories(basePackages = MyApplication.PACKAGES_TO_SCAN)
 @ComponentScan(basePackages = {
-    MyApplication.PACKAGES_TO_SCAN,
-    MyApplication.PACKAGES_TO_SCAN_2
+    MyApplication.PACKAGES_TO_SCAN
+})
+@EnableJpaRepositories(basePackages = {
+    MyApplication.PACKAGES_TO_SCAN
 })
 public class MyApplication implements CommandLineRunner, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     protected static final String PACKAGES_TO_SCAN = "com.spring5";
-    protected static final String PACKAGES_TO_SCAN_2 = "com.spring5.kafkamicroservice";
 
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);

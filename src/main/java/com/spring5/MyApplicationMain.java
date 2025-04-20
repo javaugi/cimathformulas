@@ -13,6 +13,7 @@ import com.spring5.mongodb.CustomerRepository;
 import java.util.Arrays;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
@@ -22,6 +23,9 @@ import redis.clients.jedis.Jedis;
  */
 @Service
 public class MyApplicationMain {
+    
+    @Value("${app.mongodb.enabled}")
+    protected boolean mongoDbEnabled;
     
     @Autowired
     private CustomerRepository repository;

@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Strategic Information Systems, LLC.
  *
  */
-package com.spring.jpapagination;
+package com.spring5.jpapagination;
 
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;

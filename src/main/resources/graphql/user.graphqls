@@ -1,9 +1,9 @@
 type Query {
-    allUsers: [User]
-    userById(id: ID!): User
+    allUsers: [GraphUser]
+    userById(id: ID!): GraphUser
 }
 
-type User {
+type GraphUser {
     id: ID!
     name: String!
     email: String!

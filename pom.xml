@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pfu</groupId>
-    <artifactId>cimathformulas</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.sisllc</groupId>
+    <artifactId>com.sisllc.springbt-misc</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>cimathformulas</name>
 
@@ -68,6 +68,27 @@
         <resilience4jVersion>2.3.0</resilience4jVersion>
     </properties>
 
+    <scm>
+        <url>https://github.com/spring-projects/spring-ai</url>
+        <connection>git://github.com/spring-projects/spring-ai.git</connection>
+        <developerConnection>git@github.com:spring-projects/spring-ai.git</developerConnection>
+    </scm>
+    <issueManagement>
+        <system>Github Issues</system>
+        <url>https://github.com/spring-projects/spring-ai/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>Github Actions</system>
+        <url>https://github.com/spring-projects/spring-ai/actions</url>
+    </ciManagement>
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <dependencies> 
         <!--
         <dependency>
@@ -122,6 +143,11 @@
         -->
         
         <dependency>
+            <groupId>org.scalaj</groupId>
+            <artifactId>scalaj-time_2.11</artifactId>
+            <version>0.8</version>
+        </dependency>         
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>        
@@ -149,6 +175,12 @@
             <artifactId>mongo-java-driver</artifactId>
             <version>3.12.14</version>
         </dependency>
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <version>4.20.0</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -158,7 +190,11 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>        
-            
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-observation-test</artifactId>
+        </dependency>
+                            
         <dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-core</artifactId>
@@ -256,9 +292,27 @@
             <artifactId>spring-boot-starter-graphql</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.graphql</groupId>
+            <artifactId>spring-graphql-test</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java-tools</artifactId>
             <version>5.2.4</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+            <version>4.2.1</version>
+        </dependency>    
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
         </dependency>
     
         <dependency>
@@ -370,7 +424,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId> 
-            <version>8.0.20</version>
+            <version>8.0.33</version>
             <scope>runtime</scope>
         </dependency>
         
@@ -929,7 +983,91 @@
             <artifactId>guava</artifactId>
             <version>33.4.8-jre</version>
         </dependency>        
-        -->
+        <dependency>
+            <groupId>group.springframework.ai</groupId>
+            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+            <version>1.1.0</version>
+        </dependency> 
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-autoconfigure-model-chat-client</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>        
+        --> 
+
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-autoconfigure-model-openai</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-openai</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>
+                
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-spring-boot-autoconfigure</artifactId>
+            <version>1.0.0-M6</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-core</artifactId>
+            <version>1.0.0-M6</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-model</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>   
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-client-chat</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>     
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-vector-store</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>        
+        
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+            <version>4.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mustache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-aws-autoconfigure</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-aws</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-aws-jdbc</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-aws-secrets-manager-config</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+	                     
+        
     </dependencies>
 
     <build>
@@ -1018,6 +1156,19 @@
             <name>Confluent Maven Repository</name>
             <url>https://packages.confluent.io/maven/</url>
         </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>         
     </repositories>
 
     

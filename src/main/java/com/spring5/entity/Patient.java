@@ -8,6 +8,7 @@ import jakarta.persistence.Cacheable;
 import jakarta.persistence.CascadeType;
 import java.time.LocalDate;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -71,6 +72,6 @@ public class Patient implements java.io.Serializable {
     private String phoneNumber;
     
     //@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Appointment> appointments;    
 }

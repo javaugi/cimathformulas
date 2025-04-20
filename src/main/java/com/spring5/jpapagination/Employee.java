@@ -2,10 +2,11 @@
  * Copyright (C) 2019 Strategic Information Systems, LLC.
  *
  */
-package com.spring.jpapagination;
+package com.spring5.jpapagination;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
@@ -16,11 +17,12 @@ import jakarta.persistence.Id;
  * $LastChangedBy
  */
 @Entity
-public class Employee {
+public class Employee implements java.io.Serializable {
 
-    private @Id
-    @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    
     private String name;
     private String dept;
     private int salary;

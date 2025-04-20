@@ -6,6 +6,7 @@ package com.spring5.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,6 +41,6 @@ public class Nurse {
     @JoinColumn(name = "supervising_physician_id")
     private Physician supervisingPhysician;
     
-    @OneToMany(mappedBy = "physician", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "physician", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Appointment> appointments;
 }

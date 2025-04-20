@@ -7,7 +7,11 @@ package com.spring5.mongodb;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+
+//@Repository
+@Transactional
 public interface CustomerRepository extends MongoRepository<Customer, String> {
 
 	public Customer findByFirstName(String firstName);

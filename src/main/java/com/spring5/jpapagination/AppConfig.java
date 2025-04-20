@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Strategic Information Systems, LLC.
  *
  */
-package com.spring.jpapagination;
+package com.spring5.jpapagination;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
