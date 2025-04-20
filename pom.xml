@@ -20,13 +20,11 @@
 
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>        
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.encoding>UTF-8</project.encoding>
 
-        <log4jVerson>1.2.17</log4jVerson>
-        <slf4jVersion>2.0.16</slf4jVersion>
         <rxjava2.verson>2.0.0</rxjava2.verson>
         <commons-parent.version>52</commons-parent.version>
         <opencsv.version>5.5.1</opencsv.version>
@@ -54,9 +52,6 @@
         <tld.version>1.1.2</tld.version>
         <jsp.version>2.3.3</jsp.version>
         <hsqldb.version>2.4.1</hsqldb.version>
-        <log4jVerson>1.2.17</log4jVerson>
-        <slf4jVersion>1.7.25</slf4jVersion>
-        <groovy-all.version>2.4.10</groovy-all.version>
         <h2.version>2.3.232</h2.version>
 
         <joda-time.version>2.10.6</joda-time.version>
@@ -91,6 +86,10 @@
 
     <dependencies> 
         <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-neo4j</artifactId>
+        </dependency>        
         <dependency>
             <groupId>org.neo4j.driver</groupId>
             <artifactId>neo4j-java-driver</artifactId>
@@ -139,18 +138,14 @@
             <groupId>com.datastax.cassandra</groupId>
             <artifactId>cassandra-driver-dse</artifactId>
             <version>2.1.9</version>
-        </dependency> 
-        -->
-        
+        </dependency>         
         <dependency>
             <groupId>org.scalaj</groupId>
             <artifactId>scalaj-time_2.11</artifactId>
             <version>0.8</version>
-        </dependency>         
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>        
+        </dependency>
+        -->
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-testcontainers</artifactId>
@@ -160,12 +155,23 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency> 
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>                
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mongodb</artifactId>
             <scope>test</scope>
-        </dependency>        
+        </dependency>       
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <version>4.20.0</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-sync</artifactId>
@@ -174,13 +180,7 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
             <version>3.12.14</version>
-        </dependency>
-        <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <version>4.20.0</version>
-            <scope>test</scope>
-        </dependency>
+        </dependency> 
 
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -724,20 +724,19 @@
             <artifactId>rxjava</artifactId>
             <version>2.2.21</version>
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4jVerson}</version>
-            <scope>runtime</scope>
-        </dependency>
 
         <!--
         Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-        </dependency>
-        -->
+        </dependency>        
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>runtime</scope>
+        </dependency>        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -750,6 +749,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-reload4j</artifactId>
         </dependency>
+        -->
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
