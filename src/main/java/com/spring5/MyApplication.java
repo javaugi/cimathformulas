@@ -4,12 +4,19 @@
  */
 package com.spring5;
 
+import com.spring5.graphql.Neo4jPerson;
+import com.spring5.graphql.PersonRepository;
 import com.spring5.utils.MapToJsonConverter;
 import jakarta.persistence.EntityManagerFactory;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +28,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -44,21 +51,24 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCaching
 @EnableTransactionManagement
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
-@ComponentScan(basePackages = {
-    MyApplication.PACKAGES_TO_SCAN
-})
-@EnableJpaRepositories(basePackages = {
-    MyApplication.PACKAGES_TO_SCAN
-})
+@ComponentScan(basePackages = {MyApplication.PACKAGES_TO_SCAN})
+@EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 public class MyApplication implements CommandLineRunner, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     protected static final String PACKAGES_TO_SCAN = "com.spring5";
-
+    private final static Logger log = LoggerFactory.getLogger(MyApplication.class);
+    
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);
         //System.exit(SpringApplication.exit(SpringApplication.run(MyApplication.class, args)));
         //new SpringApplicationBuilder().listeners(new AppController()).sources(AppController.class).run(args);
-    }
+    } 
+    
+    /* Run sequence
+    1. commandLineRunnerMain below
+    2. overriding method public void run(String... args)  below
+    3. Neo4jConnectionChecker public void run(String... args)
+    */
 
     @Bean
     public DataSource dataSource() {
@@ -123,26 +133,34 @@ public class MyApplication implements CommandLineRunner, ApplicationListener<App
         return new JpaTransactionManager(emf);
     }
 
-
-    @Autowired 
+    @Autowired
     private MyApplicationMain appMain;
-    
+
     @Autowired
     private ApplicationContext context;
-    
-    @Autowired 
+
+    @Autowired
     MyApplicationProfileMain profile;
-    
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("CommandLineRunner ...");
-        //appMain.runTests();
-    }
-    
+
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         System.out.println("onApplicationEvent ...");
         //profile.setupProfiles(event);
+    }
+
+    @Bean
+    public CommandLineRunner commandLineRunnerMain(PersonRepository personRepository) {
+        return args -> {
+            //This part runs first and then the run method below: public void run(String... args)
+            System.out.println("MyApplication CommandLineRunner.demo ...");
+            log.info("MyApplication CommandLineRunner.demo ...");            
+        };
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("CommandLineRunner ...");
+        //appMain.runTests();
     }
 
 }
