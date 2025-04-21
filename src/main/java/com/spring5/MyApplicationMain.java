@@ -14,6 +14,7 @@ import java.util.Arrays;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
@@ -21,7 +22,7 @@ import redis.clients.jedis.Jedis;
  *
  * @author javaugi
  */
-@Service
+@Component
 public class MyApplicationMain {
     
     @Value("${app.mongodb.enabled}")
