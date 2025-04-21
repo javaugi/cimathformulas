@@ -67,7 +67,7 @@
         <url>https://github.com/spring-projects/spring-ai</url>
         <connection>git://github.com/spring-projects/spring-ai.git</connection>
         <developerConnection>git@github.com:spring-projects/spring-ai.git</developerConnection>
-    </scm>
+    </scm>  
     <issueManagement>
         <system>Github Issues</system>
         <url>https://github.com/spring-projects/spring-ai/issues</url>
@@ -954,6 +954,12 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.4.8-jre</version>
+        </dependency>        
+        
         -->
         
         
@@ -996,38 +1002,26 @@
             <type>jar</type>
         </dependency>
         
-        <!--
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>33.4.8-jre</version>
-        </dependency>        
-        <dependency>
-            <groupId>group.springframework.ai</groupId>
-            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
-            <version>1.1.0</version>
-        </dependency> 
+           <groupId>org.springframework.ai</groupId>
+           <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+           <version>1.0.0-M6</version>
+       </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-autoconfigure-model-chat-client</artifactId>
-            <version>1.0.0-M7</version>
-        </dependency>        
-        --> 
-
+        </dependency> 
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-autoconfigure-model-openai</artifactId>
-            <version>1.0.0-M7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-openai</artifactId>
-            <version>1.0.0-M7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-openai</artifactId>
-            <version>1.0.0-M7</version>
         </dependency>
                 
         <dependency>
@@ -1043,18 +1037,15 @@
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-model</artifactId>
-            <version>1.0.0-M7</version>
         </dependency>   
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-client-chat</artifactId>
-            <version>1.0.0-M7</version>
         </dependency>     
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-vector-store</artifactId>
-            <version>1.0.0-M7</version>
-        </dependency>        
+        </dependency>  
         
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -1168,6 +1159,18 @@
         </pluginManagement>
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>1.0.0-M7</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <repositories>
         <repository>
             <id>confluent</id>

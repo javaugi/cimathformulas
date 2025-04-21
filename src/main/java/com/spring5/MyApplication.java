@@ -134,33 +134,24 @@ public class MyApplication implements CommandLineRunner, ApplicationListener<App
     }
 
     @Autowired
-    private MyApplicationMain appMain;
-
-    @Autowired
     private ApplicationContext context;
-
-    @Autowired
-    MyApplicationProfileMain profile;
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-        System.out.println("onApplicationEvent ...");
-        //profile.setupProfiles(event);
+        log.info("MyApplication onApplicationEvent ...");
     }
 
     @Bean
     public CommandLineRunner commandLineRunnerMain(PersonRepository personRepository) {
         return args -> {
             //This part runs first and then the run method below: public void run(String... args)
-            System.out.println("MyApplication CommandLineRunner.demo ...");
-            log.info("MyApplication CommandLineRunner.demo ...");            
+            log.info("MyApplication CommandLineRunner.commandLineRunnerMain args {}", Arrays.toString(args));            
         };
     }
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("CommandLineRunner ...");
-        //appMain.runTests();
+        log.info("MyApplication CommandLineRunner run {}", Arrays.toString(args));
     }
 
 }
