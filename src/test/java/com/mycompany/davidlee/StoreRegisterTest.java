@@ -17,7 +17,7 @@ import com.mycompany.davidlee.api.StoreRegister;
 import com.mycompany.davidlee.impl.ItemImpl;
 import com.mycompany.davidlee.impl.ShoppingCartImpl;
 import com.mycompany.davidlee.impl.StoreRegisterImpl;
-import com.test.ProjectTest;
+import com.spring5.ProjectTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

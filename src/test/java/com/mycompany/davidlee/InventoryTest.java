@@ -15,7 +15,7 @@ import com.mycompany.davidlee.api.Item.Category;
 import com.mycompany.davidlee.impl.InventoryImpl;
 import com.mycompany.davidlee.impl.ItemImpl;
 import com.mycompany.davidlee.impl.WeightItem;
-import com.test.ProjectTest;
+import com.spring5.ProjectTest;
 import org.junit.Before;
 
 /**

@@ -1,6 +1,6 @@
 package com.sisllc.mathformulas.stringmanipulation;
 
-import com.test.ProjectTest;
+import com.spring5.ProjectTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;

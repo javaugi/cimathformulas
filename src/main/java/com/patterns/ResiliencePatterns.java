@@ -1,3 +1,5 @@
+package com.patterns;
+
 
 import static com.google.common.collect.Lists.asList;
 import com.google.common.util.concurrent.TimeLimiter;
