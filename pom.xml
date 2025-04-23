@@ -995,7 +995,19 @@
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-exporter-logging</artifactId>
         </dependency>        
-        
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporters-prometheus</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>io.opentelemetry.javaagent</groupId>
+            <artifactId>opentelemetry-javaagent-exporter-prometheus</artifactId>
+            <version>0.14.0</version>
+        </dependency>
+        -->
+                
         <dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient</artifactId>

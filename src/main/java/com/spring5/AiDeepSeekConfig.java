@@ -4,12 +4,14 @@
  */
 package com.spring5;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -19,26 +21,35 @@ import org.springframework.core.io.Resource;
  * @author javaugi
  */
 @Configuration
-public class AiDeepSeekConfig {
+public class AiDeepSeekConfig implements CommandLineRunner{
 
     private static final Logger log = LoggerFactory.getLogger(AiDeepSeekConfig.class);
-    private static final String DEEPSEEK_BASE_URL = "https://api.deepseek.com";
-    private static final String DEEPSEEK_API_KEY = "sk-258df0f85ebf4afbb9f37ab96d37dfc0";
-    private static final String DEFAULT_DEEPSEEK_MODEL = "deepseek-chat";
 
     @Value("classpath:/prompts/system-message.st")
     private Resource systemResource;
+    
+    @Value("${spring.ai.deepseek.openai.base-url}")
+    protected String dsBaseUrl;
+    @Value("${spring.ai.deepseek.openai.api-key}")
+    protected String dsApiKey;
+    @Value("${spring.ai.deepseek.openai.chat.options.model}")
+    protected String dsModelDefault;
+    
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("AiDeepSeekConfig with args {} \n url {} api {} \n systemResource {}", args, dsBaseUrl, dsApiKey, systemResource); 
+    }
 
     @Bean
     public OpenAiApi chatCompletionApi() {
-        return OpenAiApi.builder().baseUrl(DEEPSEEK_BASE_URL).apiKey(DEEPSEEK_API_KEY).build();
+        return OpenAiApi.builder().baseUrl(dsBaseUrl).apiKey(dsApiKey).build();
     }
 
     @Bean
     public OpenAiChatModel openAiClient(OpenAiApi openAiApi) {
         return OpenAiChatModel.builder()
                 .openAiApi(openAiApi)
-                .defaultOptions(OpenAiChatOptions.builder().model(DEFAULT_DEEPSEEK_MODEL).build())
+                .defaultOptions(OpenAiChatOptions.builder().model(dsModelDefault).build())
                 .build();
     }
 
