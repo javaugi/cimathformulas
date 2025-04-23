@@ -5,15 +5,9 @@
 package com.spring5.aicloud;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.Test;
@@ -22,23 +16,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.metadata.DefaultUsage;
-import org.springframework.ai.chat.metadata.EmptyUsage;
-import org.springframework.ai.chat.metadata.Usage;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;
-import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
-import org.springframework.ai.content.Media;
-import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.converter.ListOutputConverter;
 import org.springframework.ai.converter.MapOutputConverter;
 import org.springframework.ai.openai.OpenAiChatOptions;
@@ -46,34 +32,27 @@ import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionRequest.AudioParameters;
 import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionRequest.AudioParameters.AudioResponseFormat;
 import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionRequest.AudioParameters.Voice;
-import org.springframework.ai.tool.function.FunctionToolCallback;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.convert.support.DefaultConversionService;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.util.MimeTypeUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Disabled;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.context.annotation.Bean;
 
 /**
  *
  * @author javaugi
  */
-@SpringBootTest(classes = DeepSeekWithOpenAiChatModelIT.Config.class)
+@SpringBootTest
 @EnabledIfEnvironmentVariable(named = "DEEPSEEK_API_KEY", matches = ".+")
 @Disabled("Requires DeepSeek credits")
 public class DeepSeekWithOpenAiChatModelIT {
 
     private static final Logger logger = LoggerFactory.getLogger(DeepSeekWithOpenAiChatModelIT.class);
-    private static final String DEEPSEEK_BASE_URL = "https://api.deepseek.com";
-    private static final String DEFAULT_DEEPSEEK_MODEL = "deepseek-chat";
     
     @Value("classpath:/prompts/system-message.st")
     private Resource systemResource;
@@ -662,22 +641,4 @@ public class DeepSeekWithOpenAiChatModelIT {
         assertThat(response).isNotNull();
     }
     // */
-
-    @SpringBootConfiguration
-    static class Config {
-
-        @Bean
-        public OpenAiApi chatCompletionApi() {
-            return OpenAiApi.builder().baseUrl(DEEPSEEK_BASE_URL).apiKey(System.getenv("DEEPSEEK_API_KEY")).build();
-        }
-
-        @Bean
-        public OpenAiChatModel openAiClient(OpenAiApi openAiApi) {
-            return OpenAiChatModel.builder()
-                    .openAiApi(openAiApi)
-                    .defaultOptions(OpenAiChatOptions.builder().model(DEFAULT_DEEPSEEK_MODEL).build())
-                    .build();
-        }
-
-    }
 }

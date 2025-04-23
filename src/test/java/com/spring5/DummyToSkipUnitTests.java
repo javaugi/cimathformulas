@@ -4,10 +4,13 @@
  */
 package com.spring5;
 
+import org.springframework.boot.test.context.SpringBootTest;
+
 /**
  *
  * @author javaugi
  */
+@SpringBootTest
 public class DummyToSkipUnitTests {
     @org.junit.jupiter.api.Test
     public void dummy() {

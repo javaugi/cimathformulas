@@ -346,7 +346,7 @@ public class EventsService {
 
     public static int getNumberOfDatesBetweenTwoDates(LocalDate startDate, LocalDate endDate) {
         long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate) + 1;
-        return new Long(numberOfDays).intValue();
+        return Long.valueOf(numberOfDays).intValue();
     }
 
     public static void main(String[] args) {

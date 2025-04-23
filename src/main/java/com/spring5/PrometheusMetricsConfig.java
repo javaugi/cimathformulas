@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
  * @author javaugi
  */
 @Configuration
-public class MetricsConfig {
+public class PrometheusMetricsConfig {
     /*
     Additional Notes
     If using Spring Boot 2.x+, you don't need to manually create this bean - it's already provided.

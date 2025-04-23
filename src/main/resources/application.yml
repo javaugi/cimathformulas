@@ -76,3 +76,14 @@ management:
 logging:
   level:
     org.apache.kafka: ERROR
+---
+resilience4j.circuitbreaker:
+  instances:
+    externalService:
+      registerHealthIndicator: true
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 10
+      failureRateThreshold: 50 # Open the circuit if 50% of calls fail
+      waitDurationInOpenState: 5s # Stay open for 5 seconds
+      permittedNumberOfCallsInHalfOpenState: 3 # Allow 3 calls in half-open state
+      eventConsumerBufferSize: 10    

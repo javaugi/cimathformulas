@@ -55,9 +55,13 @@ public class SecurityConfig {
                 .anyRequest().permitAll())
                 .csrf(csrf -> csrf.disable())
                 //.ignoringRequestMatchers("/api/**")
-                .formLogin(form -> form.permitAll()
+                .formLogin(form -> form
+                    .loginPage("/login") // custom login page
+                    .permitAll()
                 )
-                .logout(logout -> logout.permitAll()
+                .logout(logout -> logout
+                    .logoutSuccessUrl("/login?logout") // redirect after logout
+                    .permitAll()
                 )
                 .cors(cors -> cors
                 .configurationSource(corsConfigurationSource())

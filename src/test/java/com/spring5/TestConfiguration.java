@@ -5,11 +5,12 @@
 package com.spring5;
 
 import org.junit.Test;
-import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootConfiguration
+@SpringBootTest
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class TestConfiguration {
     @Test
     public void contextLoads() {
-    }    
+    }
 }
