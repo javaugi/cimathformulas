@@ -4,18 +4,16 @@
  */
 package com.spring5;
 
+import com.spring5.entity.Product;
+import com.spring5.entity.ProductRowMapper;
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
-import io.micrometer.prometheusmetrics.PrometheusConfig;
-import io.micrometer.prometheusmetrics.PrometheusMeterRegistry;
-import io.prometheus.client.CollectorRegistry;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
@@ -39,10 +37,41 @@ public class PrometheusMetricsConfig {
         Basic Configuration
         1. Simple MeterRegistry Bean (in-memory)
     */
-    //@Bean
+    
+    
+    private final JdbcTemplate jdbcTemplate;
+
+    public PrometheusMetricsConfig(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+    
+    @Bean
     public MeterRegistry meterRegistry() {
         return new SimpleMeterRegistry();
     }
+    
+    @Bean
+    public ProductRowMapper productRowMapper() {
+        return new ProductRowMapper();
+    }    
+    
+    /*  4. How to Measure in Spring Boot: Use Micrometer with custom timers for DB latency tracking:
+    
+        5. Using Prometheus + Grafana for Categorization: Create PromQL metrics like:
+
+        promql
+            histogram_quantile(0.95, rate(db_query_customer_findAll_seconds_bucket[1m]))   
+        Set Grafana thresholds using color-coded performance zones:
+            Red: > 1000 ms
+            Orange: 500–1000 ms
+            Yellow: 100–500 ms
+            Green: < 100 ms    
+    */
+    public List<Product> getProducts() {
+        return meterRegistry().timer("db.query.product.findAll")
+            .record(() -> jdbcTemplate.query("SELECT * FROM Product", productRowMapper()));
+    }
+    
     
     /*
     2. Using Spring Boot Autoconfiguration (Recommended)
@@ -123,3 +152,44 @@ public class PrometheusMetricsConfig {
         return composite;
     }    
 }
+
+/*
+Here's how to integrate Spring Boot with Grafana for monitoring:
+1. Add Dependencies
+Include necessary dependencies in pom.xml:
+Code
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
+</dependencies>
+2. Configure Spring Boot
+Enable metrics exposure in application.properties or application.yml:
+Code
+
+management.endpoints.web.exposure.include=*
+management.metrics.export.prometheus.enabled=true
+3. Configure Prometheus
+Configure Prometheus to scrape metrics from the Spring Boot application by adding a scrape job to your prometheus.yml:
+Code
+
+scrape_configs:
+  - job_name: 'spring-boot'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:8080']
+4. Set Up Grafana
+Install and run Grafana, for example, using Docker:
+Code
+
+docker run -d -p 3000:3000 grafana/grafana
+Access Grafana at http://localhost:3000 and configure Prometheus as a data source.
+5. Visualize Metrics
+Import a pre-built dashboard or create custom visualizations in Grafana to monitor metrics such as: JVM memory usage, HTTP request rates and latencies, CPU usage, and Custom application metrics.
+*/
