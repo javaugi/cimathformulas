@@ -65,8 +65,16 @@
     <scm>
         <url>https://github.com/spring-projects/spring-ai</url>
         <connection>git://github.com/spring-projects/spring-ai.git</connection>
-        <developerConnection>git@github.com:spring-projects/spring-ai.git</developerConnection>
+        <developerConnection>git@github.com:spring-projects/spring-ai.git</developerConnection>        
+
+        <!--
+        <tag>HEAD</tag>
+        <url>https://github.com/wumpz/java-diff-utils.git</url>
+        <connection>scm:git:https://github.com/wumpz/java-diff-utils.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:wumpz/java-diff-utils.git</developerConnection>
+        -->
     </scm>  
+            
     <issueManagement>
         <system>Github Issues</system>
         <url>https://github.com/spring-projects/spring-ai/issues</url>
@@ -82,8 +90,26 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <distributionManagement>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-    <dependencies> 
+
+    <dependencies>     
+        <dependency>
+            <groupId>com.github.wumpz</groupId>
+            <artifactId>diffutils</artifactId>
+            <version>3.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId> <!-- Implicitly includes Logback -->
@@ -303,30 +329,30 @@
         <dependency>
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-all</artifactId>
-            <version>2.3.0</version>
         </dependency>
         <dependency>
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-spring-boot3</artifactId>
-            <version>2.3.0</version>
         </dependency>        
         <dependency>
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-retry</artifactId>
-            <version>2.3.0</version>
             <type>jar</type>
         </dependency>        
         <dependency>
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-circuitbreaker</artifactId>
-            <version>2.3.0</version>
         </dependency>
         <dependency>
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-ratelimiter</artifactId>
-            <version>2.3.0</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-rxjava3</artifactId>
+            <version>2.1.0</version>
+        </dependency>        
         
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -1023,12 +1049,24 @@
         </dependency>
         <!--
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>4.2.1</version>
+        </dependency>    
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            <version>4.2.1</version>
+        </dependency>           
+        --> 
+        <!--
+        <dependency>
             <groupId>io.opentelemetry.javaagent</groupId>
             <artifactId>opentelemetry-javaagent-exporter-prometheus</artifactId>
             <version>0.14.0</version>
         </dependency>
         -->
-                
+        
         <dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient</artifactId>
@@ -1235,6 +1273,16 @@
             <version>2.2.6.RELEASE</version>
         </dependency>	               
                       
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>7.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graylog2</groupId>
+            <artifactId>gelfj</artifactId>
+            <version>1.1.16</version>
+        </dependency>                      
     </dependencies>
 
     <build>
@@ -1338,6 +1386,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2023.0.1</version> <type>pom</type>
+                <scope>import</scope>
+            </dependency>                    
         </dependencies>
     </dependencyManagement>
     

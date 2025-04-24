@@ -9,11 +9,32 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.regex.*;
 import java.security.*;
+/*
+1×× Informational
+
+2×× Success
+
+3×× Redirection
+
+4×× Client Error * 400 Bad Request * 401 Unauthorized ... * 405 Method Not Allowed ...
+
+5×× Server Error * 500 Internal Server Error * 501 Not Implemented * 502 Bad Gateway ...
+
+In other words, each major number (200, 400, 500, etc.) is a CATEGORY. You can "refine" the error code by choosing a specific error within the "category".
+
+To your original question:
+
+If the Client request is "bad" (for example, illegal username/password), then return a 4xx.
+
+If the Server somehow fails (for example, you can't read the database), then return a 5xx.
+
+The "official" list of HTTP error codes is RFC 7231:
+*/
 
 public class PrivateInnerClassMethod {
 
     public static void main(String[] args) throws Exception {
-        DoNotTerminate.forbidExit();
+        ExitControl.forbidExit(405);
 
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -30,7 +51,7 @@ public class PrivateInnerClassMethod {
             System.out.println("An instance of class: " + o.getClass().getCanonicalName() + " has been created");
 
         }//end of try
-        catch (DoNotTerminate.ExitTrappedException e) {
+        catch (ExitControl.ExitTrappedException e) {
             System.out.println("Unsuccessful Termination!!");
         }
     }//end of main
@@ -47,6 +68,7 @@ public class PrivateInnerClassMethod {
 
 }//end of Solution
 
+/*
 class DoNotTerminate { //This class prevents exit(0)
 
     public static class ExitTrappedException extends SecurityException {
@@ -64,5 +86,28 @@ class DoNotTerminate { //This class prevents exit(0)
             }
         };
         System.setSecurityManager(securityManager);
+    }
+}
+// */
+
+class ExitControl {
+    public static class ExitTrappedException extends SecurityException {
+        public ExitTrappedException(String message) {
+            super(message);
+        }
+        private static final long serialVersionUID = 1L;
+    }
+
+    private static boolean exitAllowed = true;
+
+    public static void allowExit(boolean allow) {
+        exitAllowed = allow;
+    }
+
+    public static void forbidExit(int status) throws ExitTrappedException {
+        if (!exitAllowed) {
+            throw new ExitTrappedException("System.exit blocked with ThrowTrapperException");
+        }
+        System.exit(status);
     }
 }
