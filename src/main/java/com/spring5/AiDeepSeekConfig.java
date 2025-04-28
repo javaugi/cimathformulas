@@ -4,7 +4,7 @@
  */
 package com.spring5;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -37,7 +37,7 @@ public class AiDeepSeekConfig implements CommandLineRunner{
     
     @Override
     public void run(String... args) throws Exception {
-        log.info("AiDeepSeekConfig with args {} \n url {} api {} \n systemResource {}", args, dsBaseUrl, dsApiKey, systemResource); 
+        log.info("AiDeepSeekConfig with args {} \n url {} api {} \n systemResource {}", Arrays.toString(args), dsBaseUrl, dsApiKey, systemResource); 
     }
 
     @Bean

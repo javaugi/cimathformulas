@@ -45,7 +45,7 @@ public class SeriesCalculator {
         }
        
     }
-    
+    //a + 2⁰×b + (a + 2⁰×b + 2¹×b) + (a + 2⁰×b + 2¹×b + 2²×b
     public static void printSeries(int a, int b, int n) {
         int current = a;
         for (int i = 0; i < n; i++) {

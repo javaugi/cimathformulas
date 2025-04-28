@@ -4,7 +4,10 @@
  */
 package com.spring5.kafkamicroservice;
 
+import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public interface  TradeRepository extends JpaRepository<Trade, Long> {
+public interface TradeRepository extends JpaRepository<Trade, Long> {
+    
+    @Query("SELECT t FROM Trade t JOIN FETCH t.userAccount ua JOIN FETCH ua.user u WHERE u.userEmail=(:userEmail)")
+    List<Trade> getAllTradesByUserEmail(String userEmail);
+    
+    @Query("UPDATE UserAccount SET cashBalance = cashBalance + (:amount) WHERE id =(:userAccountId)")
+    void addMoney(long userAccountId, BigDecimal amount);
 
+    @Query("UPDATE UserAccount SET cashBalance = cashBalance + (:amount) WHERE account =(:userAccount)")
+    void addMoneyByAccount(String userAccount, BigDecimal amount);
 }
 
 /* 

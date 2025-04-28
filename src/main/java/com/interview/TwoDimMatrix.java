@@ -4,6 +4,7 @@
  */
 package com.interview;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
     
@@ -18,6 +19,7 @@ public class TwoDimMatrix {
     public static void main(String[] args) {
         //main.run1();
         main.run2();
+        enhancedLooping();
     }
     
     private void run1() {
@@ -31,7 +33,7 @@ public class TwoDimMatrix {
         String[][] roomInvites = chatRoomInfo();
                 
         Map<String, Integer> map = new HashMap<>();
-        initMap(map, members);         
+        //initMap(map, members);         
         
         for (String[] row : roomInvites) {
             processInvitees(map, row[2]);
@@ -69,6 +71,9 @@ public class TwoDimMatrix {
     private void addToAll(Map<String, Integer> map) {
         for (String key: map.keySet()) {
             Integer entryValue = map.get(key);
+            if (entryValue == null) {
+                entryValue = 0;
+            }
             entryValue++;
             map.put(key, entryValue);
         }
@@ -128,7 +133,7 @@ public class TwoDimMatrix {
     }
     
 
-    public void enhancedLooping() {
+    private static void enhancedLooping() {
         // 1. Declare and initialize a 2D String array with fixed dimensions.
         //    - The first dimension specifies the number of rows.
         //    - The second dimension specifies the number of columns in each row.

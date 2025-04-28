@@ -4,6 +4,7 @@
  */
 package com.interview;
 
+import java.math.BigInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,6 +75,12 @@ public class LambdaExpression {
         // Output: omeD adbmaL
         System.out.println(reverseStr.myStringFunction("Lambda Demo"));
 
+        MyString reverseStr2 = (str) -> {
+            return new StringBuilder(str).reverse().toString();
+        };
+        // Output: omeD adbmaL
+        System.out.println(reverseStr2.myStringFunction("Lambda Demo"));
+
         MyGeneric<String> reverse = (str) -> {
             String result = "";
 
@@ -128,5 +135,22 @@ public class LambdaExpression {
         };
         // Output: 720
         System.out.println(factorial2.compute(6));
+
+        
+        //Factorial
+        // Integer version of MyGeneric
+        Factorial<BigInteger> factorial3 = (BigInteger n) -> {
+            BigInteger result = BigInteger.ONE;
+
+            for (BigInteger i = BigInteger.ONE; i.compareTo(n) <= 0; i = i.add(BigInteger.ONE)) {
+                result = result.multiply(i);
+                //result = i * result;
+                System.out.println("factorial calc n=" + i + "-result=" + result);
+            }
+
+            return result;
+        };
+        // Output: 5040
+        System.out.println("factorial3  for 7=" + factorial3.compute(BigInteger.valueOf(7)));
     }
 }

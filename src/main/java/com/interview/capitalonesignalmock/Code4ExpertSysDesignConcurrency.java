@@ -104,9 +104,9 @@ Need a deeper breakdown of any problem? Ask away!
         //main.run(limiter);
         //*
         System.out.println("1 main.run");
-        //main.run();
+        main.run();
         System.out.println("done main.run");
-        // */
+        
         TimeUnit.SECONDS.sleep(2);
         System.out.println("2 main.run2");
         main.run2();
@@ -121,7 +121,7 @@ Need a deeper breakdown of any problem? Ask away!
         String userId = "user1";
         
         // First 100 requests should pass
-        /*
+        //*
         for (int i = 0; i < MAX_TOKENS; i++) {
             System.out.println("run successful=" + limiter.allowRequest(userId));
         }

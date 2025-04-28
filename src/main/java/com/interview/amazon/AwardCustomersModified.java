@@ -76,6 +76,15 @@ public static void main(String[] args) {
                           " | Total: " + customersSub3[2].totalPoints);
     }
 
+    
+    /*
+Example customer points:[10, 5, 20, 15, 30, 25]
+Top 3 Customers (Indices) who receive awards:
+1st Place: Customer 4 (Award: 6 points) (Total Award: 36 points)
+2nd Place: Customer 5 (Award: 5 points) (Total Award: 30 points)
+3rd Place: Customer 2 (Award: 4 points) (Total Award: 24 points)    
+    */
+    
     // Helper class to store customer index, original points, and total points
     static class Customer {
         int index;

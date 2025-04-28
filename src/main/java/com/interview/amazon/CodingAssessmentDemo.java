@@ -31,7 +31,7 @@ public class CodingAssessmentDemo {
         String[][] roomInvites = chatRoomInfo();
                 
         Map<String, Integer> map = new HashMap<>();
-        initMap(map, members);         
+        //initMap(map, members);         
         
         for (String[] row : roomInvites) {
             processInvitees(map, row[2]);
@@ -69,6 +69,9 @@ public class CodingAssessmentDemo {
     private void addToAll(Map<String, Integer> map) {
         for (String key: map.keySet()) {
             Integer entryValue = map.get(key);
+            if (entryValue == null) {
+                entryValue = 0;
+            }
             entryValue++;
             map.put(key, entryValue);
         }

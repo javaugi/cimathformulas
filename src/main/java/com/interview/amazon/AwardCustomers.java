@@ -20,9 +20,9 @@ public class AwardCustomers {
         int[] awards = determineAwards(points);
         
         System.out.println("Top 3 Customers (Indices) who receive awards:");
-        System.out.println("1st Place: Customer " + awards[0] + " (Award: " + points.length + " points)");
-        System.out.println("2nd Place: Customer " + awards[1] + " (Award: " + (points.length - 1) + " points)");
-        System.out.println("3rd Place: Customer " + awards[2] + " (Award: " + (points.length - 2) + " points)");
+        System.out.println("1st Place: Customer " + awards[0] + " (Award: " + points.length + " points)"  + " (Total Award: " + (points.length + points[awards[0]]) + " points)");
+        System.out.println("2nd Place: Customer " + awards[1] + " (Award: " + (points.length - 1) + " points)"  + " (Total Award: " + (points.length - 1 + points[awards[1]]) + " points)");
+        System.out.println("3rd Place: Customer " + awards[2] + " (Award: " + (points.length - 2) + " points)"  + " (Total Award: " + (points.length - 2 + points[awards[2]]) + " points)");
     }
     
     public static int[] determineAwards(int[] points) {

@@ -134,5 +134,47 @@ public class L2AdvancedArrayManipulation {
             System.out.print(num + " ");
         }
         // Output: 5 6 7 1 2 3 4
+        
+        
+        System.out.println("New method ...");
+        rotate(nums, k);
+        for (int num : nums) {
+            System.out.print(num + " ");
+        }
+        // Output: 5 6 7 1 2 3 4
     }
+    
+    public static void rotate(int[] nums, int k) {
+        k %= nums.length;
+        reverseDeepSeek(nums, 0, nums.length - 1);
+        reverseDeepSeek(nums, 0, k - 1);
+        reverseDeepSeek(nums, k, nums.length - 1);
+    }
+
+    private static void reverseDeepSeek(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    
+    /*
+Explanation
+Modulo Operation: The line k %= nums.length; ensures that if k is larger than the array length, it wraps around. For example, rotating an array of length 7 by 10 positions is equivalent to rotating it by 3 positions (since 10 % 7 = 3).
+
+Reverse Function: The reverse function takes an array and two indices, start and end, and reverses the elements in the subarray defined by these indices.
+
+Three Reversals:
+
+First Reverse: Reverses the entire array to bring the last k elements to the front but in reverse order.
+
+Second Reverse: Reverses the first k elements to correct their order.
+
+Third Reverse: Reverses the remaining elements to correct their order.
+
+For the input array {1, 2, 3, 4, 5, 6, 7} and k = 3, the output after rotation is {5, 6, 7, 1, 2, 3, 4}. This method efficiently rotates the array in O(n) time with O(1) additional space.    
+    */
 }

@@ -23,11 +23,15 @@ public class BigDecimalSortDescending {
             "-100", "50", "0", "56.6", "90",
             "0.12", ".12", "02.34", "000.000"
         };
+        System.out.println("Original=" + Arrays.toString(input));
+        
+        String[] input0 = Arrays.copyOfRange(input, 0, input.length);
+        System.out.println("Original copied=" + Arrays.toString(input0));
 
         String first = input[0];
         String[] input2 = Arrays.copyOfRange(input, 1, input.length);
+        System.out.println("Original copied 1 to n=" + Arrays.toString(input2));
 
-        System.out.println("Original " + Arrays.toString(input));
         System.out.println("Solution 1 \n");
         sortPrint1(first, input2);
         System.out.println("Solution 2 \n");

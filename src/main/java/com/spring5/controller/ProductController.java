@@ -43,7 +43,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ProductController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+    
     static final String[] PROD_NAMES = {"Abundance", "Acclimaze", "Accruex", "Adornica", "Aerosol Cheese", "Aftertizer",
         "Airborne Pickle", "AirHead", "Alumina", "Apple Cheeks", "Baby Donuts", "Bag of Scones", "Bath and Relax",
         "Botox Barbie", "Brand Dandy", "Bris-o-matic", "Brush n Flush", "Bum Bait", "Buster Boon", "Callflex",
@@ -65,7 +66,7 @@ public class ProductController {
         allProducts = iterableToList(productIterable);
         totalRecords = allProducts.size();
         long pages = totalRecords / pageSize;
-        LOG.info("products total {} pages total {} with page size {}", totalRecords, pages, pageSize);
+        log.info("products total {} pages total {} with page size {}", totalRecords, pages, pageSize);
     }
     
     public static <T> List<T> iterableToList(Iterable<T> iterable) {
@@ -82,7 +83,7 @@ public class ProductController {
     //*
     @GetMapping("/index")
     public String index(HttpServletRequest request, ModelMap modelMap) {
-        LOG.info("index page");
+        log.info("index page");
         return "index";
     }
     // */
@@ -115,11 +116,11 @@ public class ProductController {
                     .filter(line -> line.getName().contains(searchParam) || line.getDescription().contains(searchParam))
                     .collect(Collectors.toList());
         }
-        LOG.error("queryString {}", request.getQueryString());
+        log.error("queryString {}", request.getQueryString());
 
         PagedListHolder pagedListHolder = new PagedListHolder(products);
         int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-        LOG.info("listProducts of page {} size {} displayCriteria {}", page, size, criteria);
+        log.info("listProducts of page {} size {} displayCriteria {}", page, size, criteria);
         pagedListHolder.setPage(page);
         pagedListHolder.setPageSize(size);
         modelMap.put("pagedListHolder", pagedListHolder);
@@ -141,7 +142,7 @@ public class ProductController {
             }
         }
         request.getSession().setAttribute("displayCriteria", criteria);
-        LOG.error("updateEntry criteria {}", criteria);
+        log.error("updateEntry criteria {}", criteria);
         return doDisplay(request, modelMap);
     }
 
@@ -149,7 +150,7 @@ public class ProductController {
     public String getPagedProducts(HttpServletRequest request, ModelMap modelMap) {
         PagedListHolder pagedListHolder = new PagedListHolder(allProducts);
         int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-        LOG.info("pagedProducts of page {}", page);
+        log.info("pagedProducts of page {}", page);
         pagedListHolder.setPage(page);
         pagedListHolder.setPageSize(pageSize);
         modelMap.put("pagedListHolder", pagedListHolder);

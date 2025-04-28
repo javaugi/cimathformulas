@@ -118,22 +118,29 @@ public class Code1WarmUpArrayManipulation {
 
         // Slicing: subList for ArrayList and substring for Strings
         ArrayList<Integer> sliceList = new ArrayList<>(myList.subList(2, 4)); // [3, 4]
+        System.out.println("1 stringListIndex sliceList=" + sliceList);
         String sliceString = myString.substring(1, 3); // "el"
+        System.out.println("2 stringListIndex sliceString=" + sliceString);
 
         // Concatenation: addAll for lists and + operator for strings
         ArrayList<Integer> concatenateList = new ArrayList<>(myList);
         concatenateList.addAll(Arrays.asList(6, 7, 8)); // [1, 2, 3, 4, 5, 6, 7, 8]
+        System.out.println("3 stringListIndex concatenateList=" + concatenateList);
         String concatenateString = myString + ", world!"; // "Hello, world!"
+        System.out.println("4 stringListIndex concatenateString=" + concatenateString);
         
         // Finding the index of an element in a list or a string
         // indexOf returns the first occurrence index of the element
         // returns -1 if the list or the string doesn't contain the element
         int indexList = myList.indexOf(3); // 2 - Index of element '3'
+        System.out.println("5 stringListIndex indexList=" + indexList);
         int indexString = myString.indexOf('e'); // 1 - Index of character 'e'
+        System.out.println("6 stringListIndex indexString=" + indexString);
 
         // Sorting items in ArrayList in non-increasing order
         ArrayList<Integer> sortedList = new ArrayList<>(myList);
         sortedList.sort(Collections.reverseOrder()); // [5, 4, 3, 2, 1]        
+        System.out.println("7 stringListIndex sortedList=" + sortedList);
     }
     
     private void listManipulation() {

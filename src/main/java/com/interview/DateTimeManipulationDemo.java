@@ -22,6 +22,8 @@ public class DateTimeManipulationDemo {
     public static void main(String[] args) throws IOException {
         //dateConsoleInput();
         Solution.demoWithDates();
+        
+        System.out.println("randomInt10To20()=" + randomInt10To20() + "-randomInt20To30()=" + randomInt20To30());
     }
 
     public static int randomInt20To30() {
@@ -74,6 +76,8 @@ public class DateTimeManipulationDemo {
                 cal.setTime(date);
                 int value = DateTimeManipulationDemo.randomInt10To20();
                 cal.add(Calendar.DATE, value);
+                            
+                System.out.println("\n calling findDay from date=" + cal.getTime());
                 results = Result2.findDay(cal.getTime());
                 System.out.println("ith: " + results);
             }
@@ -160,16 +164,21 @@ public class DateTimeManipulationDemo {
      *  3. INTEGER year
          */
         public static String findDay(Date date) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            int firstDayOfWeek = cal.getFirstDayOfWeek();
-            int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-            int diff = dayOfWeek - firstDayOfWeek;
+            int diff = getDiffForDayOfWeek(date);
 
             String[] daysArr = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
             String dayValue = daysArr[diff].toUpperCase();
             System.out.println("diff=" + diff + "-dayValue=" + dayValue + "-orig date =" + date);
             return dayValue;
+        }
+
+        private static int getDiffForDayOfWeek(Date date) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int firstDayOfWeek = cal.getFirstDayOfWeek();
+            int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+            int diff = dayOfWeek - firstDayOfWeek;
+            return diff;
         }
 
     }

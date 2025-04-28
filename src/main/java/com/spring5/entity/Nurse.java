@@ -41,6 +41,6 @@ public class Nurse {
     @JoinColumn(name = "supervising_physician_id")
     private Physician supervisingPhysician;
     
-    @OneToMany(mappedBy = "physician", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "physician", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Appointment.class)
     private List<Appointment> appointments;
 }

@@ -5,6 +5,7 @@
 package com.interview.codesignal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -76,6 +77,15 @@ public class L4ArrayListManipulation {
         list2.add(6);
 
         ArrayList<Integer> mergedList = mergeSortedLists(list1, list2);
-        System.out.println("\n list1=" + list1 + "\n list2=" + list2 + "\n Merged List: " + mergedList);
+        System.out.println("method 1 \n list1=" + list1 + "\n list2=" + list2 + "\n Merged List: " + mergedList);
+
+        mergedList = mergeSortedLists2(list1, list2);
+        System.out.println("method 2\n list1=" + list1 + "\n list2=" + list2 + "\n Merged List: " + mergedList);
+    }
+    
+    public static ArrayList<Integer> mergeSortedLists2(ArrayList<Integer> list1, ArrayList<Integer> list2) {
+        list1.addAll(list2);
+        Collections.sort(list1);
+        return list1;
     }
 }

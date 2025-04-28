@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
 
 @Getter
 @Setter
@@ -27,6 +28,11 @@ import lombok.ToString;
 @Table(name = "USERS")
 @Cacheable
 public class User {
+    
+    public User(String username, String userEmail) {
+        this.username = username;
+        this.userEmail = userEmail;
+    }
     
     public User(Long id, String username, String userEmail) {
         this.id = id;
@@ -45,6 +51,11 @@ public class User {
     private String lastName;
     private String firstName;
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Role.class)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Role.class)
     private List<Role> roles;
+    
+    ////cannot simultaneously fetch multiple bags: [com.spring5.entity.UserAccount.trades, com.spring5.entity.User.roles
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = UserAccount.class)
+    @BatchSize(size = 20)
+    private List<UserAccount> userAccounts; 
 }

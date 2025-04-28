@@ -72,6 +72,6 @@ public class Patient implements java.io.Serializable {
     private String phoneNumber;
     
     //@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Appointment.class)
     private List<Appointment> appointments;    
 }

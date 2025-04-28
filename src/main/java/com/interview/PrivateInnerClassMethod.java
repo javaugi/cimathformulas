@@ -4,11 +4,10 @@
  */
 package com.interview;
 
+import com.interview.hackerrank.Student;
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
-import java.util.regex.*;
-import java.security.*;
 /*
 1×× Informational
 
@@ -34,8 +33,13 @@ The "official" list of HTTP error codes is RFC 7231:
 public class PrivateInnerClassMethod {
 
     public static void main(String[] args) throws Exception {
-        ExitControl.forbidExit(405);
+        //runMain1();
+        printStudentMethods();
+    }//end of main
 
+    private static void runMain1() throws IOException, SecurityException, ExitControl.ExitTrappedException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+        ExitControl.forbidExit(405);
+        
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             int num = Integer.parseInt(br.readLine().trim());
@@ -54,8 +58,23 @@ public class PrivateInnerClassMethod {
         catch (ExitControl.ExitTrappedException e) {
             System.out.println("Unsuccessful Termination!!");
         }
-    }//end of main
+    }
 
+    private static void printStudentMethods() {
+        Class student = Student.class;
+        Method[] methods = student.getDeclaredMethods();
+
+        ArrayList<String> methodList = new ArrayList<>();
+        for (Method method : methods) {            
+            methodList.add(method.getName());
+        }
+        Collections.sort(methodList);
+        for (String name : methodList) {
+            System.out.println(name);
+        }        
+    }
+    
+    
     static class Inner {
 
         private class Private {

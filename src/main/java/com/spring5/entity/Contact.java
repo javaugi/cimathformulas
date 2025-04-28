@@ -1,6 +1,5 @@
 package com.spring5.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -16,6 +15,7 @@ import jakarta.persistence.Table;
 
 import com.spring5.type.PhoneType;
 import jakarta.persistence.GenerationType;
+import java.util.ArrayList;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,7 +52,7 @@ public class Contact {
     @Enumerated(EnumType.STRING)
     private PhoneType phoneType;
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Contact_Note.class)
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Contact_Note.class)
     private List<Contact_Note> notes;
 
     //*
@@ -137,8 +137,8 @@ public class Contact {
         note.setContact(this);
     }
 
-    public void setNotes(List<Contact_Note> addresses) {
-        this.notes = addresses;
+    public void setNotes(List<Contact_Note> notes) {
+        this.notes = notes;
     }
 
 }

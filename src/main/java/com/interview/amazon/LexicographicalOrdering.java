@@ -21,7 +21,7 @@ public class LexicographicalOrdering {
     public static void main(String[] args) {
         main.getMinimumNumberFromString();
         main.minimumNumericString();
-        /*
+        //*
         main.wordsOrder();
         main.numericStringOrder();
         main.mixedOrder();
@@ -211,7 +211,10 @@ public class LexicographicalOrdering {
                 .min((a, b) -> Integer.compare(Integer.parseInt(a), Integer.parseInt(b)))
                 .get();
         System.out.println("Minimum (numeric): " + minNumNumeric); // Output: 20
-
+        
+        List<Integer> integers = Arrays.asList(100, 20, 300, 45);
+        Integer minInteger = Collections.min(integers);
+        System.out.println("** Minimum (integers): " + minInteger); // Output: 20
     }
 
     private void mixedOrder() {
@@ -235,6 +238,18 @@ public class LexicographicalOrdering {
             return numCompare != 0 ? numCompare : a.compareTo(b);
         });
         System.out.println("Natural order: " + items);
+        Collections.sort(items);
+        System.out.println("*** Collections.sort(items) order: " + items);
+        Collections.sort(items, Comparator.naturalOrder());
+        System.out.println("*** Collections.sort(items, Comparator.naturalOrder()) order: " + items);
+        Collections.sort(items, Comparator.reverseOrder());
+        System.out.println("*** Collections.sort(items, Comparator.reverseOrder()) order: " + items);
+        
+        Collections.sort(items, Comparator.comparingInt(s -> 
+                Integer.parseInt(s.replaceAll("\\D", ""))
+            )
+        );
+        System.out.println("*** Collections.sort(replacing all non-digit) order: " + items);
     }
 
     private void arrayMinLex() {
@@ -254,6 +269,8 @@ public class LexicographicalOrdering {
         System.out.println("arrayMinLex - The original arr2: " + Arrays.toString(arr2));
         String minNumLex = Collections.min(Arrays.asList(arr2));
         System.out.println("Minimum string arr2: " + minNumLex); // Output: apple        
+        String maxNumLex = Collections.max(Arrays.asList(arr2));
+        System.out.println("Minimum string arr2: " + maxNumLex); // Output: zebra        
     }
 
 }

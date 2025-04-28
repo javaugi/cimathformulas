@@ -41,6 +41,15 @@ O(N) time, O(1) space (since map size ≤ 3).
         input = "cfdfehgf";
         result = main.longestSubstringWithAtLeastTwoDistinctChars(input);
         System.out.println("3 The result is: " + result + " from input: " + input);
+        
+        /*
+        --- exec-maven-plugin:3.1.0:exec (default-cli) @ cimathformulas ---
+        1 The result is: 5 from input: ccaabbb
+        2 The result is: 4 from input: dkfkflfhf
+        3 The result is: 3 from input: cfdfehgf
+        ------------------------------------------        
+        */
+        
     }
     
     public int longestSubstringWithAtLeastTwoDistinctChars(String s) {
@@ -57,7 +66,7 @@ O(N) time, O(1) space (since map size ≤ 3).
     }
 
     private int processMapReducer(Map<Character, Integer> map, String s, int left) {
-        while (map.size() > 2) {
+        while (map.size() > 2 && left < s.length()) {
             char leftChar = s.charAt(left);
             map.put(leftChar, map.get(leftChar) - 1);
             if (map.get(leftChar) == 0) {

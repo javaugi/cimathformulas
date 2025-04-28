@@ -11,11 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 /**
  *
@@ -36,9 +36,11 @@ public class Physician {
     private String licenseNumber;
     private String specialization;
     
-    @OneToMany(mappedBy = "supervisingPhysician")
-    private List<Nurse> supervisedNurses = new ArrayList<>();
+    @OneToMany(mappedBy = "supervisingPhysician", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Nurse.class)
+    @BatchSize(size = 20)
+    private List<Nurse> supervisedNurses;
     
-    @OneToMany(mappedBy = "physician", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Appointment> appointments = new ArrayList<>();
+    @OneToMany(mappedBy = "physician", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Appointment.class)
+    @BatchSize(size = 20)
+    private List<Appointment> appointments;
 }

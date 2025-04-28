@@ -67,7 +67,18 @@ public class L1SimpleMatrixPractice {
         }
 
         return false; // Target not found
-    }
+    } 
+    
+    public static boolean searchMatrix2(int[][] matrix, int target) {
+        for (int[] loopRow: matrix) {
+            for (int i: loopRow) {
+                if (i == target) {
+                    return true;
+                }
+            }            
+        }
+        return false; // Target not found
+    }    
 
     public static boolean searchMatrixNew(int[][] matrix, int target) {
         // 1. Input validation
@@ -115,14 +126,23 @@ public class L1SimpleMatrixPractice {
             {18, 21, 23, 26, 30}
         };
 
+        System.out.println("1 calling searchMatrix for 5");
         int target = 5;
         boolean found = searchMatrix(matrix, target);
 
         if (found) {
-            System.out.println("Target found");
+            System.out.println("searchMatrix of 5 Target found");
         } else {
-            System.out.println("Target not found");
+            System.out.println("searchMatrix of 5 Target not found");
         }
+        
+        System.out.println("2 calling searchMatrix2 for 5");        
+        found = searchMatrix2(matrix, target);
+        if (found) {
+            System.out.println("searchMatrix2 of 5 Target found");
+        } else {
+            System.out.println("searchMatrix2 of 5 Target not found");
+        }        
     }
 
     /*

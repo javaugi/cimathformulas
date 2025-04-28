@@ -28,6 +28,10 @@ public class RegexExamples {
     private static final RegexExamples regex = new RegexExamples();
 
     public static void main(String[] args) throws Exception {
+        // ^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$;
+        
+        Solution.runDiffTest();
+
         List<String> lists = Arrays.asList("Goodbye bye bye world world world\n",
                 "Sam went went to to to his business\n",
                 "Reya is is the the best player in eye eye game\n",
@@ -39,19 +43,9 @@ public class RegexExamples {
             System.out.println(MyRegex0.removeRepeatedWordsExceptFirst(token));
         }
 
-        if (true) {
-            return;
-        }
-
-        Solution.runDiffTest();
-
         String input = "";
         String patternValue = "";
         Solution.runTests();
-
-        if (true) {
-            return;
-        }
 
         PatternMatching.matchingHelloWithDigits(input, patternValue);
         PatternMatching.extractGroups(input, patternValue);
@@ -250,7 +244,7 @@ public class RegexExamples {
             if (patternValue == null || patternValue.isEmpty()) {
                 patternValue = "\\s+";
             }
-            int wordCount = input.split("patternValue").length;
+            int wordCount = input.split(patternValue).length;
             System.out.println("countingWords               return wordCount=" + wordCount + "-input=" + input + "-patternValue=" + patternValue);
             return wordCount;
         }
@@ -263,7 +257,7 @@ public class RegexExamples {
                 patternValue = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-((19|20)\\d\\d)$";
             }
 
-            int wordCount = input.split("patternValue").length;
+            int wordCount = input.split(patternValue).length;
             System.out.println("validateDateDDMMYYYY        return wordCount=" + wordCount + "-input=" + input + "-patternValue=" + patternValue);
             return wordCount;
         }

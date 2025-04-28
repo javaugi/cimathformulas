@@ -4,10 +4,13 @@
  */
 package com.spring5.kafkamicroservice;
 
+import com.spring5.entity.UserAccount;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
@@ -16,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
 
 /**
  *
@@ -33,6 +37,7 @@ public class Trade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     
+    private String symbol;
     private String instrumentId;
     private BigDecimal quantity;
     private BigDecimal price;
@@ -40,5 +45,8 @@ public class Trade {
     private TradeDirection direction;
     private Instant executionTime;
 
+    @ManyToOne
+    @JoinColumn(name = "user_account_id")
+    private UserAccount userAccount;
     
 }

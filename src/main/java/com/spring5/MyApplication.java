@@ -45,11 +45,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @Configuration
 @EnableCaching
-@EnableTransactionManagement
+//@EnableTransactionManagement
 //@EnableEurekaServer
-@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
+//@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @ComponentScan(basePackages = {MyApplication.PACKAGES_TO_SCAN})
-@EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
+//@EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 public class MyApplication implements CommandLineRunner, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     protected static final String PACKAGES_TO_SCAN = "com.spring5";
@@ -67,68 +67,6 @@ public class MyApplication implements CommandLineRunner, ApplicationListener<App
     3. Neo4jConnectionChecker public void run(String... args)
     */
 
-    @Bean
-    public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
-    }
-
-    @Bean
-    public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
-        bean.setDatabase(Database.H2);
-        bean.setGenerateDdl(true);
-        bean.setShowSql(true);
-        return bean;
-    }
-
-    /*@Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-            JpaVendorAdapter jpaVendorAdapter) {
-        LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
-        bean.setDataSource(dataSource);
-        bean.setJpaVendorAdapter(jpaVendorAdapter);
-        bean.setPackagesToScan(PACKAGES_TO_SCAN);
-        return bean;
-    }    
-    // */
-    @Bean
-    public MapToJsonConverter mapToJsonConverter() {
-        return new MapToJsonConverter();
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-            JpaVendorAdapter jpaVendorAdapter, MapToJsonConverter mapToJsonConverter) {
-        LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
-        bean.setDataSource(dataSource);
-        bean.setJpaVendorAdapter(jpaVendorAdapter);
-        bean.setPackagesToScan(PACKAGES_TO_SCAN);
-
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
-        bean.setJpaPropertyMap(properties);
-
-        /* DEBUUGGING
-        Properties properties = new Properties();
-        properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
-        properties.put("hibernate.session_factory.interceptor", 
-        new EmptyInterceptor() {
-            @Override
-            public boolean onSave(Object entity, Serializable id, 
-                Object[] state, String[] propertyNames, Type[] types) {
-                System.out.println("entity=" + entity + "-propertyNames=" + propertyNames);
-                return true;
-            }
-        });
-        bean.setJpaProperties(properties);        
-        // */
-        return bean;
-    }
-
-    @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
-        return new JpaTransactionManager(emf);
-    }
 
     @Autowired
     private ApplicationContext context;

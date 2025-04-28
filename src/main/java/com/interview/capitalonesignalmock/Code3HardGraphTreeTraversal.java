@@ -125,9 +125,9 @@ Other DFS Traversal Types:
     }
     
     private void run() {
-        //run1();
+        run1();
         run2();
-        //run3();
+        run3();
     }
 
     private void run3() {
