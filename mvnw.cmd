@@ -34,8 +34,8 @@
 @REM ----------------------------------------------------------------------------
 
 
-set SPRING_AI_OPENAI_API_KEY=sk-258df0f85ebf4afbb9f37ab96d37dfc0
-set SPRING_AI_OPENAI_BASE_URL=https://api.deepseek.com
+set SPRING_AI_OPENAI_API_KEY=sk-7415bcd6908d4894bc6eacae5f8884e4
+set SPRING_AI_OPENAI_BASE_URL=https://api.deepseek.com/v1/chat/completions
 set SPRING_AI_OPENAI_CHAT_MODEL=deepseek-chat
 set DEEPSEEK_API_KEY=sk-7415bcd6908d4894bc6eacae5f8884e4
 

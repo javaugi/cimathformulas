@@ -34,10 +34,10 @@
 #   MAVEN_SKIP_RC - flag to disable loading of mavenrc files
 # ----------------------------------------------------------------------------
 
-export SPRING_AI_OPENAI_API_KEY=sk-258df0f85ebf4afbb9f37ab96d37dfc0
-export SPRING_AI_OPENAI_BASE_URL=https://api.deepseek.com
+export SPRING_AI_OPENAI_API_KEY=sk-7415bcd6908d4894bc6eacae5f8884e4
+export SPRING_AI_OPENAI_BASE_URL=https://api.deepseek.com/v1/chat/completions
 export SPRING_AI_OPENAI_CHAT_MODEL=deepseek-chat
-export DEEPSEEK_API_KEY=sk-258df0f85ebf4afbb9f37ab96d37dfc0
+export DEEPSEEK_API_KEY=sk-7415bcd6908d4894bc6eacae5f8884e4
 
 if [ -z "$MAVEN_SKIP_RC" ] ; then
 
