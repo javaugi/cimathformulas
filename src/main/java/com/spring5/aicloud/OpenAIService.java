@@ -30,10 +30,10 @@ public class OpenAIService {
                 Give me a good French recipe for tonight's dinner.
                 """;
 
-    @Value("${application.openai.url}")
+    @Value("${spring.ai.openai.uri}")
     private String openAiUrl;
 
-    @Value("${application.openai.key}")
+    @Value("${spring.ai.openai.api-key}")
     private String openAiKey;
 
     private WebClient client;

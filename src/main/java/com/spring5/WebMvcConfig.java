@@ -70,6 +70,7 @@ This dependency includes everything needed to expose API documentation through S
 @EnableWebMvc
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @ComponentScan(basePackages = {"com.spring5"})
+//http://localhost:8080/swagger-ui/index.html
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /*
@@ -160,3 +161,34 @@ public class WebMvcConfig implements WebMvcConfigurer {
         }
     }
 }
+
+/*
+Swagger API refers to a suite of open-source tools that help developers design, document, test, and use REST APIs. These tools are built around the OpenAPI Specification, which defines a standard format for describing APIs. Swagger offers features like interactive documentation, code generation, and API testing. 
+Here's a more detailed breakdown:
+Core Components of Swagger:
+OpenAPI Specification:
+.
+This is the instruction manual or "blueprint" that defines the structure of a REST API. It can be written in YAML or JSON format.
+Swagger Editor:
+.
+A browser-based tool for writing and editing API definitions based on the OpenAPI specification.
+Swagger UI:
+.
+An interactive HTML interface that displays API documentation and allows developers to test API endpoints directly within the UI.
+Swagger Codegen:
+.
+A tool that automatically generates server stubs and client libraries from an OpenAPI definition, saving developers time and effort. 
+Key Benefits of Using Swagger:
+Improved API Documentation:
+.
+Swagger provides a user-friendly and interactive way to document APIs, making them easier to understand and use. 
+Simplified API Development:
+.
+Swagger tools automate tasks like code generation and API testing, streamlining the development process. 
+Enhanced API Collaboration:
+.
+By using a common API specification, Swagger facilitates collaboration between developers, testers, and other stakeholders. 
+Faster API Testing:
+.
+Swagger UI allows developers to directly test API endpoints within the documentation, ensuring they function as expected before implementing them 
+ */

@@ -4,6 +4,9 @@
  */
 package com.spring5.aicloud;
 
+import com.spring5.AiConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -27,11 +30,8 @@ public class SpringOpenAIService {
     @Value("${openai.api.model}")
     private String modelVersion;
 
-    private final RestTemplate restTemplate;
-
-    public SpringOpenAIService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    @Autowired
+    private @Qualifier(AiConfig.REST_TEMPLATE)RestTemplate restTemplate;    
 
     /**
      * @param prompt - the question you are expecting to ask ChatGPT

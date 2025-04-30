@@ -4,58 +4,56 @@
  */
 package com.spring5;
 
-import org.apache.hc.client5.http.classic.HttpClient;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.client5.http.impl.io.BasicHttpClientConnectionManager;
-import org.apache.hc.client5.http.socket.ConnectionSocketFactory;
-import org.apache.hc.client5.http.socket.PlainConnectionSocketFactory;
-import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
-import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
-import org.apache.hc.core5.http.config.Registry;
-import org.apache.hc.core5.http.config.RegistryBuilder;
-import org.apache.hc.core5.ssl.SSLContexts;
-import org.apache.hc.core5.ssl.TrustStrategy;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-
-import javax.net.ssl.SSLContext;
+import org.springframework.core.io.Resource;
 
 /**
  *
  * @author javaugi
  */
 @Configuration
-public class AiOpenAIConfig {
+public class AiOpenAIConfig implements CommandLineRunner{
+    private static final Logger log = LoggerFactory.getLogger(AiOpenAIConfig.class);
     
-    @Bean
-    public RestTemplate secureRestTemplate(RestTemplateBuilder builder) throws Exception {
+    @Value("classpath:/prompts/system-message.st")
+    private Resource systemResource;    
+    @Value("${spring.ai.deepseek.openai.base-url}")
+    private String baseUrl;
+    @Value("${spring.ai.deepseek.openai.api-key}")
+    private String apiKey;
+    @Value("${spring.ai.deepseek.openai.chat.options.model}")
+    private String apiModel;
+    
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("AiDeepSeekConfig with baseUrl {} args {} ", baseUrl, Arrays.toString(args)); 
+        hide(systemResource, apiKey, apiModel);
+    }
 
-        // This configuration allows your application to skip the SSL check
-        final TrustStrategy acceptingTrustStrategy = (cert, authType) -> true;
-        final SSLContext sslContext = SSLContexts.custom()
-                .loadTrustMaterial(null, acceptingTrustStrategy)
+    private void hide(Resource resource, String... args) {
+        //doNothing
+    }   
+    
+    @Bean(name = "openAiApi")
+    public OpenAiApi chatCompletionApi() {
+        return OpenAiApi.builder().baseUrl(baseUrl).apiKey(apiKey).build();
+    }
+
+    @Bean(name = "openAiChatModel")
+    public OpenAiChatModel openAiClient(OpenAiApi openAiApi) {
+        return OpenAiChatModel.builder()
+                .openAiApi(openAiApi)
+                .defaultOptions(OpenAiChatOptions.builder().model(apiModel).build())
                 .build();
-
-        final SSLConnectionSocketFactory sslsf =
-                new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
-        final Registry<ConnectionSocketFactory> socketFactoryRegistry =
-                RegistryBuilder.<ConnectionSocketFactory> create()
-                        .register("https", sslsf)
-                        .register("http", new PlainConnectionSocketFactory())
-                        .build();
-
-        final BasicHttpClientConnectionManager connectionManager =
-                new BasicHttpClientConnectionManager(socketFactoryRegistry);
-
-        HttpClient client = HttpClients.custom()
-                .setConnectionManager(connectionManager)
-                .build();
-
-        return builder
-                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(client))
-                .build();
-    }    
+    }      
+       
 }
