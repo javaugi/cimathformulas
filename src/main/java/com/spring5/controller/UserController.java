@@ -135,7 +135,7 @@ public class UserController {
         "arby@ciminc.com", "Allen@ciminc.com", "Abbey@ciminc.com", "Ashley@ciminc.com", "Ben@ciminc.com", "Bill@ciminc.com", "Carol@ciminc.com",
         "Dan@ciminc.com", "Don@ciminc.com", "Doug@ciminc.com", "Ernie@ciminc.com", "Gary@ciminc.com", "Jax@ciminc.com", "Jon@ciminc.com",
         "Jeff@ciminc.com", "Jessica@ciminc.com", "Kevin@ciminc.com", "Shannon@ciminc.com"};
-    static final List<String> F_N_LIST = Arrays.asList(FIRST_NAMES);
-    static final List<String> L_N_LIST = Arrays.asList(LAST_NAMES);
-    static final List<String> E_LIST = Arrays.asList(EMAILS);
+    public static final List<String> F_N_LIST = Arrays.asList(FIRST_NAMES);
+    public static final List<String> L_N_LIST = Arrays.asList(LAST_NAMES);
+    public static final List<String> E_LIST = Arrays.asList(EMAILS);
 }

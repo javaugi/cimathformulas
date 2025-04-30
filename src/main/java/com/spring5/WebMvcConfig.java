@@ -103,12 +103,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public InternalResourceViewResolver htmlViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/"); // Use the same prefix or a different one
+        resolver.setPrefix("/WEB-INF/dockerhtml/"); // Use the same prefix or a different one
         resolver.setSuffix(".html");
         resolver.setOrder(1); // Set a higher order than the previous resolver
         return resolver;
     }    
     
+    @Bean
+    public InternalResourceViewResolver angularclientResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/angularclient/"); // Use the same prefix or a different one
+        resolver.setSuffix(".*");
+        resolver.setOrder(1); // Set a higher order than the previous resolver
+        return resolver;
+    }    
+
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
@@ -141,6 +150,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/tags/**").addResourceLocations("/WEB-INF/tags/")
                 .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/angularclient/").setCachePeriod(0);        
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/angularclient/public/").setCachePeriod(0);        
+        
     }
 
     @Controller

@@ -4,10 +4,7 @@
  */
 package com.spring5;
 
-/**
- *
- * @author javaugi
- */
+//https://www.baeldung.com/spring-boot-angular-web
 public class AngularFrontEndConfig {
     //download and intall node.js   
     //node -v
@@ -16,6 +13,7 @@ public class AngularFrontEndConfig {
     //update
     //npm install -g @angular/cli@latest
     //ng update @angular/core @angular/cli
+    //ng new angularclient in the dir /e/springtutorial/cimathformulas/src/main/webapp
     
 }
 //npm install -g @angular/cli@19.2.9  (npm uninstall -g @angular/cli@19.2.9 to remove)
