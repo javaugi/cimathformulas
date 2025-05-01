@@ -17,7 +17,8 @@ public class TotalValidSubarrays {
         int[] intArr = {2, 5, 6, 8, 4};
         Arrays.sort(intArr); // Sort the array first
         //intArr = {2, 4, 5, 6, 8};
-        System.out.println("Total valid subarrays: " + countTotalValidSubarrays(intArr));
+        System.out.println("1 Total valid subarrays: " + countTotalValidSubarrays(intArr));
+        System.out.println("2 Total valid subarrays: " + countTotalValidSubarrays2(intArr));
     }
 
     public static int countTotalValidSubarrays(int[] arr) {

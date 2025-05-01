@@ -4,7 +4,8 @@
  */
 package com.spring5.audit;
 
-import org.apache.coyote.BadRequestException;
+//import org.apache.coyote.BadRequestException;
+import jakarta.ws.rs.BadRequestException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
