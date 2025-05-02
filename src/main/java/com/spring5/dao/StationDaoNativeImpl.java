@@ -7,6 +7,7 @@ package com.spring5.dao;
 import com.spring5.entity.Station;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,12 @@ public class StationDaoNativeImpl extends StationDao {
     public List<String> doQuery(String qString) {
         @SuppressWarnings("unchecked")
         Query query = entityManager.createNativeQuery(qString);
-        return query.getResultList();
+        List<Object[]> list = (List<Object[]>)query.getResultList();
+        List<String> returnValue = new ArrayList<>();
+        for (Object[] obj: list) {
+            returnValue.add("" + String.valueOf(obj[0]) + " " + String.valueOf(obj[1]));
+        }
+        return returnValue;
     }
     
     @Override

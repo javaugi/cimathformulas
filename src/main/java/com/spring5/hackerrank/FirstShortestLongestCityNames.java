@@ -22,6 +22,11 @@ public class FirstShortestLongestCityNames {
     private static final Logger log = LoggerFactory.getLogger(FirstShortestLongestCityNames.class);
 
     public static void main(String[] args) {
+        //testDataPopulation();        
+        doQueryFromFileData(args);
+    }
+
+    private static void testDataPopulation() {
         String[] strArr = {"Alaska,	AK,	Juneau,	Anchorage\n", "Arizona,	AZ,	Phoenix,	Phoenix"};
         for (String line: strArr) {
             String[] tokens = line.split(REGEX_CSV_FULL);
@@ -32,8 +37,6 @@ public class FirstShortestLongestCityNames {
                 System.out.println("2 token=" + str);
             }
         }
-        
-        //doQueryFromFileData(args);
     }
 
     private static void doQueryFromFileData(String[] args) throws BeansException {

@@ -49,6 +49,8 @@ public class UniquePairsCounter {
         Set<String> uni = new HashSet<>();
         for (int i = 0; i < pairLeft.length; i++) {
             uni.add(pairLeft[i] + ", " + pairRight[i]);
+            //Pair pair = new Pair(pairLeft[i], pairRight[i]);
+            //uni.add(pair.toString());
             System.out.println(uni.size());
         }
     }
@@ -118,6 +120,11 @@ public class UniquePairsCounter {
         public int hashCode() {
             return first.hashCode() * 31 + second.hashCode();
         }
+
+        @Override
+        public String toString() {
+            return "first=" + first + ", second=" + second;
+        }        
     }
 
     private static void scanner() {
