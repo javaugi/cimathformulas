@@ -63,15 +63,16 @@ public class GameCanWinMemoizationDSF {
         stack.push(0);
         
         while (!stack.isEmpty()) {
-            int pos = stack.pop();
-            
+            int pos = stack.pop();   
+            //true if all visited
             if (pos >= game.length) {
                 return true;
             }
+            //continue for those situations
             if (pos < 0 || game[pos] == 1 || visited[pos]) {
                 continue;
             }
-            
+            //keep visiting pos + 1 first, the pos -1 and then pos + leap
             visited[pos] = true;
             stack.push(pos + 1);
             stack.push(pos - 1);
