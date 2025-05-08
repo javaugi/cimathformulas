@@ -22,5 +22,3 @@ echo "checking myreactnext"
 cd $PROJ_HOME/src/main/webapp/myreactnext
 npm fund
 echo "checking done"
-
-ProcessBuilder pb = new ProcessBuilder("python", "script.py", costs, features);

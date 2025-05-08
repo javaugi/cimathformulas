@@ -51,6 +51,7 @@ public class TradeController {
     public void addMoneyByUserAccountId(@PathVariable long userAccountId, @PathVariable BigDecimal amount) {
         try{
             tradeService.addMoney(userAccountId, amount); 
+            throw new NoException("OK");
         } catch(Exception ex) {
             throw new NotAcceptableException("Not Acceptable");
         }
@@ -59,11 +60,20 @@ public class TradeController {
     @PutMapping("/{userAccount}/{amount}")
     public void addMoneyByUserAccountNumber(@PathVariable String userAccountNumber, @PathVariable BigDecimal amount) {
         try{
-            tradeService.addMoneyByAccount(userAccountNumber, amount);        
+            tradeService.addMoneyByAccount(userAccountNumber, amount);     
+            throw new NoException("OK");
         } catch(Exception ex) {
             throw new NotAcceptableException("Not Acceptable");
         }
     }
+    
+    @ResponseStatus(HttpStatus.OK)
+    public class NoException extends RuntimeException {
+        public NoException(String message) {
+            super(message);
+        }
+    }
+    
 
     @PutMapping("/update-trade")
     public ResponseEntity<Trade> updateTrade(org.springframework.http.RequestEntity<Trade> request) {
@@ -78,11 +88,15 @@ public class TradeController {
     @GetMapping("/{email}")
     @ResponseStatus(HttpStatus.OK)
     public List<Trade> getAllTradesByUserEmail(@PathVariable String userEmai) {
-        List<Trade> trades = tradeService.getAllTradesByUserEmail(userEmai);
-        if (trades == null || trades.isEmpty()) {
+        try{
+            List<Trade> trades = tradeService.getAllTradesByUserEmail(userEmai);
+            if (trades == null || trades.isEmpty()) {
+                throw new ResourceNotFoundException("No trades found");
+            }
+            return trades;
+        }catch(Exception ex) {
             throw new ResourceNotFoundException("No trades found");
         }
-        return trades;
     }
     
     @ResponseStatus(HttpStatus.NOT_FOUND)

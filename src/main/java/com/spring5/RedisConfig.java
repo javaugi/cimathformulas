@@ -24,6 +24,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @EnableCaching
+//https://github.com/javaugi/redis-caching-java-spring-boot
+//https://github.com/javaugi/spring-boot-redis-example
 public class RedisConfig {
 
     @Value("${spring.redis.host}")

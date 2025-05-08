@@ -12,10 +12,8 @@ import org.springframework.kafka.support.converter.RecordMessageConverter;
 
 
 
-/**
- *
- * @author javaugi
- */
+//https://github.com/javaugi/sample-spring-kafka-microservices
+//https://github.com/javaugi/kafka-microservices
 @Configuration
 public class KafkaSchemaRegistryConfig {
     

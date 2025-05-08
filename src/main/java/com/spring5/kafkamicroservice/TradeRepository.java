@@ -20,13 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 public interface TradeRepository extends JpaRepository<Trade, Long> {
     
     @Query("SELECT t FROM Trade t JOIN FETCH t.userAccount ua JOIN FETCH ua.user u WHERE u.userEmail=(:userEmail)")
-    List<Trade> getAllTradesByUserEmail(String userEmail);
+    List<Trade> getAllTradesByUserEmail(String userEmail) throws Exception;
     
     @Query("UPDATE UserAccount SET cashBalance = cashBalance + (:amount) WHERE id =(:userAccountId)")
-    void addMoney(long userAccountId, BigDecimal amount);
+    void addMoney(long userAccountId, BigDecimal amount) throws Exception;
 
     @Query("UPDATE UserAccount SET cashBalance = cashBalance + (:amount) WHERE account =(:userAccount)")
-    void addMoneyByAccount(String userAccount, BigDecimal amount);
+    void addMoneyByAccount(String userAccount, BigDecimal amount) throws Exception;
 }
 
 /* 

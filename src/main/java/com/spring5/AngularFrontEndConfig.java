@@ -5,7 +5,10 @@
 package com.spring5;
 
 //https://www.baeldung.com/spring-boot-angular-web
+//https://github.com/javaugi/full-stack-with-angular-and-spring-boot
 public class AngularFrontEndConfig {
+    //see sample github spring boot with Angular projects
+    
     //download and intall node.js   
     //node -v
     //npm -v
@@ -123,4 +126,48 @@ Code
 │                   └── app
 │                       └── ... (Spring Boot tests)
 ├── pom.xml
+*/
+
+/*
+Here are some examples of full-stack applications using Java Spring Boot and Angular:
+1. User Management Application:
+Features:
+Create, read, update, and delete users. Assign users to departments or locations. Manage user roles and permissions.
+Backend (Spring Boot):
+RESTful APIs for user management, data persistence using JPA, and potentially Spring Security for authentication and authorization.
+Frontend (Angular):
+User interface for displaying user lists, forms for adding/editing users, and handling user interactions.
+2. E-commerce Application:
+Features:
+Product catalog, shopping cart, order management, user accounts, and payment processing.
+Backend (Spring Boot):
+RESTful APIs for product management, order processing, user authentication, and database interactions.
+Frontend (Angular):
+User interface for browsing products, adding items to the cart, placing orders, and managing user profiles.
+3. Todo Management Application:
+Features: Create, read, update, and delete todo items. Mark items as completed.
+Backend (Spring Boot): RESTful APIs for managing todo items, data persistence using JPA, and potentially user authentication.
+Frontend (Angular): User interface for displaying todo lists, forms for adding/editing items, and marking items as complete.
+4. Employee Management Application:
+Features:
+Manage employee information, including details like name, department, and contact information.
+Backend (Spring Boot):
+RESTful APIs for employee management, data persistence using JPA, and potentially authentication.
+Frontend (Angular):
+User interface for displaying employee lists, forms for adding/editing employee data, and searching functionality.
+5. Polling Application:
+Features: Create and manage polls, allow users to vote, and display results.
+Backend (Spring Boot): RESTful APIs for poll management, data persistence using JPA, and potentially user authentication.
+Frontend (Angular): User interface for creating polls, voting on polls, and viewing results.
+Key Concepts and Technologies:
+Spring Boot: Provides a framework for building backend REST APIs.
+Angular: Provides a framework for building dynamic user interfaces.
+RESTful APIs: Used for communication between the frontend and backend.
+JPA (Java Persistence API): Used for data persistence and database interactions.
+Spring Security: Used for authentication and authorization.
+CRUD Operations: Create, Read, Update, and Delete operations for managing data.
+Additional Resources:
+Many tutorials and courses are available online for building full-stack applications with Spring Boot and Angular.
+GitHub repositories provide open-source examples for reference and learning.
+These examples demonstrate the versatility of using Spring Boot and Angular together for building various types of full-stack web applications.
 */

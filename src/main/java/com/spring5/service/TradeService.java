@@ -30,15 +30,15 @@ public class TradeService {
         return tradeRepository.save(trade);
     }    
     
-    public List<Trade> getAllTradesByUserEmail(String userEmail) {
+    public List<Trade> getAllTradesByUserEmail(String userEmail) throws Exception {
         return tradeRepository.getAllTradesByUserEmail(userEmail);
     }
     
-    public void addMoney(long userAccountId, BigDecimal amount) {
+    public void addMoney(long userAccountId, BigDecimal amount) throws Exception{
         tradeRepository.addMoney(userAccountId, amount);
     }
     
-    public void addMoneyByAccount(String userAccount, BigDecimal amount) {
+    public void addMoneyByAccount(String userAccount, BigDecimal amount) throws Exception{
         tradeRepository.addMoneyByAccount(userAccount, amount);
     }
 

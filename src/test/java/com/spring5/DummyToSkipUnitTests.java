@@ -4,6 +4,7 @@
  */
 package com.spring5;
 
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -12,9 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class DummyToSkipUnitTests {
-    @org.junit.jupiter.api.Test
+    @Test
     public void dummy() {
-        // Do nothing
     }    
 }
 
