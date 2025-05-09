@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mysql {
 
-    @Autowired
+    //@Autowired
     private SparkSession sparkSession;
 
-    @Autowired
+    //@Autowired
     private JavaSparkContext jsc;
 
     public List<String> getTableNames(String JDBC_URI, String JDBC_username, String JDBC_password) {

@@ -16,6 +16,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Value;
 //TODO
 //import com.mongodb.spark.MongoSpark;
 //import com.mongodb.spark.rdd.api.java.JavaMongoRDD;
@@ -26,34 +27,40 @@ import org.bson.Document;
 public class SparkConfig implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(SparkConfig.class);
 
-    @Bean
+    @Value("${app.name}")
+    protected String appName;
+    @Value("${spark.home}")
+    protected String sparkHome;
+    @Value("${spark.master.uri}")
+    protected String sparkMasterUri;
+    
+    //@Bean
     public SparkSession sparkSession() {
         return new SparkSession.Builder()
-                .appName("MySparkApp")
-                .master("local[*]") // or "spark://<your_cluster_url>"
+                .appName(appName)
+                .master(sparkMasterUri) // or "spark://<your_cluster_url>"
                 .getOrCreate();
     }
 
-    @Bean
+    //@Bean
     public SparkConf sparkConf() {
-        SparkConf conf = new SparkConf().setAppName("MySparkApp").setMaster("local[*]");
+        SparkConf conf = new SparkConf().setAppName(appName).setMaster(sparkMasterUri);
         return conf;
     }
     
     @Override
     public void run(String... args) throws Exception {
         log.info("SparkConfig with args {}", Arrays.toString(args)); 
-        if (true) {
-            return;
-        }
+        /*
         SparkSession spark = SparkSession.builder()
-            .master("spark://192.168.1.1:7077")
-            .appName("MongoSparkConnectorIntro")
+            .master(sparkMasterUri)
+            .appName(appName)
             .config("spark.mongodb.input.uri", "mongodb://192.168.1.2/local.Test")
             .config("spark.mongodb.output.uri", "mongodb://192.168.1.2/local.Test")
             .getOrCreate();
 
         JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
+        // */
         
         /* TODO
         JavaMongoRDD<Document> rdd = MongoSpark.load(jsc);

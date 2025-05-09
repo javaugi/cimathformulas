@@ -53,6 +53,7 @@ public class UserAngularController implements CommandLineRunner {
         log.info("UserAngularController with args {}", Arrays.toString(args)); 
         totalCount = 20;
         createUsers();
+        log.info("UserAngularController Users created ..."); 
         userRepository.findAll().forEach(System.out::println);
     }
     

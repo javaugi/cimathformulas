@@ -28,10 +28,10 @@ import com.mongodb.spark.sql.connector.config.ReadConfig;
 @Component
 public class MongoDB {
 
-    @Autowired
+    //@Autowired
     private SparkSession sparkSession;
 
-    @Autowired
+    //@Autowired
     private JavaSparkContext jsc;
 
     public long count(String DB, String Collection) {

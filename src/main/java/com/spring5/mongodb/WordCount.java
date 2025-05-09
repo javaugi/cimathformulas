@@ -18,7 +18,7 @@ import static org.apache.spark.sql.functions.col;
  */
 @Component
 public class WordCount {
-    @Autowired
+    //@Autowired
     private SparkSession sparkSession;
 
     public List<Count> count() {

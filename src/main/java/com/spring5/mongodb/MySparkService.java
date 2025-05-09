@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MySparkService {
     
-    @Autowired
+    //@Autowired
     private SparkSession sparkSession;
 
     public void processData(String inputPath, String outputPath) {

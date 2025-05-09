@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class WordCountService {
 
-    @Autowired
+    //@Autowired
     private SparkSession spark;
 
     public Map<String, Long> countWords(String filePath) {
