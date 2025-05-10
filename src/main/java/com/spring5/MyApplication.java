@@ -50,7 +50,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @ComponentScan(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 //@EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
-public class MyApplication implements CommandLineRunner, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+//public class MyApplication implements CommandLineRunner, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+public class MyApplication {
 
     protected static final String PACKAGES_TO_SCAN = "com.spring5";
     private final static Logger log = LoggerFactory.getLogger(MyApplication.class);
@@ -71,10 +72,12 @@ public class MyApplication implements CommandLineRunner, ApplicationListener<App
     @Autowired
     private ApplicationContext context;
 
+    /*
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         log.info("MyApplication onApplicationEvent ...");
     }
+    // */
 
     @Bean
     public CommandLineRunner commandLineRunnerMain(PersonRepository personRepository) {
@@ -84,10 +87,13 @@ public class MyApplication implements CommandLineRunner, ApplicationListener<App
         };
     }
 
+    /*  Docker error  Error: Could not find or load main class com.spring5.MyApplication
+        app-1  | Caused by: java.lang.NoClassDefFoundError: org/springframework/boot/CommandLineRunner
     @Override
     public void run(String... args) throws Exception {
         log.info("MyApplication CommandLineRunner run {}", Arrays.toString(args));
     }
+    // */
 
 }
 /*

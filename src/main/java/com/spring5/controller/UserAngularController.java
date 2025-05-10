@@ -8,6 +8,7 @@ import static com.spring5.controller.UserController.E_LIST;
 import static com.spring5.controller.UserController.F_N_LIST;
 import static com.spring5.controller.UserController.L_N_LIST;
 import static com.spring5.controller.UserController.getAlphaNumericString;
+import static com.spring5.controller.UserController.getTwoDigitString;
 import com.spring5.entity.User;
 import com.spring5.repository.UserRepository;
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -55,6 +55,7 @@ public class UserAngularController implements CommandLineRunner {
         createUsers();
         log.info("UserAngularController Users created ..."); 
         userRepository.findAll().forEach(System.out::println);
+        log.info("Done UserAngularController run setup"); 
     }
     
     private List<User> createUsers() {
@@ -64,8 +65,9 @@ public class UserAngularController implements CommandLineRunner {
         Random rand = new Random();
         for (int i = 0; i < totalCount; i++) {
             user = new User();
-            user.setUsername(F_N_LIST.get(rand.nextInt(F_N_LIST.size()))
-                    + " " + L_N_LIST.get(rand.nextInt(L_N_LIST.size())));
+            user.setFirstName(F_N_LIST.get(rand.nextInt(F_N_LIST.size())));
+            user.setLastName(L_N_LIST.get(rand.nextInt(L_N_LIST.size())));
+            user.setUsername(user.getFirstName().substring(0, 1).toLowerCase() + user.getLastName().toLowerCase() + getTwoDigitString(2));
             user.setUserEmail(getAlphaNumericString(5) + E_LIST.get(rand.nextInt(E_LIST.size())));
 
             userRepository.save(user);

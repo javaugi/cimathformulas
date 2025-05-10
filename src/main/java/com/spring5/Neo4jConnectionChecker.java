@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @EnableNeo4jAuditing
-@EnableNeo4jRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
+//@EnableNeo4jRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 public class Neo4jConnectionChecker implements CommandLineRunner {
 
     private final static Logger log = LoggerFactory.getLogger(Neo4jConnectionChecker.class);

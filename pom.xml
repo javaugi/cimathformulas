@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jinvindia</groupId>
-    <artifactId>jinvindia-saas-loans-partner</artifactId>
+    <artifactId>jinvidia-saas-carloner</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>jinvidia-saas-atsis</name>
+    <packaging>jar</packaging>
+    <name>jinvidia-saas-carloner</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -623,10 +623,8 @@
             <artifactId>hsqldb</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId> 
-            <version>8.0.33</version>
-            <scope>runtime</scope>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
         
         <dependency>
@@ -1459,7 +1457,7 @@
     <build>
         <!--        <defaultGoal>install</defaultGoal>-->
         <defaultGoal>spring-boot:run</defaultGoal>
-        <finalName>spring-boot-web</finalName>
+        <finalName>jinvidia-saas-carloner</finalName>
         <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
         <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
         <pluginManagement>
@@ -1476,7 +1474,6 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.14.0</version>
                     <configuration> 
-                        <useClasspathFile>true</useClasspathFile>
                         <compilerArgs>
                             <arg>-Xlint:-unchecked</arg>
                             <arg>-Xlint:-deprecation</arg>
@@ -1499,10 +1496,6 @@
                     
                 </plugin>                
                 <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.3.0</version>
-                </plugin>
-                <plugin>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>3.1.1</version>
                 </plugin>
@@ -1514,7 +1507,32 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>3.4.3</version>
+                    <executions>
+                      <execution>
+                        <goals>
+                          <goal>repackage</goal>
+                        </goals>
+                      </execution>
+                    </executions>
+                    <configuration>
+                        <mainClass>com.spring5.MyApplication</mainClass>
+                    </configuration>
                 </plugin>
+                <!--
+                <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-jar-plugin</artifactId>
+                  <version>3.4.2</version>
+                  <configuration>
+                    <archive>
+                      <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>com.spring5.MyApplication</mainClass> 
+                      </manifest>
+                    </archive>
+                  </configuration>
+                </plugin>                
+                -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
