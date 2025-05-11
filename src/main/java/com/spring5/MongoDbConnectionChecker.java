@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
  * @author javaugi
  */
 @Component
+@org.springframework.core.annotation.Order(4)
 @EnableMongoRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 public class MongoDbConnectionChecker implements CommandLineRunner {    
     private final static Logger log = LoggerFactory.getLogger(MongoDbConnectionChecker.class);

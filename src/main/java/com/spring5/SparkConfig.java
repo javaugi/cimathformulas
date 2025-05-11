@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 @Configuration
 @PropertySource("classpath:application.properties")
 //https://github.com/javaugi/spring-spark-example
+@org.springframework.core.annotation.Order(8)
 public class SparkConfig implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(SparkConfig.class);
 

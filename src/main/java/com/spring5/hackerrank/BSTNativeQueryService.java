@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
  * @author javaugi
  */
 @Service
+@org.springframework.core.annotation.Order(10)
 public class BSTNativeQueryService implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(BSTNativeQueryService.class);
 

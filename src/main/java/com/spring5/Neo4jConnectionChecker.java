@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @EnableNeo4jAuditing
+@org.springframework.core.annotation.Order(5)
 //@EnableNeo4jRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 public class Neo4jConnectionChecker implements CommandLineRunner {
 

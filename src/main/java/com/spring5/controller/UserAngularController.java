@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 //@RequestMapping("/angular")
 //http://localhost:8080/users
 @CrossOrigin(origins = "http://localhost:4200")
+@org.springframework.core.annotation.Order(9)
 public class UserAngularController implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(UserAngularController.class);
 

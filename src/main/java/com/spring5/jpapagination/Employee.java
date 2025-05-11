@@ -26,6 +26,9 @@ public class Employee implements java.io.Serializable {
     private String name;
     private String dept;
     private int salary;
+    private boolean nightShift;
+    private Region region;
+    double hoursWorked;
 
     public Long getId() {
         return id;
@@ -59,6 +62,31 @@ public class Employee implements java.io.Serializable {
         this.salary = salary;
     }
 
+    public boolean isNightShift() {
+        return nightShift;
+    }
+
+    public void setNightShift(boolean nightShift) {
+        this.nightShift = nightShift;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public double getHoursWorked() {
+        return hoursWorked;
+    }
+
+    public void setHoursWorked(double hoursWorked) {
+        this.hoursWorked = hoursWorked;
+    }
+    
+    
     public static Employee create(String name, String dept, int salary) {
         Employee e = new Employee();
         e.setName(name);

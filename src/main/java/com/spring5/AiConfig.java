@@ -35,6 +35,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Configuration
+@org.springframework.core.annotation.Order(1)
 public class AiConfig implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(AiConfig.class);
     

@@ -32,6 +32,7 @@ import org.springframework.stereotype.Service;
  * @author javaugi
  */
 @Service
+@org.springframework.core.annotation.Order(12)
 public class StationNativeQueryService implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(StationNativeQueryService.class);
 

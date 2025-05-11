@@ -14,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+@org.springframework.core.annotation.Order(11)
 public class BinaryTreeFindRootLeafInner implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(BinaryTreeFindRootLeafInner.class);
 

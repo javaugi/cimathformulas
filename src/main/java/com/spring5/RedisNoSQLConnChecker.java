@@ -18,6 +18,7 @@ import redis.clients.jedis.Jedis;
  * @author javaugi
  */
 @Component
+@org.springframework.core.annotation.Order(6)
 public class RedisNoSQLConnChecker implements CommandLineRunner {    
     private final static Logger log = LoggerFactory.getLogger(RedisNoSQLConnChecker.class);
     
