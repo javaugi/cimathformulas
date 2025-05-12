@@ -1,16 +1,29 @@
 ## YAML Template.
 ---
 spring:
-    config:
-      activate:
-        on-profile: david
-    servlet:
-        multipart:
-            max-file-size: 50MB
-            max-request-size: 150MB
-    main:
-        allow-circular-references: true
-##
+  config:
+    activate:
+      on-profile: david
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 150MB
+  main:
+      allow-circular-references: true
+---
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb
+    username: sa
+    password:
+##spring:
+##  r2dbc:
+##    url: r2dbc:postgresql://localhost:5432/mydb
+##    username: user
+##    password: pass    
+##spring:
+##  r2dbc:
+##    url: r2dbc:mysql://localhost:3306/mydb        
 ---
 spring:
   kafka:
@@ -95,10 +108,10 @@ resilience4j.circuitbreaker:
 spring:
   application:
     name: testLatticeApp
-
+---
 ribbon:
   ServerListRefreshInterval: 1000
-
+---
 endpoints:
   health:
     sensitive: false

@@ -14,6 +14,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -38,11 +39,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 public class HibernateConfig {
     
+    @Primary
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
 
+    @Primary
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
@@ -62,11 +65,13 @@ public class HibernateConfig {
         return bean;
     }    
     // */
+    @Primary
     @Bean
     public MapToJsonConverter mapToJsonConverter() {
         return new MapToJsonConverter();
     }
 
+    @Primary
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter, MapToJsonConverter mapToJsonConverter) {
@@ -96,6 +101,14 @@ public class HibernateConfig {
         return bean;
     }
 
+    /*
+    A component required a single bean, but 2 were found:
+        - transactionManager: defined by method 'transactionManager' in class path resource [com/spring5/HibernateConfig.class]
+        - connectionFactoryTransactionManager: defined by method 'connectionFactoryTransactionManager' in class path resource 
+            [org/springframework/boot/autoconfigure/r2dbc/R2dbcTransactionManagerAutoConfiguration.class]    
+    */
+    //
+    @Primary
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);

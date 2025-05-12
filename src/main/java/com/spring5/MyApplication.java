@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.autoconfigure.azure.openai.AzureOpenAiAutoConfiguration;
 import org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration;
-import org.springframework.ai.autoconfigure.chat.model.ToolCallingAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,6 +33,8 @@ import org.springframework.context.annotation.Configuration;
 })
 @Configuration
 @EnableCaching
+//@EnableMongoDBRepository
+//@EnableR2dbcRepositories(MyApplication.PACKAGES_TO_SCAN)
 //@EnableTransactionManagement
 //@EnableEurekaServer
 //@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
