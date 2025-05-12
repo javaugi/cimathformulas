@@ -5,35 +5,21 @@
 package com.spring5;
 
 import com.spring5.graphql.PersonRepository;
-import com.spring5.utils.MapToJsonConverter;
-import jakarta.persistence.EntityManagerFactory;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ai.autoconfigure.azure.openai.AzureOpenAiAutoConfiguration;
+import org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration;
+import org.springframework.ai.autoconfigure.chat.model.ToolCallingAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  *
@@ -42,7 +28,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+    OpenAiAutoConfiguration.class,
+    AzureOpenAiAutoConfiguration.class
+})
 @Configuration
 @EnableCaching
 //@EnableTransactionManagement

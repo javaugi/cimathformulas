@@ -28,4 +28,6 @@ public class PayrollData {
     Long id;
     
     int hoursWorked;
+    
+    String taxDeductions;
 }

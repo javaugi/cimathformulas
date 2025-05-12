@@ -17,4 +17,9 @@ public class NightShiftDecorator extends PayrollDecorator {
         return wrappedRule.calculateOvertime(hoursWorked, employee) 
                + (employee.isNightShift() ? hoursWorked * 0.2 : 0);
     }
+    
+    @Override
+    public double calculateTax(Employee employee) {
+        return 0d;
+    }  
 }

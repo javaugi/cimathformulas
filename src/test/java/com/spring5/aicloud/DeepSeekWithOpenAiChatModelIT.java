@@ -42,6 +42,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Disabled;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
@@ -58,7 +59,7 @@ public class DeepSeekWithOpenAiChatModelIT {
     private Resource systemResource;
 
     @Autowired
-    private OpenAiChatModel chatModel;
+    private @Qualifier("deekseekOpenAiChatModel") OpenAiChatModel chatModel;
 
     @Test
     public void roleTest() {

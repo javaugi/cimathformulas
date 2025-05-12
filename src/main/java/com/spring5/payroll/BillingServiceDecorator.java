@@ -4,13 +4,13 @@
  */
 package com.spring5.payroll;
 
-import com.spring5.jpapagination.Employee;
-
 /**
  *
  * @author javaugi
  */
-public interface PayrollRuleStrategy {
-    double calculateOvertime(double hoursWorked, Employee employee);
-    double calculateTax(Employee employee);
+public abstract class BillingServiceDecorator implements BillingService {
+    protected BillingService wrapped;
+    public BillingServiceDecorator(BillingService service) { 
+        this.wrapped = service; 
+    }
 }

@@ -25,7 +25,7 @@ public class Employee implements java.io.Serializable {
     
     private String name;
     private String dept;
-    private int salary;
+    private double salary;
     private boolean nightShift;
     private Region region;
     double hoursWorked;
@@ -54,11 +54,11 @@ public class Employee implements java.io.Serializable {
         this.dept = dept;
     }
 
-    public int getSalary() {
+    public double getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 

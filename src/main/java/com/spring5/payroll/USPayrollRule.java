@@ -15,4 +15,9 @@ public class USPayrollRule implements PayrollRuleStrategy {
     public double calculateOvertime(double hoursWorked, Employee employee) {
         return (hoursWorked > 40) ? (hoursWorked - 40) * 1.5 : 0;
     }    
+    
+    @Override
+    public double calculateTax(Employee employee) {
+        return employee.getSalary();
+    }  
 }

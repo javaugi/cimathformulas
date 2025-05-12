@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -52,13 +53,61 @@ public class AiDeepSeekConfig implements CommandLineRunner{
 
     @Primary
     @Bean(name = "deekseekOpenAiChatModel")
-    public OpenAiChatModel openAiClient(OpenAiApi openAiApi) {
+    public OpenAiChatModel openAiClient(@Qualifier("deekseekOpenAiApi") OpenAiApi openAiApi) {
         return OpenAiChatModel.builder()
                 .openAiApi(openAiApi)
                 .defaultOptions(OpenAiChatOptions.builder().model(apiModel).build())
                 .build();
     }       
-}
+} 
+/*
+Solutions
+1. Use DeepSeek’s API with a Custom Client
+Since LangChain4J’s OpenAiChatModel only works with OpenAI, you need a custom HTTP client for DeepSeek:
+
+import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.openai.OpenAiChatModel;
+
+// ❌ WRONG: This will fail (DeepSeek key ≠ OpenAI key)
+OpenAiChatModel wrongModel = OpenAiChatModel.withApiKey("ds-your-deepseek-key"); 
+// ✅ Option 1: Use a custom HTTP client (recommended)
+ChatLanguageModel deepseekModel = new DeepSeekChatModel("ds-your-deepseek-key");
+// ✅ Option 2: If DeepSeek is OpenAI-compatible (unlikely), try overriding the base URL:
+OpenAiChatModel customModel = OpenAiChatModel.builder()
+    .apiKey("ds-your-key")  // Still may not work
+    .baseUrl("https://api.deepseek.com/v1")  // Override endpoint
+    .build();
+2. Use OpenAI’s Key Instead
+If you want to use OpenAiChatModel, get a key from OpenAI:
+    properties
+    # application.properties
+    langchain4j.openai.api-key=sk-your-openai-key  # OpenAI format
+📌 Key Notes
+DeepSeek ≠ OpenAI
+LangChain4J’s OpenAiChatModel is hardcoded for OpenAI’s API.
+DeepSeek’s API may have different request/response formats.
+Check DeepSeek’s Docs
+If DeepSeek provides an OpenAI-compatible endpoint, you can override baseUrl.
+Example (if supported):
+    OpenAiChatModel.builder()
+        .apiKey("ds-your-key")
+        .baseUrl("https://api.deepseek.com/v1/chat/completions")  // Hypothetical
+        .build();
+Custom Implementation
+    For full DeepSeek support, implement ChatLanguageModel yourself:
+        public class DeepSeekChatModel implements ChatLanguageModel {
+            @Override
+            public String generate(String userMessage) {
+                // Call DeepSeek API manually
+            }
+        }
+🚀 Need Help?
+Let me know if you:
+    Want a custom DeepSeek client example.
+    Need help migrating from OpenAI to DeepSeek.
+    Are unsure about API compatibility.
+*/
+
 /* test
 curl https://api.deepseek.com/chat/completions \
   -H "Content-Type: application/json" \

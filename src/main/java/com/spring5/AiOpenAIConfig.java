@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -27,11 +28,11 @@ public class AiOpenAIConfig implements CommandLineRunner{
     
     @Value("classpath:/prompts/system-message.st")
     private Resource systemResource;    
-    @Value("${spring.ai.deepseek.openai.base-url}")
+    @Value("${spring.ai.openai.uri}")
     private String baseUrl;
-    @Value("${spring.ai.deepseek.openai.api-key}")
+    @Value("${spring.ai.openai.api-key}")
     private String apiKey;
-    @Value("${spring.ai.deepseek.openai.chat.options.model}")
+    @Value("${openai.api.model}")
     private String apiModel;
     
     @Override
@@ -50,10 +51,10 @@ public class AiOpenAIConfig implements CommandLineRunner{
     }
 
     @Bean(name = "openAiChatModel")
-    public OpenAiChatModel openAiClient(OpenAiApi openAiApi) {
+    public OpenAiChatModel openAiClient(@Qualifier("openAiApi") OpenAiApi openAiApi) {
         return OpenAiChatModel.builder()
                 .openAiApi(openAiApi)
-                .defaultOptions(OpenAiChatOptions.builder().model(apiModel).build())
+                .defaultOptions(OpenAiChatOptions.builder().model(apiModel).maxTokens(4096).temperature(0.7).build())
                 .build();
     }      
        

@@ -22,6 +22,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class DeepSeekService {
+    
+    public static final String ML_Q = "what are the output formats from unstructured document processed by AI ML";
 
     private static final Logger log = LoggerFactory.getLogger(DeepSeekService.class);
     
@@ -40,6 +42,10 @@ public class DeepSeekService {
     public String getChatResponse(String userPrompt) {
         log.info("getChatResponse userPrompt {}", userPrompt);
         try {
+            //if (userPrompt == null || userPrompt.isEmpty()) {
+            //    userPrompt = ML_Q;
+            //}
+            
             // 1. Prepare Headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

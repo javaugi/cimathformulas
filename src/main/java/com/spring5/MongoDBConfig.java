@@ -7,13 +7,10 @@ package com.spring5;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 
-/**
- *
- * @author javaugi
- */
+//https://dev.to/mongodb/how-to-make-a-rag-application-with-langchain4j-1mad#:~:text=LangChain4J%20for%20RAG,components%20in%20your%20AI%20applications.
 @Configuration
 @ConditionalOnProperty(name = "app.mongodb.enabled", havingValue = "true")
-public class MongoConfig {
+public class MongoDBConfig {
     //spring.data.mongodb.uri=disabled causes running validation error
 }
 /*

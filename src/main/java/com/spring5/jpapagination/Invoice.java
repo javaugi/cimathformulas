@@ -4,16 +4,16 @@
  */
 package com.spring5.jpapagination;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigDecimal;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
@@ -21,14 +21,11 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class PayrollResult {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+@Document(collection = "invoices")
+public class Invoice {
+    @Id private String id;
+    private String customerId;
+    private List<LineItem> items;
+    private BigDecimal total;
     
-    private double baseSalary;
-    private double overtimePay;
-    private double tax;  
-    private double netSalary;
 }
