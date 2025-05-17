@@ -14,6 +14,7 @@ import com.spring5.entity.Station;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -56,8 +57,24 @@ public class StationNativeQueryService implements CommandLineRunner{
         }
     }
 
+    @SuppressWarnings("unchecked")
     public List<String> doQuery(String qString) {
-        return stationDaoNativeImpl.doQuery(qString);
+        List<String> returnValue = new ArrayList<>();
+        Query query = entityManager.createNativeQuery(qString);
+        List<Object[]> list = (List<Object[]>)query.getResultList();
+
+        StringBuilder sb;
+        for (Object[] obj: list) {
+            sb = new StringBuilder();
+            for (Object o: obj) {
+                sb.append(String.valueOf(o));
+                sb.append("     ");
+            }
+            
+            returnValue.add(sb.toString());
+        }            
+        
+        return returnValue;
     }
     
     @Override

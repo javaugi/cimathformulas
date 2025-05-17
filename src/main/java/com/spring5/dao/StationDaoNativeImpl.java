@@ -18,19 +18,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class StationDaoNativeImpl extends StationDao {
-    @Autowired
-    private EntityManager entityManager;
-    
-    public List<String> doQuery(String qString) {
-        @SuppressWarnings("unchecked")
-        Query query = entityManager.createNativeQuery(qString);
-        List<Object[]> list = (List<Object[]>)query.getResultList();
-        List<String> returnValue = new ArrayList<>();
-        for (Object[] obj: list) {
-            returnValue.add("" + String.valueOf(obj[0]) + " " + String.valueOf(obj[1]));
-        }
-        return returnValue;
-    }
     
     @Override
     public List<Station> saveAll(List<Station> records) {

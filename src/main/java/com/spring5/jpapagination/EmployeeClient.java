@@ -4,12 +4,19 @@
  */
 package com.spring5.jpapagination;
 
+import com.spring5.MyApplication;
+import com.spring5.service.NativeQueryService;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -25,36 +32,99 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class EmployeeClient {
+    private final static Logger log = LoggerFactory.getLogger(EmployeeClient.class);
 
-    public static final String[] firstNames = {"Abbey", "Adam", "Alan", "Albert", "Alice", "Amy", "Jax", "John", "Jonathan", "Jeffrey", "Barbara", "Ben", "Bernie",
-        "Byron", "Carl", "Carol", "Cathy", "Dan", "David", "Mark", "Mike", "Kevin", "Will"};
-    public static final String[] lastNames = {"Smith", "Lee", "Barkley", "Green", "Clinton", "Bloom", "Bryant", "Collins", "Gere", "Dewey"};
-    public static final String[] departments = {"Sales", "Marketing", "IT", "HR", "Customer Relations", "Product Management", "Researches"};
-    public static final Integer[] salaries = {83578, 55672, 84567, 102321, 102593, 67345, 73895, 93461, 89410, 135921, 176543, 197043, 89054};
+    public static final List<String> firstNames = List.of("Abbey", "Adam", "Alan", "Albert", "Alice", "Amy", 
+            "Jax", "John", "Jonathan", "Jeffrey", "Barbara", "Ben", "Bernie", "Byron", "Jemma",
+            "Carl", "Carol", "Cathy", "Dan", "David", "Mark", "Mike", "Kevin", "Will");
+    public static final List<String> lastNames = List.of("Smith", "Lee", "Barkley", "Green", "Clinton", "Bloom", 
+            "Bryant", "Collins", "Gere", "Dewey", "Doe", "Stanford", "Shultz", "Washington", "Wolf");
+    public static final List<String> middleInitial = List.of("A", "B", "C", "D", "E", "F", "G", 
+            "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", 
+            "S", "T", "U", "V", "W", "X", "Y", "Z");
+    public static final List<Double> salaries = List.of(83578.15, 55672.55, 84567.45, 102321.65, 102593.33, 843854.33,
+            67345.35,73895.44, 93461.98, 89410.48, 135921.32, 176543.77, 197043.22, 89054.44, 54843.22);
+    public static final Map<String, String> deptMap = Map.ofEntries(
+            Map.entry("1111", "Sales"),Map.entry("1112", "Marketing"), Map.entry("1113", "IT"),
+            Map.entry("1114", "HR"),Map.entry("1115", "Customer Relations"),Map.entry("1116", "Products"),
+            Map.entry("1117", "Researches"), Map.entry("1118", "Financial"),Map.entry("1119", "Security"),
+            Map.entry("1120", "Administration")
+    );
+    
+    
+    
     private static final int PAGE_SIZE = 10;
+    
+    private static final String QUERY_EM_DEPT_HIGHEST_SAL = "select e.lastName, e.firstName, e.middleInitial, e.salary, e.deptCode "
+            + " from employee e join department d on d.code = e.deptCode "
+            + " where e.salary = (select max(e0.salary) from employee e0 where e0.deptCode = e.departCode )"
+            + " order by d.code desc";
+    private static final String QUERY_EM_DEPT_HIGHEST_SAL2 = "select e.lastName, e.firstName, e.middleInitial, e.salary, e.deptCode "
+            + " from employee e "
+            + " where e.salary = (select max(e0.salary) from employee e0 where e0.deptCode = e.departCode )"
+            + " order by e.deptCode desc";
 
     @Autowired
     private EmployeeRepository repo;
+    @Autowired
+    private DepartmentRepository deptRepo;
+    
+    @Autowired
+    private NativeQueryService nativeQueryService;
+    
+    public static void main(String[] args) {
+        
+        EmployeeClient main = new EmployeeClient();
+        // Start the Spring application and get the application context
+        ConfigurableApplicationContext context = SpringApplication.run(MyApplication.class, args);
+        log.info("FirstShortestLongestCityNames started with context {}", context);
 
+        main.init();
+
+        // Close the application context when done
+        context.close();            
+    }
+    
     @PostConstruct
     public void init() {
-        createEmployees();
-        System.out.println("EmployeeClient creating employees ");
+        log.info("EmployeeClient init");
+        try{
+            setup();
+            run();
+        }catch(Exception ex) {
+            log.error("Error EmployeeClient init ", ex);
+        }
     }
 
     public void run() {
-        List<Employee> employees = createEmployees();
-        repo.saveAll(employees);
-
-        System.out.println(" ***** finding all employees --");
+        log.info("EmployeeClient display employees");
         Iterable<Employee> all = repo.findAll();
         all.forEach(System.out::println);
 
+        log.info("EmployeeClient display departments");
+        Iterable<Department> allDepts = deptRepo.findAll();
+        allDepts.forEach(System.out::println);
+
+        log.info("1 EmployeeClient display highest salary employees for each department \n ########");
+        highestSalaryByDepartment(QUERY_EM_DEPT_HIGHEST_SAL);
+        log.info("2 EmployeeClient display highest salary employees for each department \n ########");
+        highestSalaryByDepartment(QUERY_EM_DEPT_HIGHEST_SAL2);
+        log.info(" \n ######## \n Done EmployeeClient display highest salary employees for each department");
+
+        runSliceDisplay();        
+    }
+    
+    private void highestSalaryByDepartment(String qString) {
+        List<String> list = nativeQueryService.doQuery(qString);
+        list.stream().forEach(System.out::println);
+    }
+
+    private void runSliceDisplay() {
         System.out.println(" -- paginating where dept is Sales --");
         Slice<Employee> slice = null;
         Pageable pageable = PageRequest.of(0, 3, Sort.by("salary"));
         while (true) {
-            slice = repo.findByDept("Sales", pageable);
+            slice = repo.findByDeptName("Sales", pageable);
             int number = slice.getNumber();
             int numberOfElements = slice.getNumberOfElements();
             int size = slice.getSize();
@@ -69,34 +139,49 @@ public class EmployeeClient {
         }
     }
 
-    private List<Employee> createEmployees() {
+    private final int n = 6;
+    
+    private void setup() {
         List<Employee> employees = new ArrayList();
+        List<Department> depts = new ArrayList<>();        
         Employee emp;
+        Department dept;
+        
         Random rand = new Random();
-        int i = 0;
-        while (i < 50) {
-            i++;
-            emp = Employee.create(Arrays.asList(firstNames).get(rand.nextInt(firstNames.length))
-                    + Arrays.asList(lastNames).get(rand.nextInt(lastNames.length)),
-                    Arrays.asList(departments).get(rand.nextInt(departments.length)),
-                    Arrays.asList(salaries).get(rand.nextInt(salaries.length)));
-            employees.add(emp);
+        
+        Set<String> keySet = deptMap.keySet();
+        for (String code: keySet) {
+            dept = create(code, deptMap.get(code));
+            depts.add(dept);
+            
+            int i = 0;
+            while (i++ < n) {
+                emp = create(lastNames.get(rand.nextInt(lastNames.size())),
+                        firstNames.get(rand.nextInt(firstNames.size())),
+                        middleInitial.get(rand.nextInt(middleInitial.size())),
+                        dept.getCode(), salaries.get(rand.nextInt(salaries.size())));
+                employees.add(emp);
+            }
         }
-        return employees;
-
-        /* Arrays.asList(
-                Employee.create("Diana", "Sales", 2000),
-                Employee.create("Mike", "Sales", 1000),
-                Employee.create("Rose", "IT", 4000),
-                Employee.create("Sara", "Sales", 3000),
-                Employee.create("Andy", "Sales", 3000),
-                Employee.create("Charlie", "Sales", 2500),
-                Employee.create("Jim", "Sales", 4500),
-                Employee.create("Sam", "Sales", 2500),
-                Employee.create("Adam", "Sales", 5000),
-                Employee.create("Jane", "Sales", 5500),
-                Employee.create("Joe", "Sales", 1500)
-        );
-         */
+        
+        deptRepo.saveAll(depts);
+        repo.saveAll(employees);
+    }
+    
+    public static Employee create(String lastName, String firstName, String middleInit, String deptCode, double salary) {
+        Employee e = new Employee();
+        e.setLastName(lastName);
+        e.setFirstName(firstName);
+        e.setMiddleInitial(middleInit);
+        e.setDeptCode(deptCode);
+        e.setSalary(salary);
+        return e;
+    }
+    
+    private static Department create(String code, String name) {
+        Department dept = new Department();
+        dept.setCode(code);
+        dept.setName(name);
+        return dept;
     }
 }

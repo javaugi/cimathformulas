@@ -4,20 +4,10 @@
  */
 package com.spring5.hackerrank;
 
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
-import com.spring5.dao.StationDaoNativeImpl;
-import com.spring5.entity.Station;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,8 +51,15 @@ public class BSTNativeQueryService implements CommandLineRunner{
         Query query = entityManager.createNativeQuery(qString);
         List<Object[]> list = (List<Object[]>)query.getResultList();
 
+        StringBuilder sb;
         for (Object[] obj: list) {
-            returnValue.add("" + String.valueOf(obj[0]) + " " + String.valueOf(obj[1]));
+            sb = new StringBuilder();
+            for (Object o: obj) {
+                sb.append(String.valueOf(o));
+                sb.append("     ");
+            }
+            
+            returnValue.add(sb.toString());
         }            
         
         return returnValue;

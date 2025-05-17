@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Strategic Information Systems, LLC.
- *
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.spring5.jpapagination;
 
@@ -23,18 +23,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Employee implements java.io.Serializable {
-
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     
-    private String firstName;
-    private String lastName;
-    private String middleInitial;
-    private String deptCode;
-    private double salary;
-    private boolean nightShift;
-    private Region region;
-    double hoursWorked;
+    private String name;
+    private String code;    
 }

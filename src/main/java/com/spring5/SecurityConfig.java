@@ -60,7 +60,7 @@ public class SecurityConfig {
                 //.regexMatchers("/api/v[0-9]+/.*", "/public/.*").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().permitAll())
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) //Cross Site Request Forgery
                 //.ignoringRequestMatchers("/api/**")
                 .formLogin(form -> form
                     .loginPage("/login") // custom login page
@@ -70,7 +70,7 @@ public class SecurityConfig {
                     .logoutSuccessUrl("/login?logout") // redirect after logout
                     .permitAll()
                 )
-                .cors(cors -> cors
+                .cors(cors -> cors  //Corss Origin Resource Sharing
                 .configurationSource(corsConfigurationSource())
                 )
                 //.oauth2ResourceServer(oauth2 -> oauth2

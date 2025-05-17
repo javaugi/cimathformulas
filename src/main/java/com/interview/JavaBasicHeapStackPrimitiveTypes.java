@@ -14,22 +14,24 @@ public class JavaBasicHeapStackPrimitiveTypes {
 /*
 The Java Heap and Stack are two fundamental memory areas used by the Java Virtual Machine (JVM) during the execution of a Java program. They serve different purposes and have distinct characteristics. Here's a comparison of the key differences:   
 
-Feature         Java Heap                                                       Java Stack
+Feature         Java Heap                                                           Java Stack
 
-Purpose         Stores objects and arrays created by the application.           Stores local variables, method calls, and execution environment.
-Storage         Objects (instances of classes), arrays.                         Primitive data types (e.g., int, float), object references (pointers to objects in the heap), return addresses, local variables.
-Management      Managed by the JVM's garbage collector. Memory is               Memory is allocated and deallocated in a LIFO (Last-In, First-Out) manner when methods are called and return.
+Purpose         Stores objects and arrays created by the application.               Stores local variables, method calls, and execution environment.
+
+Storage         Objects (instances of classes), arrays.                             Primitive data types (e.g., int, float), object references (pointers to objects in the heap), return addresses, local variables.
+
+Management      Managed by the JVM's garbage collector. Memory is                   Memory is allocated and deallocated in a LIFO (Last-In, First-Out) manner when methods are called and return.
                     allocated and deallocated automatically.
-Size            Generally larger in size.  The size can be configured           Generally smaller compared to the heap. The size can also be configured using JVM options (e.g., -Xss).
-                    using JVM options (e.g., -Xms, -Xmx).
-Speed           Relatively slower to access compared to the stack               Faster to access as memory allocation and deallocation are simple pointer manipulations.
+Size            Generally larger in size.  The size can be configured               Generally smaller compared to the heap. The size can also be configured 
+                    using JVM options (e.g., -Xms, -Xmx).                               using JVM options (e.g., -Xss).
+Speed           Relatively slower to access compared to the stack                   Faster to access as memory allocation and deallocation are simple pointer manipulations.
                     due to garbage collection overhead.
-Thread Safety	Shared among all threads in the JVM. Access to objects in the   Each thread has its own private Java Stack. Therefore, it is inherently thread-safe for local variables and method calls within a thread.
+Thread Safety	Shared among all threads in the JVM. Access to objects in the       Each thread has its own private Java Stack. Therefore, it is inherently thread-safe for local variables and method calls within a thread.
                     heap needs to be synchronized to prevent race conditions.
-Lifespan	Objects in the heap exist as long as they are reachable         Data in the stack frame exists only for the duration of the method execution. Once the method completes, its stack frame is popped off.
+Lifespan	Objects in the heap exist as long as they are reachable             Data in the stack frame exists only for the duration of the method execution. Once the method completes, its stack frame is popped off.
                     by any part of the application. They are eligible for 
                     garbage collection when they are no longer reachable.	
-Exception	OutOfMemoryError is thrown if the heap becomes full             StackOverflowError is thrown if the depth of method calls exceeds the stack size limit.
+Exception	OutOfMemoryError is thrown if the heap becomes full                 StackOverflowError is thrown if the depth of method calls exceeds the stack size limit.
                     and no more memory can be allocated.
 */
 

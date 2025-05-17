@@ -7,7 +7,9 @@ package com.spring5.service;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.metamodel.Metamodel;
+import jakarta.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,4 +39,23 @@ public class NativeQueryService {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public List<String> doQuery(String qString) {
+        List<String> returnValue = new ArrayList<>();
+        Query query = entityManager.createNativeQuery(qString);
+        List<Object[]> list = (List<Object[]>)query.getResultList();
+
+        StringBuilder sb;
+        for (Object[] obj: list) {
+            sb = new StringBuilder();
+            for (Object o: obj) {
+                sb.append(String.valueOf(o));
+                sb.append("     ");
+            }
+            
+            returnValue.add(sb.toString());
+        }            
+        
+        return returnValue;
+    }    
 }

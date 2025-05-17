@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 @Service
-public class UserServiceImp extends UserServiceAbstractImp {
+public abstract class UserServiceAbstractImp implements UserService {
 
     @Autowired
     private UserDao userDao;
