@@ -43,38 +43,33 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher(PathRequest.toH2Console());
         //this is required to make the console screen work, otherwise the RequestBody/JSON data is displayed
-
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"),
-                        AntPathRequestMatcher.antMatcher("/management/**"),
-                        AntPathRequestMatcher.antMatcher("/actuator/**")).hasRole("ADMIN")
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"),
-                        AntPathRequestMatcher.antMatcher("/profile/**")).hasRole("USER")
                 .requestMatchers("/admin/**", "/management/**", "/actuator/**").hasRole("ADMIN")
                 .requestMatchers("/user/**", "/profile/**").hasRole("USER")
                 .requestMatchers("/api/patients/**").hasAnyRole("PATIENT", "NURSE", "PHYSICIAN", "ADMIN")
                 .requestMatchers("/api/nurses/**").hasAnyRole("NURSE", "PHYSICIAN", "ADMIN")
                 .requestMatchers("/api/physicians/**").hasAnyRole("PHYSICIAN", "ADMIN")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/patients/**").hasRole("PHARMACIST")
                 //.mvcMatchers("/user/**", "/profile/**").hasRole("USER") 
                 //.regexMatchers("/api/v[0-9]+/.*", "/public/.*").permitAll()
-                .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()                
                 .anyRequest().permitAll())
                 .csrf(csrf -> csrf.disable()) //Cross Site Request Forgery
                 //.ignoringRequestMatchers("/api/**")
                 .formLogin(form -> form
-                    .loginPage("/login") // custom login page
-                    .permitAll()
+                .loginPage("/login") // custom login page
+                .permitAll()
                 )
                 .logout(logout -> logout
-                    .logoutSuccessUrl("/login?logout") // redirect after logout
-                    .permitAll()
+                .logoutSuccessUrl("/login?logout") // redirect after logout
+                .permitAll()
                 )
-                .cors(cors -> cors  //Corss Origin Resource Sharing
+                .cors(cors -> cors //Corss Origin Resource Sharing
                 .configurationSource(corsConfigurationSource())
                 )
                 //.oauth2ResourceServer(oauth2 -> oauth2
-                //    .jwt(Customizer.withDefaults())
+                //  .jwt(Customizer.withDefaults())
                 //)
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())
                 );
@@ -136,8 +131,8 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/resources/**");
-    } 
-    
+    }
+
     /*
     @Bean
     public JwtDecoder jwtDecoder() {

@@ -21,7 +21,6 @@ import org.springframework.core.io.Resource;
 //https://platform.deepseek.com/transactions
 //https://platform.deepseek.com/api_keys
 @Configuration
-@org.springframework.core.annotation.Order(2)
 public class AiDeepSeekConfig implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(AiDeepSeekConfig.class);
     

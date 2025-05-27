@@ -55,8 +55,10 @@ public class PatientApiSecController {
 
         if (patientOpt.isPresent()) {
             patientRepository.deleteById(id); // Use deleteById for deleting by ID
+            ResponseEntity.noContent().build();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 No Content for successful deletion
         } else {
+            ResponseEntity.notFound().build();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found if the product doesn't exist
         }
     }

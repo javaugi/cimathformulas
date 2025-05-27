@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
  * @author javaugi
  */
 @Component
-@org.springframework.core.annotation.Order(7)
 public class Resilience4jConfig implements CommandLineRunner {    
     private final static Logger log = LoggerFactory.getLogger(Resilience4jConfig.class);
     

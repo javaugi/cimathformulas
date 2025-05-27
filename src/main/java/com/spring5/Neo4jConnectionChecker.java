@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.neo4j.config.EnableNeo4jAuditing;
-import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @EnableNeo4jAuditing
-@org.springframework.core.annotation.Order(5)
 //@EnableNeo4jRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 public class Neo4jConnectionChecker implements CommandLineRunner {
 

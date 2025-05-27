@@ -4,9 +4,12 @@
  */
 package com.spring5.controller;
 
+import com.spring5.billingpayment.BillingErrorResponse;
+import com.spring5.billingpayment.BillingException;
 import jakarta.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -17,6 +20,24 @@ import org.springframework.web.client.HttpClientErrorException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    
+    @ExceptionHandler(BillingException.class)
+    public ResponseEntity<?> handleBillingException(BillingException ex) {
+        return ResponseEntity.status(ex.getStatus())
+            .body(new BillingErrorResponse(
+                "Billing processing error", 
+                ex.getMessage())
+            );
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleGenericException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(new BillingErrorResponse(
+                "Internal server error", 
+                ex.getMessage())
+            );
+    }
     
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(

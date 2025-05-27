@@ -17,6 +17,7 @@ import com.spring5.type.PhoneType;
 import jakarta.persistence.GenerationType;
 import java.util.ArrayList;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,7 +33,7 @@ import lombok.ToString;
 public class Contact {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 
@@ -66,6 +67,7 @@ public class Contact {
         this.phoneType = phoneType;
         this.phoneNumber = phone;
     }
+
     public Contact(Long id, String firstName, String lastName, String email, String phoneNumber, PhoneType phoneType, List<Contact_Note> notes) {
         this.id = id;
         this.firstName = firstName;

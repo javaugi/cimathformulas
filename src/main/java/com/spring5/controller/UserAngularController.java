@@ -47,7 +47,7 @@ public class UserAngularController implements CommandLineRunner {
         userRepository.save(user);
     }
     
-    private int totalCount = 20;
+    private int totalCount = 50;
     
     @Override
     public void run(String... args) throws Exception {
@@ -68,6 +68,7 @@ public class UserAngularController implements CommandLineRunner {
             user = new User();
             user.setFirstName(F_N_LIST.get(rand.nextInt(F_N_LIST.size())));
             user.setLastName(L_N_LIST.get(rand.nextInt(L_N_LIST.size())));
+            user.setName(user.getFirstName() + " " + user.getLastName());
             user.setUsername(user.getFirstName().substring(0, 1).toLowerCase() + user.getLastName().toLowerCase() + getTwoDigitString(2));
             user.setUserEmail(getAlphaNumericString(5) + E_LIST.get(rand.nextInt(E_LIST.size())));
 

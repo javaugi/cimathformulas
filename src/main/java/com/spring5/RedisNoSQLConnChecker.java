@@ -4,7 +4,6 @@
  */
 package com.spring5;
 
-import io.lettuce.core.RedisURI;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import redis.clients.jedis.Jedis;
  * @author javaugi
  */
 @Component
-@org.springframework.core.annotation.Order(6)
 public class RedisNoSQLConnChecker implements CommandLineRunner {    
     private final static Logger log = LoggerFactory.getLogger(RedisNoSQLConnChecker.class);
     

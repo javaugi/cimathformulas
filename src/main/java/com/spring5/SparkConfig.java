@@ -6,16 +6,12 @@ package com.spring5;
 
 import java.util.Arrays;
 import org.apache.spark.SparkConf;
-import org.apache.spark.sql.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Value;
 //TODO
 //import com.mongodb.spark.MongoSpark;
@@ -24,7 +20,6 @@ import org.springframework.beans.factory.annotation.Value;
 @Configuration
 @PropertySource("classpath:application.properties")
 //https://github.com/javaugi/spring-spark-example
-@org.springframework.core.annotation.Order(8)
 public class SparkConfig implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(SparkConfig.class);
 

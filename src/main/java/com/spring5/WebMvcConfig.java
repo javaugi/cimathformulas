@@ -3,10 +3,8 @@ package com.spring5;
 import java.util.concurrent.TimeUnit;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.http.CacheControl;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
@@ -68,8 +66,6 @@ This dependency includes everything needed to expose API documentation through S
 
 @Configuration
 @EnableWebMvc
-@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
-@ComponentScan(basePackages = {"com.spring5"})
 //http://localhost:8080/swagger-ui/index.html
 public class WebMvcConfig implements WebMvcConfigurer {
 

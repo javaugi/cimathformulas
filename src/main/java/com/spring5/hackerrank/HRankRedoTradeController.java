@@ -81,9 +81,11 @@ public class HRankRedoTradeController {
     public ResponseEntity<Trade> updateTrade(org.springframework.http.RequestEntity<Trade> request) {
         Trade trade = tradeService.updateTrade(request.getBody());
         if (trade != null) {
-            return ResponseEntity.ofNullable(trade);
+            return new ResponseEntity<>(trade, HttpStatus.OK);
+            //return ResponseEntity.ofNullable(trade);
         } else {
-            throw new ResourceNotFoundException("No trades found");
+            return ResponseEntity.noContent().build();
+            //throw new ResourceNotFoundException("No trades found");
         }
     }    
 
@@ -140,4 +142,8 @@ public class HRankRedoTradeController {
         return ResponseEntity.noContent().build();
     }
     
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> ok(Object obj) {
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
 }

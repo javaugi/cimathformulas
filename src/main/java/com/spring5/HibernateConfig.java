@@ -4,19 +4,14 @@
  */
 package com.spring5;
 
-import static com.spring5.MyApplication.PACKAGES_TO_SCAN;
 import com.spring5.utils.MapToJsonConverter;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -31,21 +26,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author javaugi
  */
 @Configuration
-@EnableCaching
 @EnableTransactionManagement
-//@EnableEurekaServer
-@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
-@ComponentScan(basePackages = {MyApplication.PACKAGES_TO_SCAN})
-@EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 public class HibernateConfig {
-    
-    @Primary
+
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
 
-    @Primary
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
@@ -55,65 +43,53 @@ public class HibernateConfig {
         return bean;
     }
 
-    /*@Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-            JpaVendorAdapter jpaVendorAdapter) {
-        LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
-        bean.setDataSource(dataSource);
-        bean.setJpaVendorAdapter(jpaVendorAdapter);
-        bean.setPackagesToScan(PACKAGES_TO_SCAN);
-        return bean;
-    }    
-    // */
-    @Primary
     @Bean
     public MapToJsonConverter mapToJsonConverter() {
         return new MapToJsonConverter();
     }
 
+    /*
     @Primary
     @Bean
+    public SpringLiquibase liquibase(DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDataSource(dataSource);
+        liquibase.setChangeLog("classpath:db_changelog/changelog-master.yaml");
+        liquibase.setShouldRun(true);
+        return liquibase;
+    } 
+    // */
+    
+    @Bean
+    //@DependsOn("liquibase") // Tell Spring to initialize liquibase first 
+    //Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'entityManagerFactory' defined in class path
+    //resource [com/spring5/HibernateConfig.class]: Circular depends-on relationship between 'entityManagerFactory' and 'liquibase'
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter, MapToJsonConverter mapToJsonConverter) {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);
         bean.setJpaVendorAdapter(jpaVendorAdapter);
-        bean.setPackagesToScan(PACKAGES_TO_SCAN);
+        bean.setPackagesToScan(com.spring5.MyApplication.PACKAGES_TO_SCAN);
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
         bean.setJpaPropertyMap(properties);
-
-        /* DEBUUGGING
-        Properties properties = new Properties();
-        properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
-        properties.put("hibernate.session_factory.interceptor", 
-        new EmptyInterceptor() {
-            @Override
-            public boolean onSave(Object entity, Serializable id, 
-                Object[] state, String[] propertyNames, Type[] types) {
-                System.out.println("entity=" + entity + "-propertyNames=" + propertyNames);
-                return true;
-            }
-        });
-        bean.setJpaProperties(properties);        
-        // */
         return bean;
-    }
+    } 
 
     /*
     A component required a single bean, but 2 were found:
         - transactionManager: defined by method 'transactionManager' in class path resource [com/spring5/HibernateConfig.class]
         - connectionFactoryTransactionManager: defined by method 'connectionFactoryTransactionManager' in class path resource 
             [org/springframework/boot/autoconfigure/r2dbc/R2dbcTransactionManagerAutoConfiguration.class]    
-    */
+     */
     //
     @Primary
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
-    }
-    
+    } 
+
 }
 /*
 In Hibernate/JPA, "bag" means: A @OneToMany or @ManyToMany collection without any ordering (like List, no @OrderBy).
@@ -135,8 +111,8 @@ Suppose your entity:
         LEFT JOIN FETCH ua.roles
         WHERE ua.id = :id
 💥 Boom! MultipleBagFetchException — because you're fetching two bags at once.
-*/
-/*
+ */
+ /*
 1. Fetch one collection at a time (Best Simple Fix)
     Change your query to only fetch one bag, and load the other lazily later. Example:
         SELECT ua FROM UserAccount ua
@@ -178,4 +154,4 @@ Suppose your entity:
     Change to Set	Clean and correct               Might affect existing code
     Separate queries Clear control                  Needs careful transaction/session management
     @BatchSize	Good performance                Slightly more Hibernate config knowledge needed
-*/
+ */

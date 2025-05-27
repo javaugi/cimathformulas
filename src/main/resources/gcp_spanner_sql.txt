@@ -1,0 +1,7 @@
+CREATE TABLE Prescriptions (
+    PatientId STRING(MAX) NOT NULL,
+    PrescriptionId STRING(MAX) NOT NULL,
+    Medication STRING(MAX),
+    -- Partition key for even distribution
+        PRIMARY KEY (PatientId, PrescriptionId)
+) INTERLEAVE IN PARENT Patients;

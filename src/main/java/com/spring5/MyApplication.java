@@ -14,51 +14,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-/**
- *
- *
- * @author javaugi
- * @version $LastChangedRevision $LastChangedDate Last Modified Author:
- * $LastChangedBy
- */
+//@EnableMongoDBRepository
+//@EnableR2dbcRepositories(MyApplication.PACKAGES_TO_SCAN)
+//@EnableTransactionManagement
+//@EnableEurekaServer
+//@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
+//@EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
 @SpringBootApplication(exclude = {
     OpenAiAutoConfiguration.class,
     AzureOpenAiAutoConfiguration.class
 })
 @Configuration
 @EnableCaching
-//@EnableMongoDBRepository
-//@EnableR2dbcRepositories(MyApplication.PACKAGES_TO_SCAN)
-//@EnableTransactionManagement
-//@EnableEurekaServer
-//@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @ComponentScan(basePackages = {MyApplication.PACKAGES_TO_SCAN})
-//@EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
-//public class MyApplication implements CommandLineRunner, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+@EnableJpaRepositories(basePackages = {MyApplication.PACKAGES_TO_SCAN})
+@ConfigurationProperties
 public class MyApplication {
 
     protected static final String PACKAGES_TO_SCAN = "com.spring5";
     private final static Logger log = LoggerFactory.getLogger(MyApplication.class);
-    
+
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);
         //System.exit(SpringApplication.exit(SpringApplication.run(MyApplication.class, args)));
         //new SpringApplicationBuilder().listeners(new AppController()).sources(AppController.class).run(args);
     } 
-    
+
+    /*
+    @Bean
+    public ApplicationListener<ApplicationReadyEvent> onApplicationReadyEventListener(
+            ServerProperties serverProperties, KeycloakServerProperties keycloakServerProperties) {
+        return (evt) -> {
+            Integer port = serverProperties.getPort();
+            String keycloakContextPath = keycloakServerProperties.getContextPath();
+            log.info("Embedded Keycloak started: http://localhost:{}{} to use keycloak",
+                    port, keycloakContextPath);
+        };
+    } 
+    // */
+
     /* Run sequence
     1. commandLineRunnerMain below
     2. overriding method public void run(String... args)  below
     3. Neo4jConnectionChecker public void run(String... args)
-    */
-
-
+     */
     @Autowired
     private ApplicationContext context;
 
@@ -68,12 +78,11 @@ public class MyApplication {
         log.info("MyApplication onApplicationEvent ...");
     }
     // */
-
     @Bean
     public CommandLineRunner commandLineRunnerMain(PersonRepository personRepository) {
         return args -> {
             //This part runs first and then the run method below: public void run(String... args)
-            log.info("MyApplication CommandLineRunner.commandLineRunnerMain args {}", Arrays.toString(args));            
+            log.info("MyApplication CommandLineRunner.commandLineRunnerMain args {}", Arrays.toString(args));
         };
     }
 
@@ -84,7 +93,7 @@ public class MyApplication {
         log.info("MyApplication CommandLineRunner run {}", Arrays.toString(args));
     }
     // */
-
+    
 }
 /*
 The Spring Framework's repository pattern, particularly when implemented using Spring Data JPA, commonly uses Hibernate as its underlying Java Persistence API (JPA) provider.   

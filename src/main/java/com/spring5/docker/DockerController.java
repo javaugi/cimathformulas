@@ -4,7 +4,6 @@
  */
 package com.spring5.docker;
 
-import com.spring5.MyApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;

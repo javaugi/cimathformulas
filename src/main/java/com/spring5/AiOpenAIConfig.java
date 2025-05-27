@@ -22,7 +22,6 @@ import org.springframework.core.io.Resource;
  * @author javaugi
  */
 @Configuration
-@org.springframework.core.annotation.Order(3)
 public class AiOpenAIConfig implements CommandLineRunner{
     private static final Logger log = LoggerFactory.getLogger(AiOpenAIConfig.class);
     

@@ -1,5 +1,21 @@
 ## YAML Template.
 ---
+server:
+  port: 8080
+---
+spring:
+  datasource:
+    username: sa
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+---
+keycloak:
+  server:
+    contextPath: /auth
+    adminUser:
+      username: admin
+      password: adminadmin
+    realmImportFile: baeldung-realm.json
+---
 spring:
   config:
     activate:
@@ -118,4 +134,30 @@ endpoints:
   restart:
     enabled: true
   shutdown:
-    enabled: true      
+    enabled: true   
+---
+paypal:
+  client-id: your_client_id
+  client-secret: your_secret
+  mode: sandbox # or live
+  
+resilience4j:
+  circuitbreaker:
+    instances:
+      paypalService:
+        registerHealthIndicator: true
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+  retry:
+    instances:
+      paypalService:
+        maxAttempts: 3
+        waitDuration: 500ms
+        retryExceptions:
+          - org.springframework.web.client.ResourceAccessException
+          - com.paypal.base.exception.HttpErrorException
