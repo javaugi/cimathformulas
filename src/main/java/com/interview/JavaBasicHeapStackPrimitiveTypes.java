@@ -42,8 +42,8 @@ Primitive Type	Default Value	Minimum Value                       Maximum Value  
 
 byte            0               -128                                127                                 8
 short           0               -32,768                             32,767                              16
-int             0               -2,147,483,648                      2,147,483,647                       32
-long            0L              -9,223,372,036,854,775,808          9,223,372,036,854,775,807           64
+int             0               -2,147,483,648                      2,147,483,647       (2G)            32
+long            0L              -9,223,372,036,854,775,808          9,223,372,036,854,775,807 (3G * 3G) 64
 float           0.0f            Approximately ±1.4e-45              Approximately ±3.4e+38              32
 double          0.0d            Approximately ±4.9e-324             Approximately ±1.8e+308             64
 boolean         false           N/A (conceptually true or false)    N/A (conceptually true or false)    Varies (JVM-dependent, often treated as 1)

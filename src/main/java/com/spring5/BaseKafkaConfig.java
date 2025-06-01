@@ -5,23 +5,15 @@
 package com.spring5;
 
 import com.fasterxml.jackson.databind.ser.std.StringSerializer;
-import com.spring5.audit.AuditEvent;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.AdminClientConfig;
-import org.apache.kafka.clients.admin.KafkaAdminClient;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaAdmin;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
 @Configuration
@@ -34,6 +26,10 @@ public class BaseKafkaConfig {
     @Value("${spring.kafka.schema-registry-url}")
     protected String schemaRegistryUrl;
 
+    @Bean
+    public ProducerFactory producerFactory() {
+        return new DefaultKafkaProducerFactory<>(baseAvroProducerConfigs());
+    }
     
     protected Map<String, Object> baseAvroProducerConfigs() {
         Map<String, Object> props = new HashMap<>();

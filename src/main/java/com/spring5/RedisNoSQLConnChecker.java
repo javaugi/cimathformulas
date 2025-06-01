@@ -20,11 +20,11 @@ import redis.clients.jedis.Jedis;
 public class RedisNoSQLConnChecker implements CommandLineRunner {    
     private final static Logger log = LoggerFactory.getLogger(RedisNoSQLConnChecker.class);
     
-    @Value("${app.redis.enabled}")
+    @Value("${spring.redis.enabled}")
     protected Boolean redisCacheEnabled;
-    @Value("${app.redis.host}")
+    @Value("${spring.redis.host}")
     protected String redisCacheHost;
-    @Value("${app.redis.port}")
+    @Value("${spring.redis.port}")
     protected Integer redisCachePort;
     
     private Jedis jedis;

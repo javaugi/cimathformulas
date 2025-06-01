@@ -4,8 +4,8 @@
  */
 package com.spring5.payroll;
 
-import com.spring5.jpapagination.Employee;
-import com.spring5.jpapagination.PayrollResult;
+import com.spring5.empbilpayroll.Employee;
+import com.spring5.empbilpayroll.PayrollResult;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

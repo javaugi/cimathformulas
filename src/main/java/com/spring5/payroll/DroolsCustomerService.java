@@ -4,7 +4,7 @@
  */
 package com.spring5.payroll;
 
-import com.spring5.jpapagination.Customer;
+import com.spring5.empbilpayroll.Customer;
 import com.spring5.MongoDbConnectionChecker;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;

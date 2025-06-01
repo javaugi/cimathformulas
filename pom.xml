@@ -350,6 +350,10 @@
             <artifactId>resteasy-jackson2-provider</artifactId>
             <version>7.0.0.Beta1</version>
         </dependency>
+        <dependency>
+             <groupId>org.flywaydb</groupId>
+             <artifactId>flyway-core</artifactId>
+        </dependency>        
         <!--
         <dependency>
             <groupId>org.keycloak</groupId>
@@ -582,7 +586,20 @@
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>
             <version>24.16.0</version> 
-        </dependency>                    
+        </dependency>       
+        <!-- Adyen -->
+        <dependency>
+            <groupId>com.adyen</groupId>
+            <artifactId>adyen-java-api-library</artifactId>
+            <version>38.1.0</version>
+        </dependency>      
+        <!--               
+        <dependency>
+            <groupId>com.adyen.threeds</groupId>
+            <artifactId>adyen-3ds2</artifactId>
+            <version>2.2.23</version>
+        </dependency> 
+        -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -765,6 +782,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.38</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -958,7 +976,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-        </dependency>
+        </dependency> 
         <!-- Test containers only dependencies -->
 
         <dependency>
@@ -1669,116 +1687,154 @@
         <finalName>carloaner</finalName>
         <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
         <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.4.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.3.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.14.0</version>
-                    <configuration> 
-                        <compilerArgs>
-                            <arg>-Xlint:-unchecked</arg>
-                            <arg>-Xlint:-deprecation</arg>
-                        </compilerArgs>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.11.2</version> <!-- Use the latest version -->
-                    <!--
-                    <executions>
-                      <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                          <goal>jar</goal>
-                        </goals>
-                      </execution>
-                    </executions>
-                    -->
-                    
-                </plugin>                
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.4</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.4</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>3.4.3</version>
-                    <executions>
-                      <execution>
-                        <goals>
-                          <goal>repackage</goal>
-                        </goals>
-                      </execution>
-                    </executions>
-                    <configuration>
-                        <mainClass>com.spring5.MyApplication</mainClass> 
-                        <requiresUnpack>
-                            <dependency>
-                                <groupId>org.keycloak</groupId>
-                                <artifactId>keycloak-model-jpa</artifactId>
-                            </dependency>
-                        </requiresUnpack>                        
-                    </configuration>
-                </plugin>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin> 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>                
                 <!--
-                <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-jar-plugin</artifactId>
-                  <version>3.4.2</version>
-                  <configuration>
-                    <archive>
-                      <manifest>
-                        <addClasspath>true</addClasspath>
-                        <mainClass>com.spring5.MyApplication</mainClass> 
-                      </manifest>
-                    </archive>
-                  </configuration>
-                </plugin>                
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes/static</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../frontend/out</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+                -->                             
+            </plugin>                   
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.4.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration> 
+                    <compilerArgs>
+                        <arg>-Xlint:-unchecked</arg>
+                        <arg>-Xlint:-deprecation</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.11.2</version> <!-- Use the latest version -->
+                <!--
+                <executions>
+                  <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                      <goal>jar</goal>
+                    </goals>
+                  </execution>
+                </executions>
                 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.3</version>
-                    <configuration>
-                        <useModulePath>false</useModulePath>
-                        <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
-                    </configuration>
-                    <!--
-                    make @ParameterizedTest work
-                    <dependencies>
+
+            </plugin>                
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.4</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.4.3</version>
+                <configuration>
+                    <executable>true</executable>
+                    <mainClass>com.spring5.MyApplication</mainClass> 
+                    <wait>500</wait>
+                    <maxAttempts>240</maxAttempts>
+                    <requiresUnpack>
                         <dependency>
-                            <groupId>org.apache.maven.surefire</groupId>
-                            <artifactId>surefire-junit47</artifactId>
-                            <version>3.5.2</version>
+                            <groupId>org.keycloak</groupId>
+                            <artifactId>keycloak-model-jpa</artifactId>
                         </dependency>
-                    </dependencies>
-                    -->
-                </plugin>                
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>3.5.0</version>
-                    <configuration>
-                        <classpathScope>runtime</classpathScope>
-                        <longClasspath>true</longClasspath>
-                    </configuration>
-                </plugin>                
-                
-            </plugins>  
-        </pluginManagement> 
+                    </requiresUnpack>                        
+                </configuration>
+                <executions>
+                  <execution>
+                    <goals>
+                      <goal>repackage</goal>
+                    </goals>
+                  </execution>
+                </executions> 
+            </plugin>
+            <!--
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jar-plugin</artifactId>
+              <version>3.4.2</version>
+              <configuration>
+                <archive>
+                  <manifest>
+                    <addClasspath>true</addClasspath>
+                    <mainClass>com.spring5.MyApplication</mainClass> 
+                  </manifest>
+                </archive>
+              </configuration>
+            </plugin>                
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                    <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
+                </configuration>
+                <!--
+                make @ParameterizedTest work
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>3.5.2</version>
+                    </dependency>
+                </dependencies>
+                -->
+            </plugin>                
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <classpathScope>runtime</classpathScope>
+                    <longClasspath>true</longClasspath>
+                </configuration>
+            </plugin> 
+            <!-- https://github.com/lshannon/cf-flyway-db -->     
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <configuration>
+                    <url>jdbc:postgresql://localhost:5433/algotdb</url>
+                    <user>postgres</user>
+                    <password>admin</password>
+                    <locations>
+                        <location>classpath:db/migration</location>
+                    </locations>
+                </configuration>
+            </plugin>                
+        </plugins>  
         <!--
         <resources>
             <resource>

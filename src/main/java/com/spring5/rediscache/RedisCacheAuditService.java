@@ -4,12 +4,10 @@
  */
 package com.spring5.rediscache;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring5.RedisConfig;
 import com.spring5.audit.AuditEvent;
 import java.time.Duration;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.stream.MapRecord;
@@ -18,7 +16,6 @@ import org.springframework.data.redis.connection.stream.StreamOffset;
 import org.springframework.data.redis.connection.stream.StreamReadOptions;
 import org.springframework.data.redis.connection.stream.StreamRecords;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.stream.StreamMessageListenerContainer.StreamReadRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +40,7 @@ public class RedisCacheAuditService {
     }
 
     /*
-    public List<AuditEvent> getRecentAuditEvents(int count) {
+    public List<AuditEvent> getRecentAuditEventsByCount(int count) {
         return redisTemplate.opsForStream()
             .read(AuditEvent.class, StreamOffset.latest(AUDIT_STREAM))
             .limit(count)
@@ -54,11 +51,8 @@ public class RedisCacheAuditService {
     public List<AuditEvent> getRecentAuditEvents(int count) {
         StreamReadOptions options = StreamReadOptions.empty().count(count).block(Duration.ofMillis(100));
 
+        
         /*
-        List<MapRecord<String, Object, Object>> records = redisTemplate.opsForStream()
-                .read(StreamReadRequest.builder(StreamOffset.latest(AUDIT_STREAM))
-                        .options(options)
-                        .build());
         List<MapRecord<String, Object, Object>> records = redisTemplate.opsForStream()
                 .read(StreamReadRequest.builder(StreamOffset.latest(AUDIT_STREAM))
                         .options(options)

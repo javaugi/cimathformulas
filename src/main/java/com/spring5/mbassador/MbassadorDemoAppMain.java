@@ -22,7 +22,7 @@ public class MbassadorDemoAppMain {
     @Autowired
     private MBassadorOrderService orderService;
     @Autowired
-    private PaymentService paymentService;
+    private MbassadorPaymentService paymentService;
     
     public static void main(String[] args) {
         main.run();

@@ -9,6 +9,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -29,11 +30,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class HibernateConfig {
 
+    @Primary
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
-    }
-
+    } 
+    
+    @Primary
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
@@ -41,7 +44,26 @@ public class HibernateConfig {
         bean.setGenerateDdl(true);
         bean.setShowSql(true);
         return bean;
-    }
+    } 
+
+    @Bean
+    public DataSource dataSourcePostgreSQL() {
+        return DataSourceBuilder.create()
+                .driverClassName("org.postgresql.Driver")
+                .url("jdbc:postgresql://localhost:5433/algotdb")
+                .username("postgres")
+                .password("admin")                 
+                .build();
+    }    
+
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapterPostgreSQL() {
+        HibernateJpaVendorAdapter bean = new HibernateJpaVendorAdapter();
+        bean.setDatabase(Database.POSTGRESQL);
+        bean.setGenerateDdl(true);
+        bean.setShowSql(true);
+        return bean;
+    } 
 
     @Bean
     public MapToJsonConverter mapToJsonConverter() {
@@ -65,14 +87,14 @@ public class HibernateConfig {
     //Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'entityManagerFactory' defined in class path
     //resource [com/spring5/HibernateConfig.class]: Circular depends-on relationship between 'entityManagerFactory' and 'liquibase'
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-            JpaVendorAdapter jpaVendorAdapter, MapToJsonConverter mapToJsonConverter) {
+            JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);
         bean.setJpaVendorAdapter(jpaVendorAdapter);
         bean.setPackagesToScan(com.spring5.MyApplication.PACKAGES_TO_SCAN);
 
         Map<String, Object> properties = new HashMap<>();
-        properties.put("javax.persistence.attribute-converters", mapToJsonConverter);
+        properties.put("javax.persistence.attribute-converters", mapToJsonConverter());
         bean.setJpaPropertyMap(properties);
         return bean;
     } 

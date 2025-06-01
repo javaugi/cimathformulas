@@ -4,8 +4,8 @@
  */
 package com.spring5.payroll;
 
-import com.spring5.jpapagination.Employee;
-import com.spring5.jpapagination.PayrollResult;
+import com.spring5.empbilpayroll.Employee;
+import com.spring5.empbilpayroll.PayrollResult;
 
 public interface PayrollObserver {
     void onPayrollProcessed(Employee employee, PayrollResult result);

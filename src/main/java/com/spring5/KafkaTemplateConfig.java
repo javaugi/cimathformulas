@@ -17,7 +17,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 
@@ -30,28 +29,27 @@ public class KafkaTemplateConfig extends BaseKafkaConfig {
     @Primary
     @Bean(name = "auditEventKafkaTemplate")
     public KafkaTemplate<String, AuditEvent> auditEventKafkaTemplate() {
-        return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(baseAvroProducerConfigs()));
+        return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean(name = "tradeEventKafkaTemplate")
     public KafkaTemplate<String, TradeEvent> tradeEventKafkaTemplate() {
-        return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(baseAvroProducerConfigs()));
+        return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean(name = "docEventKafkaTemplate")
     public KafkaTemplate<String, DocumentEvent> docEventKafkaTemplate() {
-        return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(baseAvroProducerConfigs()));
+        return new KafkaTemplate<>(producerFactory());
     }
-
 
     @Bean(name = "objectKafkaTemplate")
     public KafkaTemplate<Object, Object> objectKafkaTemplate() {
-        return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(baseAvroProducerConfigs()));
+        return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean(name = "stringKafkaTemplate")
     public KafkaTemplate<String, String> stringKafkaTemplate() {
-        return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(baseStringProducerConfigs()));
+        return new KafkaTemplate<>(producerFactory());
     }
     
     /*@Bean

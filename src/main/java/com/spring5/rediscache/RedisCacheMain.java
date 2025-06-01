@@ -4,10 +4,8 @@
  */
 package com.spring5.rediscache;
 
-/**
- *
- * @author javaugi
- */
+//https://chat.deepseek.com/a/chat/s/01b94101-b593-4f0e-811b-51797d977245
+//https://chatgpt.com/c/68196864-f0ec-8006-aad8-775b2d30b439?model=auto
 public class RedisCacheMain {
     
 }

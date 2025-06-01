@@ -4,7 +4,7 @@
  */
 package com.spring5.payroll;
 
-import com.spring5.jpapagination.ClientBillingSummary;
+import com.spring5.empbilpayroll.ClientBillingSummary;
 
 
 public class BillingCompositeService {

@@ -6,8 +6,8 @@ package com.spring5.payroll;
 
 //import com.spring5.jpapagination.Region;
 
-import com.spring5.jpapagination.Region;
-import static com.spring5.jpapagination.Region.EU;
+import com.spring5.empbilpayroll.Region;
+import static com.spring5.empbilpayroll.Region.EU;
 
 //import static java.util.Locale.US;
 

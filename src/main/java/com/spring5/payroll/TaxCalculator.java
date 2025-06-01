@@ -4,7 +4,7 @@
  */
 package com.spring5.payroll;
 
-import com.spring5.jpapagination.Employee;
+import com.spring5.empbilpayroll.Employee;
 import java.math.BigDecimal;
 
 /**
