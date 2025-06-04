@@ -66,7 +66,9 @@ This dependency includes everything needed to expose API documentation through S
 
 @Configuration
 @EnableWebMvc
-//http://localhost:8080/swagger-ui/index.html
+//http://localhost:8088/swagger-ui/index.html 
+//-- @Param("category") is required in the Repository for swagger-ui to work
+// io.swagger.core.v3 upgrade required
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /*
@@ -85,6 +87,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**");
         registry.addMapping("/h2-console/**");
+        registry.addMapping("/v3/api-docs/**").allowedOrigins("*");
+        registry.addMapping("/swagger-ui/**").allowedOrigins("*");
+        registry.addMapping("/swagger-ui.html").allowedOrigins("*");
     }    
 
     @Bean
@@ -168,6 +173,51 @@ public class WebMvcConfig implements WebMvcConfigurer {
         @ResponseBody
         void serviceWorker() {
         }
+    } 
+    
+    private void curlCommands() {
+        /*
+ 1. GET Request - Used to retrieve data from a server.
+    curl -X GET "https://jsonplaceholder.typicode.com/posts/1" \
+      -H "Accept: application/json"
+        🔍 What it does:
+            -X GET — explicitly specifies the HTTP method (optional for GET).
+            -H — sets the header (here, asking for JSON response).
+            URL — target resource.
+✅ 2. POST Request - Used to create a new resource.
+        curl -X POST "https://jsonplaceholder.typicode.com/posts" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "title": "foo",
+                "body": "bar",
+                "userId": 1
+              }'
+🔍 What it does:
+        -X POST — specifies POST method.
+        -H "Content-Type: application/json" — sets content type.
+        -d — sends the request body as JSON.
+✅ 3. PUT Request - Used to update/replace an existing resource.
+        curl -X PUT "https://jsonplaceholder.typicode.com/posts/1" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "id": 1,
+                "title": "updated title",
+                "body": "updated body",
+                "userId": 1
+              }'
+    🔍 What it does: PUT replaces the entire resource.
+    JSON body contains all fields, including the ID.
+✅ 4. DELETE Request - Used to delete a resource.
+        curl -X DELETE "https://jsonplaceholder.typicode.com/posts/1"
+    Sends a request to delete the resource at the specified URL.
+✅ Optional Add-ons
+    🔐 Authorization Header (e.g., Bearer token):
+        -H "Authorization: Bearer <your_token_here>"
+    🌐 Add Query Parameters (for GET):
+            curl -G "https://api.example.com/items" \
+              --data-urlencode "type=book" \
+              --data-urlencode "limit=10"        
+        */
     }
 }
 

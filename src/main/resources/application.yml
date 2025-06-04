@@ -41,6 +41,11 @@ spring:
 ##  r2dbc:
 ##    url: r2dbc:mysql://localhost:3306/mydb        
 ---
+kafka:
+  topic:
+    consumer: kafka.redis.consumer
+    batch: kafka.redis.batch
+---
 spring:
   kafka:
     admin:

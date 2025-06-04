@@ -6,10 +6,6 @@ package com.spring5.audit;
 
 import java.util.concurrent.CompletableFuture;
 
-/**
- *
- * @author javaugi
- */
 public interface PaymentClient {
     CompletableFuture<Boolean> processPayment(String orderId);
     

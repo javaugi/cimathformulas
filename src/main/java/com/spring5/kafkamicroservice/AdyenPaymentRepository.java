@@ -6,11 +6,12 @@ package com.spring5.kafkamicroservice;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdyenPaymentRepository extends JpaRepository<AdyenPayment, Long> {
-    boolean existsByIdAndStatusNot(String paymentId, AdyenPaymentStatus status);
-    boolean existsByIdempotencyKey(String ddempotencyKey);
-    List<AdyenPayment> findByStatus(AdyenPaymentStatus status);
+    boolean existsByIdAndStatusNot(@Param("paymentId") String paymentId, AdyenPaymentStatus status);
+    boolean existsByIdempotencyKey(@Param("ddempotencyKey") String ddempotencyKey);
+    List<AdyenPayment> findByStatus(@Param("status") AdyenPaymentStatus status);
 }

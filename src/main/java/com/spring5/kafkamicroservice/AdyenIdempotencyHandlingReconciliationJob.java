@@ -4,10 +4,6 @@
  */
 package com.spring5.kafkamicroservice;
 
-//import org.apache.http.Header;
-//import com.spring5.billingpayment.PaymentResponse;
-import com.adyen.Client;
-import com.spring5.billingpayment.PaymentResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -31,7 +27,7 @@ public class AdyenIdempotencyHandlingReconciliationJob {
 
     @KafkaListener(topics = "payment.requests")
     public void processPayment(@Payload AdyenPaymentRequest request,
-            @Header(KafkaHeaders.RECEIVED_KEY) String paymentId) {
+            @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String paymentId) {
 
         if (paymentRepository.existsByIdAndStatusNot(paymentId, AdyenPaymentStatus.PENDING)) {
             log.info("Duplicate payment request {}", paymentId);

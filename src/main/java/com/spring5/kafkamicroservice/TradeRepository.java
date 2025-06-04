@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 public interface TradeRepository extends JpaRepository<Trade, Long> {
     
     @Query("SELECT t FROM Trade t JOIN FETCH t.userAccount ua JOIN FETCH ua.user u WHERE u.userEmail=(:userEmail)")
-    List<Trade> getAllTradesByUserEmail(String userEmail) throws Exception;
+    List<Trade> getAllTradesByUserEmail(@Param("userEmail") String userEmail) throws Exception;
     
     @Query("UPDATE UserAccount SET cashBalance = cashBalance + (:amount) WHERE id =(:userAccountId)")
-    void addMoney(long userAccountId, BigDecimal amount) throws Exception;
+    void addMoney(@Param("userAccountId") long userAccountId, @Param("amount") BigDecimal amount) throws Exception;
 
     @Query("UPDATE UserAccount SET cashBalance = cashBalance + (:amount) WHERE account =(:userAccount)")
-    void addMoneyByAccount(String userAccount, BigDecimal amount) throws Exception;
+    void addMoneyByAccount(@Param("userAccount") String userAccount, @Param("amount") BigDecimal amount) throws Exception;
 }
 
 /* 

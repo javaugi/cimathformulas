@@ -6,10 +6,6 @@ package com.spring5.audit;
 
 import java.util.List;
 
-/**
- *
- * @author javaugi
- */
 public class OrderReceivedEvent {
     private String orderId;
     private List<Order> items;

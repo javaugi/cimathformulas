@@ -22,7 +22,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor 
 @Entity
@@ -42,5 +42,8 @@ public class Payment {
     @NotBlank(message = "Order ID is required")
     private String orderId; // Your internal order ID for idempotency and tracking
     private String customerEmail; // Optional: Customer email for receipt
+    
+    private String paymentDetails;
+    private boolean success;
 
 }

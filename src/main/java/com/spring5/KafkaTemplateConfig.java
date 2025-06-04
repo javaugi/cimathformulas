@@ -21,33 +21,33 @@ import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 
 @Configuration
-public class KafkaTemplateConfig extends BaseKafkaConfig {
+public class KafkaTemplateConfig extends KafkaBaseConfig {
     
     @Value("${spring.kafka.admin.enabled:false}")
     private boolean kafkaAdminEnabled;
 
     @Primary
-    @Bean(name = "auditEventKafkaTemplate")
+    @Bean(name = KAFKA_TMPL_AUDIT_EVENT)
     public KafkaTemplate<String, AuditEvent> auditEventKafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
-    @Bean(name = "tradeEventKafkaTemplate")
+    @Bean(name = KAFKA_TMPL_TRADE_EVENT)
     public KafkaTemplate<String, TradeEvent> tradeEventKafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
-    @Bean(name = "docEventKafkaTemplate")
+    @Bean(name = KAFKA_TMPL_DOC_EVENT)
     public KafkaTemplate<String, DocumentEvent> docEventKafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
-    @Bean(name = "objectKafkaTemplate")
+    @Bean(name = KAFKA_TMPL_OBJ)
     public KafkaTemplate<Object, Object> objectKafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
-    @Bean(name = "stringKafkaTemplate")
+    @Bean(name = KAFKA_TMPL_STR)
     public KafkaTemplate<String, String> stringKafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }

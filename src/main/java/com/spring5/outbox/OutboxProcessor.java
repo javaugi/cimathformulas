@@ -18,7 +18,7 @@ public class OutboxProcessor {
 
     @Scheduled(fixedRate = 5000) // Run every 5 seconds
     public void processOutboxEvents() {
-        List<Outbox> events = outboxRepository.findByProcessedFalse();
+        List<Outbox> events = outboxRepository.findByProcessed(false);
         for (Outbox event : events) {
             try {
                 eventPublisher.publish(event);

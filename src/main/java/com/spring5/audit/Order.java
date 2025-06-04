@@ -19,7 +19,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -31,4 +31,9 @@ public class Order implements java.io.Serializable {
     Long id;
     
     double quantity;
+    
+    public Order(OrderRequest request) {
+        this.id = request.itemId;
+        this.quantity = request.quantity;
+    }
 }

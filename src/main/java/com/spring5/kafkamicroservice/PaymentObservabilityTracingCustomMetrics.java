@@ -22,7 +22,7 @@ public class PaymentObservabilityTracingCustomMetrics {
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> pf) {
         KafkaTemplate<String, String> template = new KafkaTemplate<>(pf);
-        template.setObservationEnabled(true);
+        //template.setObservationEnabled(true);
         return template;
     }
     

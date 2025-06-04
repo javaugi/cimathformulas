@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author javaugi
  */
-public class ValidPatientValidator implements ConstraintValidator<ValidAppointment, Patient> {
+public class ValidPatientValidator implements ConstraintValidator<ValidPatient, Patient> {
     
     @Override
     public boolean isValid(Patient patient, ConstraintValidatorContext context) {

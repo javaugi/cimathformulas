@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,7 +40,9 @@ public class Appointment implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     
+    @NotBlank(message = "Start time is required")
     private LocalDateTime startTime;
+    @NotBlank(message = "End time is required")
     private LocalDateTime endTime;
     private String reason;
     

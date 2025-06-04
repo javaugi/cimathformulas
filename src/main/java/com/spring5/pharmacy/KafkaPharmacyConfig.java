@@ -11,7 +11,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 
 @Configuration
-public class KafkaPharmacyConfig extends BaseKafkaConfig {
+public class KafkaPharmacyConfig extends KafkaBaseConfig {
     
     @Bean(name = "pharmacyEventKafkaTemplate")
     public KafkaTemplate<String, PrescriptionEvent> pharmacyEventKafkaTemplate() {

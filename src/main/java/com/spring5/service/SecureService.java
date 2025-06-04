@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SecureService {
-@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String adminOnlyMethod() {
         return "Only accessible by users with ADMIN role";
     }

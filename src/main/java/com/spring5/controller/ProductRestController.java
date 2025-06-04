@@ -10,8 +10,11 @@ import com.spring5.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +22,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author javaugi
  */
 @RestController
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/restproduct")
 public class ProductRestController {
     
@@ -77,7 +82,25 @@ public class ProductRestController {
     public ResponseEntity<Product> updateProduct(org.springframework.http.RequestEntity<Product> request) {
         Product product = productRepository.save(request.getBody());
         return ResponseEntity.ok(product);
-    }
+    } 
+    
+    
+    @RequestMapping(value = "/heavyresource/{id}", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> partialUpdateGeneric(@RequestBody Product productUpdates, @PathVariable("id") Long id) {
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        //*
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            BeanUtils.copyProperties(productUpdates, product, new String[]{"id"});
+            product = productRepository.save(product);
+            return ResponseEntity.ok(product);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found if the product doesn't exist
+        }
+        // */
+        //return ResponseEntity.ok(productOptional.orElse(null));
+    }    
     
     @DeleteMapping("/{id}") // Map DELETE requests to /products/{id}
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
@@ -112,3 +135,21 @@ public class ProductRestController {
         }
     }
 }
+
+/*
+In REST, the PATCH HTTP method is used for partial updates of a resource, while the PUT method is used for complete replacements of a 
+    resource. PUT replaces the entire resource with the provided data, while PATCH only updates the specific fields specified in the request body. 
+Elaboration:
+PUT:    
+        Replaces the entire resource with a new version.
+        Expects the entire resource data to be provided in the request body.
+        Idempotent: Multiple identical PUT requests have the same effect as a single one. 
+PATCH:
+        Applies partial updates to a resource.
+        Only the fields to be modified are included in the request body. 
+        Not necessarily idempotent: Repeated PATCH requests can lead to different results depending on the order of operations. 
+Example:
+    If you want to update the email address of a user, you would use a PATCH request, sending only the new email address. A PUT request 
+        would require sending the entire user profile, including the unchanged fields, according to GeeksForGeeks. 
+    In essence, use PUT when you need to completely replace a resource, and PATCH when you only need to modify specific parts of it. 
+*/

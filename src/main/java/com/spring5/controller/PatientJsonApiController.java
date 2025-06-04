@@ -6,7 +6,7 @@ package com.spring5.controller;
 
 import com.spring5.entity.Patient;
 import com.spring5.repository.PatientRepository;
-import com.spring5.validator.JsonSchemaValidator;
+import com.spring5.validator.PatientJsonSchemaValidator;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
@@ -35,7 +35,7 @@ public class PatientJsonApiController {
     private PatientRepository patientRepository;
     
     @Autowired
-    private JsonSchemaValidator jsonValidator;
+    private PatientJsonSchemaValidator jsonValidator;
 
           
     @PostConstruct

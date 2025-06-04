@@ -4,6 +4,7 @@
  */
 package com.spring5.webflux;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,6 @@ import reactor.core.publisher.Flux;
 @Repository
 @Transactional
 public interface WebFluxProductRepository extends ReactiveCrudRepository<RWFProduct, Long> {
-    Flux<RWFProduct> findByCategory(String category);
+    Flux<RWFProduct> findByCategory(@Param("category") String category);
     
 }

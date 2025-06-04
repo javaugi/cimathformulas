@@ -4,67 +4,131 @@
  */
 package com.spring5.controller;
 
-import com.spring5.entity.Appointment;
-import com.spring5.repository.AppointmentRepository;
-import com.spring5.repository.NurseRepository;
-import com.spring5.repository.PatientRepository;
-import com.spring5.repository.PhysicianRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.spring5.entity.Product;
+import com.spring5.repository.ProductRepository;
+import com.spring5.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.Collection;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author javaugi
  */
-@Controller
-@RequestMapping("/web")
+@RestController
+@RequiredArgsConstructor
 public class WebMvcController {
-@Autowired
-    private PatientRepository patientRepository;
-    @Autowired
-    private NurseRepository nurseRepository;
-    @Autowired
-    private PhysicianRepository physicianRepository;
-    @Autowired
-    private AppointmentRepository appointmentRepository;
-    
-    @GetMapping("/patients")
-    public String showPatients(Model model) {
-        model.addAttribute("patients", patientRepository.findAll());
-        return "patients";
+    private final ProductService productService;
+    private final ProductRepository productRepository;
+
+    // to display all products at localhost:8080
+    // to see database values at localhost:8080/h2-console    
+    @GetMapping
+    public ResponseEntity<Collection<Product>> getAllProducts() {
+        return ResponseEntity.ok(productService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        //*
+        if (productOptional.isPresent()) {
+            return ResponseEntity.ok(productOptional.get());
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found if the product doesn't exist
+        }
+        // */
+        //return ResponseEntity.ok(productOptional.orElse(null));
     }
     
-    @GetMapping("/nurses")
-    public String showNurses(Model model) {
-        model.addAttribute("nurses", nurseRepository.findAll());
-        return "nurses";
-    }
+    @GetMapping("/restProducts")
+    public ResponseEntity<Collection<Product>> listProducts(HttpServletRequest request, ModelMap modelMap) {
+        return ResponseEntity.ok(productRepository.findAll());
+    } 
     
-    @GetMapping("/physicians")
-    public String showPhysicians(Model model) {
-        model.addAttribute("physicians", physicianRepository.findAll());
-        return "physicians";
+    @GetMapping("/restProducts2")
+    public ResponseEntity<Collection<Product>> listProducts2(org.springframework.http.RequestEntity<Product> request) {
+        return ResponseEntity.ok(productRepository.findAll());
+    } 
+
+    @PostMapping
+    public ResponseEntity<Product> addProduct(org.springframework.http.RequestEntity<Product> request) {
+        Product product = productRepository.save(request.getBody());
+        return ResponseEntity.ok(product);
     }
+
+    @PutMapping
+    public ResponseEntity<Product> updateProduct(org.springframework.http.RequestEntity<Product> request) {
+        Product product = productRepository.save(request.getBody());
+        return ResponseEntity.ok(product);
+    } 
     
-    @GetMapping("/appointments")
-    public String showAppointments(Model model) {
-        model.addAttribute("appointments", appointmentRepository.findAll());
-        model.addAttribute("patients", patientRepository.findAll());
-        model.addAttribute("nurses", nurseRepository.findAll());
-        model.addAttribute("physicians", physicianRepository.findAll());
-        return "appointments";
-    }
     
-    @PostMapping("/appointments")
-    public String createAppointment(@ModelAttribute Appointment appointment) {
-        appointmentRepository.save(appointment);
-        return "redirect:/web/appointments";
+    @RequestMapping(value = "/heavyresource/{id}", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> partialUpdateGeneric(@RequestBody Product productUpdates, @PathVariable("id") Long id) {
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        //*
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            BeanUtils.copyProperties(productUpdates, product, new String[]{"id"});
+            product = productRepository.save(product);
+            return ResponseEntity.ok(product);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found if the product doesn't exist
+        }
+        // */
+        //return ResponseEntity.ok(productOptional.orElse(null));
     }    
+    
+    @DeleteMapping("/{id}") // Map DELETE requests to /products/{id}
+    public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if (productOptional.isPresent()) {
+            productRepository.deleteById(id); // Use deleteById for deleting by ID
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 No Content for successful deletion
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found if the product doesn't exist
+        }
+    }    
+    
+    @DeleteMapping
+    public ResponseEntity<Void> deleteProduct(org.springframework.http.RequestEntity<Product> request) {  
+        Optional<Product> productOptional = Optional.empty();
+        long id = 0;
+        if (request.getBody() != null) {
+            id = request.getBody().getId();            
+        }        
+        if (id > 0) {
+            productOptional = productRepository.findById(id);
+        }
+        
+        if (id > 0 && productOptional.isPresent()) {
+            productRepository.deleteById(id); // Use deleteById for deleting by ID
+            ResponseEntity.noContent().build();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 No Content for successful deletion
+        } else {
+            ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found if the product doesn't exist
+        }
+    }
 }
 
 

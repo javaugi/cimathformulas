@@ -124,7 +124,7 @@ public class EmployeeClient {
         Slice<Employee> slice = null;
         Pageable pageable = PageRequest.of(0, 3, Sort.by("salary"));
         while (true) {
-            slice = repo.findByDeptName("Sales", pageable);
+            slice = repo.findByDeptName("Sales");
             int number = slice.getNumber();
             int numberOfElements = slice.getNumberOfElements();
             int size = slice.getSize();

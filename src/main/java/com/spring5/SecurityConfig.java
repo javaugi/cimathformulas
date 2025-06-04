@@ -4,10 +4,7 @@
  */
 package com.spring5;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URLEncoder;
+import com.spring5.security.JwtTokenFilter;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -16,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,9 +20,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -54,28 +48,34 @@ public class SecurityConfig {
                 //.mvcMatchers("/user/**", "/profile/**").hasRole("USER") 
                 //.regexMatchers("/api/v[0-9]+/.*", "/public/.*").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()                
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()                
                 .anyRequest().permitAll())
                 .csrf(csrf -> csrf.disable()) //Cross Site Request Forgery
                 //.ignoringRequestMatchers("/api/**")
                 .formLogin(form -> form
-                .loginPage("/login") // custom login page
-                .permitAll()
-                )
+                    .loginPage("/login") // custom login page
+                    .permitAll()
+                    )
                 .logout(logout -> logout
-                .logoutSuccessUrl("/login?logout") // redirect after logout
-                .permitAll()
+                    .logoutSuccessUrl("/login?logout") // redirect after logout
+                    .permitAll()
                 )
                 .cors(cors -> cors //Corss Origin Resource Sharing
-                .configurationSource(corsConfigurationSource())
-                )
+                    .configurationSource(corsConfigurationSource())
+                    )
                 //.oauth2ResourceServer(oauth2 -> oauth2
                 //  .jwt(Customizer.withDefaults())
                 //)
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())
-                );
+            );
 
-        return http.build();
-    }
+        return http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class).build();
+    } 
+    
+    @Bean
+    public JwtTokenFilter jwtTokenFilter() {
+        return new JwtTokenFilter();
+    }    
 
     //CSRF (Cross-Site Request Forgery):
     //CORS (Cross-Origin Resource Sharing):

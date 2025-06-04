@@ -13,11 +13,20 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.stereotype.Service;
 
 @Configuration
-public class BaseKafkaConfig {
+@Service
+public class KafkaBaseConfig {
+    
+    public static final String KAFKA_TMPL_AUDIT_EVENT = "auditEventKafkaTemplate";
+    public static final String KAFKA_TMPL_TRADE_EVENT = "tradeEventKafkaTemplate";
+    public static final String KAFKA_TMPL_DOC_EVENT = "docEventKafkaTemplate";
+    public static final String KAFKA_TMPL_OBJ = "objectKafkaTemplate";
+    public static final String KAFKA_TMPL_STR = "stringKafkaTemplate";
 
     @Value("${spring.kafka.bootstrap-servers}")
     protected String bootstrapServers;
@@ -26,12 +35,13 @@ public class BaseKafkaConfig {
     @Value("${spring.kafka.schema-registry-url}")
     protected String schemaRegistryUrl;
 
+    @Primary
     @Bean
     public ProducerFactory producerFactory() {
         return new DefaultKafkaProducerFactory<>(baseAvroProducerConfigs());
     }
     
-    protected Map<String, Object> baseAvroProducerConfigs() {
+    public Map<String, Object> baseAvroProducerConfigs() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);

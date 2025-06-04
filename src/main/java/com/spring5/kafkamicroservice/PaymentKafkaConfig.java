@@ -4,7 +4,7 @@
  */
 package com.spring5.kafkamicroservice;
 
-import com.spring5.BaseKafkaConfig;
+import com.spring5.KafkaBaseConfig;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.util.backoff.FixedBackOff;
 
 @Configuration
-public class PaymentKafkaConfig extends BaseKafkaConfig {
+public class PaymentKafkaConfig extends KafkaBaseConfig {
 
     @Bean(name = "paymentReqEventKafkaTemplate")
     public KafkaTemplate<String, PaymentRequestEvent> paymentReqEventKafkaTemplate() {
