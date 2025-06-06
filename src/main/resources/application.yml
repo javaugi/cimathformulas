@@ -166,3 +166,19 @@ resilience4j:
         retryExceptions:
           - org.springframework.web.client.ResourceAccessException
           - com.paypal.base.exception.HttpErrorException
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: ota-updates
+          uri: http://ota-backend:8080
+          predicates:
+            - Path=/api/vehicles/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 100
+                redis-rate-limiter.burstCapacity: 200
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@vehicleKeyResolver}"

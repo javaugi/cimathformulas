@@ -5,6 +5,7 @@
 package com.spring5.aicloud.accountservice;
 
 import com.spring5.entity.Account;
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,14 +19,14 @@ public class AccountController {
     @GetMapping
     public List<Account> getAccounts() {
         return List.of(
-            new Account(1L, "Savings", 1000.00),
-            new Account(2L, "Checking", 500.00)
+            new Account(1L, "Savings", new BigDecimal(1000.00)),
+            new Account(2L, "Checking", new BigDecimal(500.00))
         );
     }
     
     @GetMapping("/{id}")
     public Account getAccount(@PathVariable long id) {
-        return new Account(id, "Savings", 1000.00);
+        return new Account(id, "Savings", new BigDecimal(1000.00));
     }
 }
 

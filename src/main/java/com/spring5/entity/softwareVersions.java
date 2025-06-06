@@ -8,16 +8,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
+@Data //it includes @Getter @Setter @ToString @EqualsAndHashCode @RequiredArgsConstructor 
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Inventory {
+public class softwareVersions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    
-    Long itemId;
-    double quantity;
-    long productId;
+    private Long id;
+
+    private LocalDateTime releaseDate;
+    private String changelog;
+    private boolean critical;
+         
 }
